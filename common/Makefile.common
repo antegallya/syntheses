@@ -1,0 +1,27 @@
+BUILD := build
+LATEX := TEXINPUTS=../common/:$(TEXINPUTS)\
+    latexmk -recorder -pdf -pdflatex="pdflatex --shell-escape %O %S" \
+    -outdir=$(BUILD)
+MAKEFILE_PATH := $(abspath $(lastword $(MAKEFILE_LIST)))
+MAKEFILE_DIRNAME := $(notdir $(patsubst %/,%,$(dir $(MAKEFILE_PATH))))
+MAIN=$(MAKEFILE_DIRNAME)
+
+.PHONY : clean preview all latexmkbuild
+
+all: $(MAIN).pdf
+
+# This recipe is always made (because it is phony). Because we need to rely on
+# latexmk to check for file dependencies.
+latexmkbuild:
+	mkdir -p $(BUILD)
+
+%.pdf: latexmkbuild
+	$(LATEX) $(patsubst %.pdf, %.tex, $@)
+	ln -fs $(BUILD)/$@
+
+clean:
+	rm -rf $(BUILD) _minted-*
+	rm -f $(MAIN).pdf
+
+preview: latexmkbuild
+	$(LATEX) -pvc -interaction=nonstopmode $(MAIN).tex
