@@ -5,15 +5,22 @@
 \usepackage{amssymb}
 \usepackage{amsthm}
 \usepackage[utf8]{inputenc}
-\usepackage[francais,french,frenchb]{babel}
+\usepackage[french]{babel}
 \usepackage[T1]{fontenc}
+\usepackage{xspace}
+\usepackage{lmodern}
+\usepackage[babel]{microtype}
+\usepackage{auto-pst-pdf}
 \usepackage{fullpage}
 \usepackage{graphicx}
 \usepackage[perpage]{footmisc}
-\usepackage{srctex}
+%\usepackage{srctex}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,bending}
+\usetikzlibrary{patterns}
 \usepackage{verbatim}
 \usepackage{epsfig}
-\usepackage[dvips]{color}
+\usepackage{color}
 
 \author{Pierre Hauweele}
 \title{Synthèse Algèbre II - 2008-2009}
@@ -60,28 +67,28 @@
 \setcounter{tocdepth}{3}
 \setcounter{secnumdepth}{3}
 
-\makeatletter
-\renewcommand*\@makechapterhead[1]{%
-  %\vspace*{50\p@}%
-  {\parindent \z@ \raggedright \normalfont
-    \ifnum \c@secnumdepth >\m@ne
-        \huge\bfseries \@chapapp\space \thechapter
-        \par\nobreak
-        \vskip 20\p@
-    \fi
-    \interlinepenalty\@M
-    \Huge \bfseries #1\par\nobreak
-    \vskip 40\p@
-  }}
-\renewcommand*\@makeschapterhead[1]{%
-  %\vspace*{50\p@}%
-  {\parindent \z@ \raggedright
-    \normalfont
-    \interlinepenalty\@M
-    \Huge \bfseries  #1\par\nobreak
-    \vskip 40\p@
-  }}
-\makeatother
+%\makeatletter
+%\renewcommand*\@makechapterhead[1]{%
+%  %\vspace*{50\p@}%
+%  {\parindent \z@ \raggedright \normalfont
+%    \ifnum \c@secnumdepth >\m@ne
+%        \huge\bfseries \@chapapp\space \thechapter
+%        \par\nobreak
+%        \vskip 20\p@
+%    \fi
+%    \interlinepenalty\@M
+%    \Huge \bfseries #1\par\nobreak
+%    \vskip 40\p@
+%  }}
+%\renewcommand*\@makeschapterhead[1]{%
+%  %\vspace*{50\p@}%
+%  {\parindent \z@ \raggedright
+%    \normalfont
+%    \interlinepenalty\@M
+%    \Huge \bfseries  #1\par\nobreak
+%    \vskip 40\p@
+%  }}
+%\makeatother
 
 \begin{document}
 \maketitle
@@ -362,7 +369,7 @@
     (x,y) \mapsto (xH,yH)$.
     \begin{figure}[htb]
       \begin{center}
-	\input{quot.pstex_t}
+	\input{quot.tikz}
       \end{center}
       \caption{Formation du groupe quotient}
       \label{fig:quot}
