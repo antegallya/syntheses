@@ -1,0 +1,1018 @@
+\documentclass[a4paper,10pt]{article}
+
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{fullpage}
+\usepackage{graphicx}
+\usepackage[perpage]{footmisc}
+\usepackage{srctex}
+\usepackage{verbatim}
+
+\author{Pierre Hauweele}
+\title{Algèbre linéaire - 2007-2008}
+\date{}
+
+\newcommand{\ap}{ \rightarrow} % Application
+\newcommand{\mt}[1]{\widetilde{ #1 }} % Wide tilde in math mode
+\newcommand{\grp}[1]{\left\langle #1 \right\rangle} % Group
+\newcommand{\set}[1]{\left\lbrace #1 \right\rbrace } % Set
+\newcommand{\im}{\mathrm{Im}\:} % Im(age)
+\newcommand{\underb}[2]{\underset{ #1 }{\underbrace{ #2 }}} % Underbrace with argument
+\newcommand{\st}[1]{#1^{\star}} % .^star
+\newcommand{\so}{\Rightarrow} % so/implies
+\newcommand{\ioi}{\Leftrightarrow} % If and Only If
+\newcommand{\RR}{\mathbb{R}} % Real set
+\newcommand{\NN}{\mathbb{N}} % Natural set
+\newcommand{\CC}{\mathbb{C}} % Complex set
+\newcommand{\pgcd}{\mathrm{pgcd}} % french g.c.d=p.g.c.d
+\newcommand{\id}{\mathrm{Id}} % Identity
+\newcommand{\rstrct}[2]{{ #1 }_{\upharpoonright_{ #2 }}} % Operator restriction
+\newcommand{\transposee}[1]{{\vphantom{#1}}^{\mathit t}{#1}} % Transposée
+\newtheorem{theorem}{Théorème}[section]
+\newtheorem{lemma}[theorem]{Lemme}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollaire}
+
+\begin{document}
+ \maketitle %:NE:
+ \tableofcontents
+ \newpage
+
+ \section{Espaces Vectoriels}
+  \subsection{Définitions}
+  \subsubsection{Groupe}
+   Un group doit vérifier les propriétés suivantes :\\
+   $\grp{V, +_V, 0_V}$ est un groupe commutatif :
+   \begin{enumerate}
+    \item Existence du neutre : $\forall v \in V, v + 0_v = v$
+    \item Operation interne : $\forall v_1, v_2\in V, (v_1 + v_2) \in V$
+    \item Existence de l'inverse : $\forall v \in V, \exists v' \in V, v+v' = 0_v$
+    \item Associativité : $\forall v_1, v_2, v_3 \in V, v_1 + (v_2 + v_3) = (v_1 + v_2) + v_3$
+   \end{enumerate}
+   De plus, si il vérifie :
+    $\forall v_1, v_2 \in V, v_1 + v_2 = v_2 + v_1$
+   Alors c'est un groupe commutatif.
+
+  \subsubsection{Corps}
+   Un corps est défini par groupe additif commutatif et un groupe multiplicatif doté de la distributivité avec le groupe additif.\\
+   $\grp{K, +_K, \cdot_K, 1_K, 0_K}$ est un corps :
+   \begin{enumerate}
+    \item $\grp{K, +_V, 0_V}$ est un groupe additif commutatif
+    \item $\grp{K, \cdot_K, 1_V}$ est un groupe multiplicatif
+    \item $\forall k_1, k_2, k_3 \in K, k_1 \cdot (k_2 + k_3) = k_1 \cdot k_2 + k_1 \cdot k_3$
+   \end{enumerate}
+   Si, de plus, $\grp{K, \cdot_K, 1_V}$ est commutatif alors le corps est commutatif.
+   \paragraph{Remarque} Un corps non commutatif est aussi appelé \textit{corps gauche (skew field)} ou \textit{anneau à division}
+  \subsubsection{K-espace vectoriel}
+   Un K-espace vectoriel est la donnée d'un groupe additif commutatif (les
+   vecteurs) et d'un corps commutatif (les scalaires) ainsi que d'une opération
+   (multiplication scalaire) $K \times V \ap V$ qui vérifie les propriétés
+   suivantes :
+    \begin{enumerate}
+     \item $\forall v \in V, 1_K \cdot v = v$
+     \item Distributivité du scalaire sur les vecteurs : $\forall k \in K, \forall v_1, v_2 \in V,~ k \cdot (v_1+v_2) = k \cdot v_1+k \cdot v_2$
+     \item Distributivité du vecteur sur les scalaires : $\forall k_1, k_2 \in K, \forall v \in V,~ (k_1+k_2) \cdot v = k_1\cdot v + k_2 \cdot v$
+     \item Associativité mixte : $\forall k_1,k_2 \in K, \forall v \in V,~ (k_1 \cdot k_2) \cdot v = k_1 \cdot (k_2 \cdot v)$
+    \end{enumerate}
+
+
+ \subsection{Propriétés liées aux espaces vectoriels}
+ \subsubsection{L'inverse dans $V$ est unique}
+   L'inverse dans $V$ est unique, on le note $-v$.
+
+  \subsubsection{Multiplication par le scalaire nul}
+   $\forall v \in V, 0_K \cdot v = 0_v$
+
+  \subsubsection{Opposé/inverse d'un vecteur par multiplication scalaire}
+   $\forall v \in V, -1_K \cdot v = -v$
+
+  \subsubsection{Multiplication par le vecteur nul}
+   $\forall k \in K, k \cdot 0_V = 0_V$
+
+  \subsubsection{Le vecteur nul est unique}
+   $\forall k \neq 0 \in K, \forall v \in V, (k \cdot v = 0_V) \Rightarrow (v = 0_V)$
+
+  \subsubsection{Le vecteur neutre est unique}
+   $\forall v, w \in V, (v+w = v) \Rightarrow (w = 0_V)$
+
+  \subsubsection{Sous-espaces vectoriels}
+   Soit $V$ un K-espace vectoriel.\\
+   Soit $W \subseteq V$.\\
+   Si $W$ est K-espace vectoriel, alors on dit que $W$ est un sous-espace vectoriel de $V$.
+
+  \subsubsection{Critère de sous-espace vectoriel}
+   Il existe un criète de sous-espace vectoriel qui est le suivant :
+   $W$ sera un sous espace vectoriel de $V$ si :
+   \begin{enumerate}
+    \item $W \subseteq V$
+    \item Le neutre est dans $W$ : $0_V \in W$
+    \item L'opération reste interne : $\forall w_1,w_2 \in W (w_1+w_2) \in W$
+    \item La multiplication par les scalaires reste interne : $\forall k \in K, \forall w \in W, k \cdot w \in W$
+   \end{enumerate}
+
+  \subsection{+ Tout corps peut être vu comme un espace vectoriel}\footnote{Les sections notées d'un '+' sont liées aux cours d'alg.lin. pour les maths.}
+   Soit le corps commutatif $\grp{K, +, \cdot, 0, 1}$. Cela nous donne deux groupes commutatifs : $\grp{K, +, 0}$ et $\grp{K, \cdot, 1}$.
+
+   $\grp{K, +, 0}$ possède une structure de $K$-espace vectoriel, on l'appelle la $K$-droite (affine).
+
+   En effet, pour faire de $\grp{K, +, 0}$ un $K$-vectoriel, il faut un groupe et un corps.
+   \begin{itemize}
+    \item Le groupe : $\grp{K, +, 0}$
+    \item Le corps : $\grp{K, +, \cdot, 0, 1}$
+   \end{itemize}
+
+   Il faut définir l'action (la multiplication scalaire). Cette action doit partir de $k \cdot v \in K$. Il suffit de prendre comme action le produit usuel du corps $\grp{K, \cdot, 1}$.
+
+  \subsection{+ Critère de sous-corps}
+   Soit $\grp{L, +, \cdot, 0, 1}$ un corps. Et soit $K \subset L$, $K$ est sous-corps de $L$ si :
+   \begin{enumerate}
+    \item $0_L, 1_L \in K$
+    \item $+_L , \cdot_L $ sont internes à $K$
+    \item $-_L , \cdot^{-1_L} $ sont internes à $K$
+   \end{enumerate}
+
+   Une autre façon de voir ce critère est la suivante :
+   \begin{enumerate}
+    \item $0_L, -1_L \in K$
+    \item $+_L , \cdot_L $ sont internes à $K$
+    \item $\cdot^{-1_L} $ sont internes à $K$
+   \end{enumerate}
+   On prouve que $-1_L \in K$ et comme la multiplication est interne, on a que $1_L = -1_L \cdot -1_L \in K$ et on a également prouvé l'existence de l'opposé car comme $\cdot_L$ existe et est interne, il suffit de multiplier par $-1_L$ pour obtenir l'opposé et c'est interne à $K$ (puisqu'on a $(-1_L)\cdot_L l = -_Ll$).
+
+  \subsection{+ Un sous-corps est un sous-vectoriel}
+   Si $K$ est un sous-corps de $\grp{L, +, \cdot, 0, 1}$, alors $\grp{K, +, 0}$ est un sous $K$-vectoriel de $\grp{L, +, 0}$.
+
+  \subsection{+ Un vectoriel de corps sur un sous-corps}
+   Soit $K$ un sous corps de $\grp{L, + , \cdot, 0, 1}$ alors $\grp{L, +, 0}$ est un $K$-espace vectoriel.
+
+  \subsection{+ Morphismes de corps}
+   \subsubsection{Definition}
+   $\sigma : K \ap \mt{K}$ est un morphisme de corps ssi $\forall k_1,k_2 \in K$ :
+   \begin{itemize}
+    \item $\sigma(k_1 + k_2) = \sigma(k_1) + \sigma(k_2)$
+    \item $\sigma(k_1 \cdot k_2) = \sigma(k_1) \cdot \sigma(k_2)$
+   \end{itemize}
+
+   \subsubsection{Lemme : Application sur les neutres}
+    $\sigma(0_K) = 0_{\mt{K}}$ (car morphismes de groupes)
+
+    $\sigma(1_K) = 1_{\mt{K}}$
+
+   \subsubsection{Propriétés}
+    \begin{itemize}
+     \item Un morphisme de corps est \textbf{toujours} injectif (c'est au moins un monomorphisme).
+     \item Le noyau d'un morphisme de corps \textbf{n'est pas} un sous corps.
+     \item $\sigma(-k) = - \sigma(k)$
+     \item $\sigma(k^{-1}) = (\sigma(k))^{-1}$
+    \end{itemize}
+
+ \section{Applications Linéaires}
+  \subsection{Definition}
+   Soit $\grp{V_1, +_{V_1}, 0_{V_1}}$ et $\grp{V_2, +_{V_2}, 0_{V_2}}$ deux
+   K-espaces vectoriels.\\
+   On dit qu'une application $\sigma : V_1 \ap V_2$ est un morphisme de groupe
+   additif si $$\forall v_1, \mt{v_1} \in V_1 : \sigma(v_1+_{V_1}\mt{v_1}) =
+   \sigma(v_1) +_{V_2} \sigma(\mt{v_1})$$
+
+   Une $K$-application linéaire de $V_1$ dans $V_2$, c'est un morphisme de
+   groupe additif qui vérifie : $$\forall k \in K, \forall v \in V_1,
+   \sigma(k\cdot_{V_1} v) = k \cdot_{V_2} \sigma(v)$$
+
+  \subsection{Applications $K$-linéaires associatives}
+   Soit $V_1, V_2, V_3$ des $K$-espaces vectoriels.\\
+   Soit $\sigma_1 : V_1 \ap V_2$ et $\sigma_2 : V_2 \ap V_3$ des applications $K$-linéaires, alors l'application $\sigma_3 : V_1 \ap V_3$ notée $\sigma_2 \circ \sigma_1$ est linéaire (il s'agit de $\sigma_2(\sigma_1(v_1))$).
+
+  \subsection{$K$-linéaires et $K$-combilis}
+   Soit $\grp{V, +, 0}$ un $K$-espace vectoriel.
+
+   Soit $v_1 \cdot v_s \in V$ et $\lambda_1 \cdots \lambda_s \in K$
+
+   Alors $(\lambda_1 \cdot v_1 + \cdots + \lambda_s \cdot v_s) \in V$
+
+   Comme $\grp{K,+,\cdot, 0, 1}$ corps \textit{(commutatif)}\footnote{La commutativité n'est pas nécéssaire pour que cette propriété soit vérifiée} (puisque c'est le scalaire de $V$ qui est un $K$-espace vectoriel), $\grp{K,+,0}$ est un $K$-espace vectoriel\footnote{Propriété vue en cours d'algèbre-linéaires +Maths}.
+
+   On définit une application linéaire dépendant de $v_1 \cdots v_s$ :
+   $$\sigma_{v_1 \cdots v_s} : K^s \ap V : (\lambda_1, \hdots, \lambda_s) \mapsto \sum^{s}_{i=1} \lambda_i \cdot v_i$$
+
+   En \textit{faisant varier/en choisissant} $s$ et les $v_i$, on obtient une famille d'applications $K$-linéaires : $$\sigma_{v_1 \cdots v_s} : K^s \ap V$$
+
+   \paragraph{$K$-combilis} On appelle $K$-combili de $v_1 \cdots v_s$ : $$\sum^{s}_{i=1} \lambda_i \cdot v_i$$
+
+   \paragraph{Notation} On note $\grp{v_1, \hdots, v_s}_K$ l'ensemble des $K$-combilis de $v_1 \cdots v_s$. C'est-à-dire :
+   $$\grp{v_1, \hdots, v_s}_K = \set{\sum^{s}_{i=1} \lambda_i \cdot v_i | \lambda_i \in K}$$
+
+   Par exemple, si $V$ un $K$-vect et $v_1 \cdots v_s$ une $K$-base de cet espace vectoriel, alors $V=\grp{v_1, \hdots, v_s}_K$
+
+   \paragraph{Remarque} Soit $B = v_1 \cdots v_s$ (pas forcément une base) et si $$V = \grp{v_1, \hdots, v_s}_K$$
+   alors on sait que $B$ est au moins une partie $K$-génératrice de $V$ (la propriété de $K$-libre n'est pas garentie).
+
+  \subsection{Noyau d'application linéaire}
+   Soit $\sigma : V_1 \ap V_2$ $K$-linéaire.\\
+   On note le \flqq noyau de $\sigma$\frqq : \flqq$\ker \sigma$\frqq\\
+   Avec $\ker \sigma = \set{v \in V_1 : \sigma(v)=0_{V_2}}$
+
+  \subsection{Lemme : le neutre appartient à $\ker \sigma$}
+   Soit $\sigma : V_1 \ap V_2$ $K$-linéaire.\\
+   Alors, $0_{V_1} \in \ker \sigma$
+
+  \subsection{Le noyau et l'image sont des sous-$K$-espaces vectoriel}
+   Soit $\sigma : V_1 \ap V_2$ $K$-linéaire.\\
+   Alors, $\ker \sigma$ est un sous-$K$-espace vectoriel de $V_1$.\\
+   Alors, $\im \sigma$ est un sous-$K$-espace vectoriel de $V_2$.
+
+ \section{Dimension}
+  Première approche : La dimension d'un espace vectoriel est le nombre de d'axes nécéssaires pour représenter un élément unique de cet espace.
+
+  \subsection{Dimension finie/infinie}
+   Soit $V$ un $K$-espace vectoriel.
+
+   Soit une application $\sigma_{v_1 \cdots v_s} : K^s \ap V$ $K$-linéaire envoyant sur les $K$-combilis des éléments de $\set{v_1 \cdots v_s}$.
+
+   On regarde si il existe un $s \in \mathbb{N}$ et $v_1, \hdots, v_s \in V$ tels que $\sigma_{v_1 \cdots v_s}$ est surjective.
+
+   \begin{itemize}
+    \item si un tel \textbf{$s$ existe}, on dira que \textbf{$V$ est de dimension finie}.
+    \item si un tel \textbf{$s$ n'existe pas}, on dira que \textbf{$V$ est de dimension infinie}.
+   \end{itemize}
+
+   D'ailleurs, la dimension de $V$ sera le plus petit $s$ tel que $\sigma_{v_1 \cdots v_s}$ est surjective.
+
+  \subsection{Definition}
+   On définit la dimension de $V$ $K$-espace vectoriel (pourvu que $\dim V$ soit finie).
+   $$\dim V = \mu s,~\exists v_1, \hdots , v_s \in V,~ \sigma_{v_1 \cdots v_s} \mbox{ surjective} \footnote{$\mu s$ signifie \flqq le plus petit s\frqq}$$
+
+   Par définition, si la dimension de l'espace vectoriel $\set{0}$ est $0$ : $\dim \set{\vec{0}} = 0$
+
+  \subsection{Famille $K$-génératrice}
+   \paragraph{Definition} $v_1 \cdots v_s$ engendrent $V$ si tout élément de $V$ est une $K$-combili de $v_1 \cdots v_s$.
+
+   On dit alors que $v_1 \cdots v_s$ est une $K$-famille génératrice.
+
+   Pour vérifier que $v_1 \cdots v_s$ est une $K$-famille génératrice, soit :
+    \begin{itemize}
+     \item on vérifie que $\sigma_{v_1 \cdots v_s}$ est surjective
+     \item on vérifie que tout élément de $V$ est $K$-combili de $v_1 \cdots v_s$.
+    \end{itemize}
+
+   Pour vérifier si tout élément de $V$ est $K$-combili de $v_1 \cdots v_s$, il faut vérifier si, $$\forall v \in V, \exists (X=\lambda_1 \cdots \lambda_s) \in K^s, \sigma_{v_1 \cdots v_s}(X) = v$$
+   ou encore, si l'équation suivante possède au moins une solution :
+   $$\sigma_{v_1 \cdots v_s}(X)=v$$
+
+  \subsection{Famille $K$-libre}
+   \paragraph{Definition} $v_1 \cdots v_s \in V$ est une famille $K$-libre ou $K$-linéairement indépendante si $\sigma_{v_1 \cdots v_s}$ est injective.
+   
+   \paragraph{Terminologie} Si des vecteurs ne sont pas libres, on dit qu'ils sont liés.
+
+  \subsection{Critères de familles $K$-libres / injectivité de l'application}
+   \subsubsection{En terme de solutions d'équation}
+    Pour vérifier que $v_1 \cdots v_s$ est une famille $K$-libre, il faut vérifier que l'équation suivante possède au plus une solution :
+    $$\sigma_{v_1 \cdots v_s}(X)=v$$
+    Cependant, cette équation est inutile à vérifier, puisqu'il suffit de vérifier que l'application est injective, et se rapporter, pour cela, au point suivant : \ref{noyausingleton}.
+   \subsubsection{Le noyau est un singleton \label{noyausingleton}}
+    $\sigma_{v_1 \cdots v_s} : V_1 \ap V_2$ est injective $\Leftrightarrow$ $\ker \sigma=\set{0_{V_1}}$
+
+    Le noyau est un singleton, et il ne contient que le neutre (en effet, le noyau contient toujours le neutre, et il est un singleton, c'est donc forcément le neutre)
+
+    C'est-à-dire, ou autrement :\\
+    $\sigma_{v_1 \cdots v_s} : V_1 \ap V_2$ est injective ssi :\\
+    $\sigma(X)=0_{V_2}$ ne possède qu'une seule solution (qui est $X=0_{V_1}$)
+
+  \subsection{Propriétés sur les familles $K$-libres/génératrices}
+   \subsubsection{Distinction des éléments d'une famille $K$-libre}
+    Si $v_1 \cdots v_s$ $K$-libres, alors $v_1 \cdots v_s$ sont distincts.
+    
+   \subsubsection{Singletons $K$-libres}
+    $0_V$ n'est jamais $K$-libre, mais $v_1 \neq 0$ est toujours $K$-libre.
+    
+   \subsubsection{Sous-ensembles de familles $K$-libre}
+    Si $\set{v_1 \cdots v_s}$ est $K$-libre, alors tout sous-ensemble de $\set{v_1 \cdots v_s}$ est également $K$-libre.
+    
+   \subsubsection{Ensembles formés de familles $K$-génératrices}
+    Si $\set{v_1 \cdots v_s}$ est $K$-génératrice, alors $\forall v_{s+1} \in V, \set{v_1, \hdots, v_s, v_{s+1}}$ est encore $K$-génératrice.
+
+  \subsection{Lemme : Ajout d'un vecteur à une famille $K$-libre}
+   Soit $v_1 \cdots v_s$ $K$-libre on a donc $\sigma_{v_1 \cdots v_s}$ injective et non surjective, et soit $v_{s+1} \in V\setminus \im \sigma_{v_1 \cdots v_s}$  (c'est-à-dire $v_{s+1}$ n'est pas une combili de $v_1 \cdots v_s$, c'est-à-dire $\nexists \lambda_1 \cdots \lambda_s \in K, \sum^{s}_{i=1}\lambda_i \cdot v_i=v_{s+1}$).\\
+   Alors $\sigma_{v_1, \hdots, v_s, v_{s+1}}$ est injective.\\
+   C'est-à-dire, $v_1, \hdots, v_s, v_{s+1}$ est $K$-libre.
+
+  \subsection{Lemme : Retrait d'un vecteur à une famille $K$-génératrice}
+   Soit $v_1, \hdots, v_s, v_{s+1}$ une famille $K$-génératrice de $V$.\\
+   Alors, si $v_{s+1}$ est une $K$-combili de $v_1 \cdots v_s$, la famille $v_1 \cdots v_s$ est encore $K$-génératrice de $V$.
+
+   Ou encore, si $v_{s+1} \in \im \sigma_{v_1 \cdots v_s}$ alors ...\\
+   Ou encore, si $\exists \lambda_1 \cdots \lambda_s \in K, \sum^{s}_{i=1} \lambda_i \cdot v_i = v_{s+1}$ alors ...
+
+  \subsection{Propriété liée aux sous-$K$-vectoriels}
+   Soit $V$ un $K$-vectoriel et $W \subseteq V$, $W$ un sous-vect de $V$.
+
+   $$\dim W = \dim V \ioi W=V$$
+
+ \section{Bases}
+  \subsection{$K$-base}
+   On dit que $v_1 \cdots v_s$ est une $K$-base de $V$ si $\sigma_{v_1 \cdots v_s}$ est une bijection de $K^s \ap V$.
+
+   C'est-à-dire, $\sigma_{v_1 \cdots v_s}$ est injective \underline{et} surjective.
+
+   Ou, de façon équivalent, $v_1 \cdots v_s$ est une $K$-base de V si $v_1 \cdots v_s$ est à la fois une famille $K$-libre et $K$-génératrice.
+
+   La base canonique est la base uniquement consituée de $1$ et de $0$.
+
+  \subsection{Théorème : $K$-base formée par les $K$-libre/génératrice\label{thm:kbase-klibre-gen}}
+   Soit $V$ un $K$-espace vectoriel de dimension finie, alors une base de $V$ est toujours :
+    \begin{enumerate}
+     \item une partie libre de $V$ de taille maximale (c'est-à-dire qu'elle ne peut plus être agrandie tout en restant libre)
+     \item une partie génératrice $V$ de taille minimale (c'est-à-dire qu'elle ne peut plus être rétrécie tout en restant génératrice)
+    \end{enumerate}
+
+  \subsection{Corollaire du théorème \ref{thm:kbase-klibre-gen}}
+   \begin{enumerate}
+    \item Si $v_1 \cdots v_s$ est une $K$-base de $V$, alors $\forall v_{s+1} \in V, v_1, \hdots, v_s, v_{s+1}$ n'est pas libre.
+    \item Si $v_1, \hdots, v_s, v_{s+1}$ est une $K$-base de $V$, alors $v_1 \cdots v_s$ n'est pas génératrice.
+   \end{enumerate}
+
+  \subsection{Théorème : Taille des $K$-bases}
+   Si $V$ : $K$-espace vectoriel et si $B=\set{v_1, \hdots, v_s}$ est une $K$-base, de taille $s$, de $V$, alors toutes les bases de $V$ ont exactement $s$ éléments.
+
+  \subsection{Dimension et $K$-base}
+   Soit $V$ un $K$-vectoriel et $B$ une $K$-base de $V$, avec $|B|=s$.\\
+   Alors, $\dim_K V = s = |B|$
+
+  \subsection{Application linéaire simplifiée par l'écriture en base}
+   Soit $V_1$,$V_2$ : $K$-vectoriels et $B_1=v_1 \cdots v_s$ une $K$-base de $V_1$.
+
+   Si je connais $\sigma(v_1) \cdots \sigma(v_s)$, alors je peux calculer $\sigma(v)$, pour tout $v \in V_1$. Car puisque $B_1$ est une $K$-base de $V_1$, alors $\exists \lambda_1 \cdots \lambda_s \in K$ tels que $v=\sum^{s}_{i=1} \lambda_i \cdot v_i$. Et donc,
+   $$\sigma(v) = \sigma( \sum^{s}_{i=1} \lambda_i \cdot v_i) = \sum^{s}_{i=1} \lambda_i \cdot \sigma(v_i)$$
+
+  \subsection{Écriture de $\sigma(v)$ dans la base du vectoriel d'arrivée}
+   Soit $V_1, V_2$ des $K$-vectoriels et $\sigma : V_1 \ap V_2$ une $K$-linéaire.
+
+   $\im \sigma \subset V_2$ admet $\sigma(v_1) \cdots \sigma(v_s)$ comme famille $K$-génératrice de $V_2$.
+
+   Soit $B_2=\set{w_1 \cdots w_t}$ $K$-base de $V_2$, alors $\forall w \in V_2, \exists \mu_1 \cdots \mu_t \in K, w=\sum^{t}_{j=1} \mu_j \cdot w_j$.
+
+   Cette décomposition s'applique en particulier aux éléments $\sigma(v_i) \in V_2$. Donc,
+   $$\forall \sigma(v_i), \exists \sigma_{j,i} \in K | j=1,\hdots, t, \sigma(v_1) = \sum^{t}_{j=1} \sigma_{j,i} \cdot w_j$$
+
+   Je considère la matrice $\mathfrak{M}_\sigma = \left( \sigma_{j,i} \right), i\in \set{1, \hdots, s}, j \in \set{1, \hdots, t}$ qui possède $t$ lignes et $s$ colonnes (matrice $t \times s$).
+   $$\mathfrak{M}_\sigma =
+   \left(
+    \begin{matrix}
+     \sigma_{1,1} & \sigma_{1,2} & \cdots & \sigma_{1,s} \\
+     \sigma_{2,1} & \sigma_{2,2} & \cdots & \sigma_{2,s} \\
+     \vdots       & \vdots       & \ddots & \vdots \\
+     \sigma_{t,1} & \sigma_{t,2} & \cdots & \sigma_{t,s}
+    \end{matrix}
+   \right)
+   $$
+
+   Si on veut écrire $v=\sum^{s}_{i=1} \lambda_i \cdot v_i$ dans la base $B_2$, on va multiplier à gauche $\mathfrak{M}_\sigma$ par la matrice colonne
+   $
+   \left(
+    \begin{matrix}
+     \lambda_1\\
+     \lambda_2\\
+     \vdots\\
+     \lambda_s
+    \end{matrix}
+   \right)
+   $ qui représente les coefficients de la décomposition de $v$ dans la base $B_1$. On a donc :
+   $$
+    \begin{pmatrix}
+     \sigma_{1,1} & \sigma_{1,2} & \cdots & \sigma_{1,s} \\
+     \sigma_{2,1} & \sigma_{2,2} & \cdots & \sigma_{2,s} \\
+     \vdots       & \vdots       & \ddots & \vdots \\
+     \sigma_{t,1} & \sigma_{t,2} & \cdots & \sigma_{t,s}
+    \end{pmatrix}
+   \cdot
+    \begin{pmatrix}
+     \lambda_1\\
+     \lambda_2\\
+     \vdots\\
+     \lambda_s
+    \end{pmatrix} =
+   \begin{pmatrix}
+    \displaystyle
+    \sum^{s}_{i=1} \sigma_{1,i} \cdot \lambda_i\\
+    \displaystyle
+    \sum^{s}_{i=1} \sigma_{2,i} \cdot \lambda_i\\
+    \vdots\\
+    \displaystyle
+    \sum^{s}_{i=1} \sigma_{t,i} \cdot \lambda_i\\
+   \end{pmatrix}
+   $$
+   Le vecteur colonne obtenu représente les coefficients de la décomposition de $\sigma(v)$ dans la base $B_2=\set{w_1,\hdots,w_t}$
+
+  \subsection{Lemme : Composée de $K$-linéaires}
+   Soit $\sigma : V_1 \ap V_2$ et $\tau : V_2 \ap V_3$ sont des $K$-linéaire, alors la composée $\tau \circ \sigma : V_2 \ap V_3$ est également $K$-linéaire.
+
+  \subsection{Théorème : Multiplication des matrices d'application linéaire}
+   Soient $\mathfrak{M}_\tau$ et $\mathfrak{M}_\sigma$ des matrices de changement de base, respectivement des applications $\tau : V_2 \ap V_3$ et $\sigma : V_1 \ap V_2$ ($V_1, V_2, V_3$ des $K$-vectoriels), alors $$\underb{\underb{\mathfrak{M}_\tau}{v \times t} \cdot \underb{\mathfrak{M}_\sigma}{t \times s}}{v \times s} = \underb{\mathfrak{M}_{\tau \circ \sigma}}{v \times s}$$
+
+  \subsection{Lemme : L'ensemble des $K$-linéaires est un $K$-vectoriel}
+   \subsubsection{Definition}
+    Soit $\mathrm{Lin}_K (V_1,V_2) = \set{\mbox{Les applications } K \mbox{-lin de } V_1 \ap V_2}$.
+    Pour cela, on définit $\grp{\mathrm{Lin}_K (V_1,V_2),+,\sigma_0}$ avec l'addition :
+    $$(\sigma_1 + \sigma_2)(v)=\sigma_1(v)+\sigma_2(v)$$
+    et la multiplication scalaire par :
+    $$(\lambda \cdot \sigma)(v)=\lambda \cdot \sigma(v)$$
+
+   \subsubsection{Propriété dimensionnelle}
+    Si on a $\mathrm{Lin}_K (V_1,V_2)$ avec $\dim_K{V_1} = s$ et $\dim_K{V_2} = t$, alors :
+     $$\dim_K{\mathrm{Lin}_K (V_1,V_2)} = s \cdot t$$
+
+  \subsection{Une $K$-base de $K^{t \times s}$ et de $\mathrm{Lin}_K (V_1,V_2)$}
+   \subsubsection{$K$-base de $K^{t \times s}$\label{kbasedektcroixs}}
+    Définissons $\delta_{i_0, j_0}$ comme la matrice vérifiant la propriété suivante :
+    $$\left( \delta_{i_0, j_0} \right)_{i,j} = 0 \mbox{ sauf si } i = i_0 \mbox{ et } j = j_0, \mbox{ alors } \left( \delta_{i_0, j_0} \right)_{i_0,j_0} = 1$$
+
+    Alors, une $K$-base de $K^{t \times s}$ est
+    $$\Delta = \set{\delta_{i_0, j_0} | i \in \set{1, \hdots, t} , j_0 \in \set{1, \hdots, s}}$$
+
+    En effet, soit $\mathfrak{M}$ une matrice $\in K^{t \times s}$, alors $\mathfrak{M}$ est une combili des éléments de $\Delta$. Car :
+    $$\mathfrak{M}= \sum^{t}_{i=1} \sum^{s}_{j=1} \mathfrak{M}_{i_0, j_0} \cdot \delta_{i_0,j_0}$$
+
+   \subsubsection{Une $K$-base de $\mathrm{Lin}_K (V_1,V_2)$}
+    Et le $\Delta$ définit au point précédant (\ref{kbasedektcroixs}) consitue également une $K$-base de $\mathrm{Lin}_K (V_1,V_2)$.
+
+    Il suffit pour cela de regarder les matrices associées aux applications de $\mathrm{Lin}_K (V_1,V_2)$. Et cela forme donc un $K^{t \times s}$ dont une base est $\mathrm{Lin}_K (V_1,V_2)$. Donc comme on peut décrire chaque matrice associée à une $K$-linéaire, on peut bien-sûr décrire chaque $K$-lin par cette même base $\Delta$.
+
+ \section{Théorème du rang}
+  Soit $\sigma : V_1 \ap V_2$, avec $V_1, V_2$ des $K$-vect, avec $\dim_K V_1 = s$, alors :
+  $$\dim_K \im \sigma + \dim_K \ker \sigma = \dim_K V_1 = s$$
+
+ \section{Espaces supplémentaires}
+  \subsection{Introduction}
+   Soit $V$ un $K$-vect. On considère la collection des sous $K$-vect de $V$.
+
+   Soient $W_1, W_2$ deux sous-$K$-vect de $V$. On définit :
+   $$W_1+W_2 \overset{\Delta}{=} \set{w_1 + w_2 | w_1 \in W_1, w_2 \in W_2}$$
+
+  \subsection{Lemme : Addition de deux sous-$K$-vect}
+   Si $W_1$ et $W_2$ sont deux sous-$K$-vect de $V$ alors $(W_1+W_2)$ est également un sous-$K$-vect de $V$.
+
+  \subsection{Union des bases}
+   Si $B_1$ est une $K$-base de $W_1$ et $B_2$ est une $K$-base de $W_2$. Alors $B_1 \cup B_2$ est au moins une partie génératrice de $W_1+W_2$. C'est-à-dire que $W_1+W_2 = \grp{B_1 \cup B_2}$
+
+  \subsection{Lemme : Cas particulier d'union des bases}
+   Soit $W_1, W_2$ des sous-$K$-vect de $V$.
+
+   Si $B_1$ est une $K$-base de $W_1$, c'est-à-dire : $W_1 = \grp{B_1}_K$ et $B_1$ est $K$-libre.
+
+   Et si $B_2$ est une base de $W_2$ et si $W_1 \cap W_2 = \set{\vec{0_V}}$.
+
+   Alors : $B_1 \cup B_2$ est une $K$-base de $W_1+ W_2$.
+
+   \subsubsection{Notation : Somme directe}
+    Dans ce cas particulier où $W_1 \cap W_2 = \set{0_V}$, on note $W_1+W_2$ par
+     $$W_1 \oplus W_2$$
+    et cette opération est appelée la \textbf{somme directe} de $W_1$ et $W_2$.
+
+   \subsubsection{Propriété}
+    Si $v \in W_1 \oplus W_2$, alors il y a \underline{une et une seule façon} d'écrire $v$ sous la forme $v=v_1+v_2$ avec $v_1 \in W_1$ et $v_2 \in W_2$.
+
+    Ou encore : si $v_1 \in W_1$ et $v_2 \in W_2$ avec $v_1\neq 0 \neq v_2$ alors $v_1, v_2$ sont linéairement indépendant.
+
+   \subsubsection{Équivalence de propositions}
+    Soit $W_1, W_2$ deux sous $K$-vectoriels de $V$ et en posant $W=W_1+W_2$, alors il y a équivalence entre les propositions suivantes :
+    \begin{enumerate}
+     \item $W_1 \cap W_2 = \set{0}$
+     \item $\forall w \in W, \exists! w_1 \in W_1, \exists!w_2\in W_2$ tels que $w=w_1+w_2$
+     \item $\forall w_1 \in W_1, \forall w_2\in W_2, (w_1+w_2=0) \so (w_1=w_2=0)$
+    \end{enumerate}
+    Si $V=W$ alors on a que $1.$ est équivalent à dire : $V=W_1 \oplus W_2$
+
+  \subsection{Supplémentaire d'un $K$-vectoriel}
+   Soit $W$ un sous $K$-vectoriel de $V$, on dit que $W'$ sous-$K$-vect de $V$ est un \textbf{supplémentaire de $W$ dans $V$} si $$W \oplus W' = V \footnote{Bien sûr, cette notation implique également que $W\cap W' = \set{\vec{0_V}}$}$$
+
+   Par exemple, un plan et une droite de l'espace (non comprise dans le plan) possèdent une relation de supplémentarité dans $\mathbb{R}^3$
+
+   \subsubsection{Admission d'un supplémentaire}\label{admitsuppl}
+    Tout $W$ sous-$K$-vect de $V$ admet un supplémentaire dans $V$.
+
+    Il existe deux cas :
+    \paragraph{Soit $W=V$}
+     Alors le supplémentaire de $W$ est $\set{\vec{0_V}}$.
+
+    \paragraph{Soit $W \subset V$}
+     Alors, soit $B_W=\set{b_1, \hdots, b_s}$ une base de $W$. $B_W$ est une partie $K$-libre de $V$, prolongeons la alors jusqu'à une base $B$ de $V$.
+
+     Soit $B=\set{b_1, \hdots, b_s, b_{s+1}, \hdots, b_r}$.
+
+     Alors un supplémentaire de $W$ est $$W'=\grp{B \setminus B_W}_K$$
+     C'est-à-dire : $$W' = \grp{b_{s+1}, \hdots, b_r}_K$$
+
+
+  \subsection{Union des bases de vectoriels supplémentaires}
+   Soit $W$ un supplémentaire de $W'$ dans $V$.
+
+   Si $B_W$ $K$-base de $W$ et $B_{W'}$ $K$-base de $W'$ dans $V$.
+
+   Alors $B_W \cup B_{W'}$ est une $K$-base de $V$.
+
+% Deuxième quadrimèstre
+ \section{Formes spéciales d'applications linéaires/Polynôme}
+  \subsection{Interprétation de la géométrie de l'ensemble image}
+   Soit l'application $\mathbb{R}$-linéaire $f : \mathbb{R}^3 \ap \mathbb{R}^3$, avec $\mathbb{R}^3$ en tant que $\mathbb{R}$-vectoriel.
+
+   Le théorème du rang nous dit $$\dim_\mathbb{R} \ker f + \dim_\mathbb{R} \im f = \dim \mathbb{R}^3 = 3$$
+   Donc $\dim \im f \in \set{0,1,2,3}$.
+
+   On peut interpréter la géométrie de l'ensemble image suivant sa dimension :
+   \begin{itemize}
+    \item[$\dim \im f = 0$] : $\im f = \set{0}$
+    \item[$\dim \im f = 1$] : $\im f$ est une droite passant par $\vec{0}$
+    \item[$\dim \im f = 2$] : $\im f$ est un plan passant par $\vec{0}$
+    \item[$\dim \im f = 3$] : $\im f = \mathbb{R}^3$
+   \end{itemize}
+
+  \paragraph{Remarque} Il y a plusieurs applications linéaires qui partagent la même image globale.
+
+ \subsection{Vecteur/Valeur propre}
+  \paragraph{Vecteur propre :} Le vecteur propre d'une application linéaire de $V$ dans $V$ (ou matrice $s \times s$) est un vecteur $v$ tel que : $$v \in V, \exists \lambda \in K, f(v)=\lambda \cdot v$$
+  \paragraph{Valeur propre :} La valeur propre d'une application linéaire (ou matrice $s \times s$) est un scalaire $\lambda$ tel que : $$\lambda \in K, \exists v \in V \setminus \set{0}, f(v)=\lambda \cdot v$$
+  
+ \subsection{Espace propre}
+  On appelle \textit{espace propre} d'une application linéaire $f$ associé à la
+  valeur propre $\lambda$, noté $V_\lambda$ ou $V_\lambda^f$ :
+   $$V_{\lambda}=\set{v\in V | f(v)=\lambda v}$$
+
+ \subsection{Polynômes}
+  \subsubsection{Definitions}
+   \paragraph{Polynôme}\footnote{Cette définition ne se trouve pas dans le cours}
+    On définit un polynôme en une indéterminée sur un corps (anneau) $K$ comme une expression formelle de la forme : 
+     $$p=a_n X^n + a_{n-1} X^{n-1} + \cdots + a_1 X + a_0$$
+    où $n\in \NN$ et les coefficients $a_0, \hdots, a_n \in K$
+   \paragraph{Remarque} On peut définir un polynôme par une séquence $(a_0, a_1, \hdots, a_n)$.
+
+   \paragraph{Ensemble des polynômes}
+    Soit $K$ un corps (commutatif),
+     $$K[X]=\set{\text{les polynômes à coefficients dans } K}$$
+   \paragraph{Remarque} On peut définir l'ensemble des polynômes par l'ensemble des séquences $(a_0, a_1, \hdots, a_n)$. Il s'en suit des propriétés d'encodage des polynômes sur les espaces multidimensionnels (utilisation des bases).
+   \paragraph{Remarque} $\grp{K[X],+,\cdot,0,1}$ est un anneau commutatif.
+   \paragraph{Remarque} Attention à ne pas confondre \textit{polynôme} et \textit{fonction polynôme}, on fait correspondre à un polynôme une fonction polynôme par un morphisme d'évaluation\footnote{Voir le point \ref{morpheval}}.%:NE:
+   \paragraph{Remarque} $\grp{K, +, \cdot, 0, 1}$ peut être un anneau. Dans ce cas, $\grp{K[X],+,\cdot,0,1}$ est également un anneau.
+
+  \subsubsection{Opérations et degré}
+   \paragraph{Degré} On définit le degré d'un polynôme $p=a_0 + a_1 X + a_2 X^2 + \cdots + a_i X^i + \cdots + a_n X^n$ comme : 
+     $$\deg p = \max \set{i | a_i \neq 0}$$
+    Par convention, $\deg 0=-\infty$.
+   \paragraph{Addition} Soient $p,q \in K[X]$, alors $p+q \in K[X]$ et
+     $$\deg p+q \leq \deg p + \deg q$$
+    La somme de polynômes se définit comme la somme composante par composante.
+   \paragraph{Produit} Soient $p,q \in K[X]$, alors $p \cdot q \in K[X]$ et
+     $$\deg p\cdot q = \deg p \cdot \deg q$$
+    La valeur du $m^\text{ième}$ coefficient de $p\cdot q$ est :
+     $$(p \cdot q)_m = \sum_{i+j=m} p_i \cdot p_j$$
+
+  \subsection{Évaluation}
+   \label{morpheval}
+   Soit $K[X]$ l'ensemble des polynômes à coefficients dans $K$ et $V$ un espace vectoriel muni d'une loi de multiplication interne
+   \footnote{En fait, il s'agit d'une $K$-Algèbre (les détails des propriétés à vérifier ne sont pas donnés).}%:NE:
+   . Alors, on appel le Évaluation en $v\in V$ du polynôme $p\in K[X]$, le morphisme :
+   \begin{eqnarray*}
+    K[X] & \overset{eval_v}{\ap} & V\\
+    p(X) & \mapsto & p(v)
+   \end{eqnarray*}
+   Ce morphisme envoie un polynôme sur une fonction polynôme.
+
+  \subsection{Quotient de polynômes}
+   \subsubsection{Definition}
+    Soit $p\in K[X]$ et $g \in K[X]\setminus \set{0}$, alors le quotient de $p$ par $g$ est $q\in K[X]$ tel que $\exists r \in K[X]$ tel que :
+    \begin{enumerate}
+     \item $p=q\cdot g+r$
+     \item $\deg r \leq \deg g$
+    \end{enumerate}
+
+    \paragraph{Remarque} Ces $q$ et $r$ sont uniques pour un $p$ et $g$ donnés. 
+
+   \subsubsection{Irréductibilité}
+    Soit $p \in K[X]$, on dit que $p$ est irréductible dans $K[X]$ si $\deg p \geq 1$ et $p$ n'a pas d'autres diviseurs que lui même et les $k \cdot p$ avec $k \in K\setminus \set{0}$.
+
+   \subsubsection{Lemme : Diviseur et racine}
+    Si $p$ est un diviseur de $q$ et $\alpha$ racine de $p$, alors $\alpha$ est également racine de $q$.
+
+   \subsubsection{Lemme : Racine et diviseur}%|:PN:|\footnote{19/02/08 p.3}
+    Soit $p \in K[X]$ et $\lambda$ racine de $p$ dans $K$, alors :
+     $$x-\lambda \text{ divise } p \text{ dans } K[X]$$
+    c'est-à-dire : il existe $q\in K[X]$ tel que $(x-\lambda)\cdot q = p$.
+
+   \subsubsection{Théorème : Les seuls irréductibles}
+    \begin{itemize}
+     \item Les seuls polynômes irréductibles de $\RR[X]$ sont les polynômes de degré 1 et les polynômes de degré 2 avec $\Delta < 0$.
+     \item Les seuls polynômes irréductibles dans $\CC[X]$ sont ceux de degré 1.\\
+      On dit que $\CC$ est algébriquement clos.
+    \end{itemize}
+
+  \subsection{Théorème de Bezout pour $K[X]$}%|:PN:|\footnote{+preuve: 19/02/08, p3}
+   Soit $p,q \in K[X]$, alors il existe $u,v \in K[X]$ tels que $\pgcd (p,q)=up+vq$.
+
+   Soit $V$ un $K$-vectoriel (de dimension finie), soit $v\in V, v\neq0$.
+
+   Soit $B$ une matrice d'application linéaire $V\ap V$ telle que
+    $$\exists k \in \NN_0, v\neq0, B(v)\neq 0, \hdots, B^{k-1}(v)\neq 0, B^{k}=0$$
+   Alors, $\set{v,B(v), \hdots, B^{k-1}(v)}$ est $K$-libre.
+
+  \subsection{Sous espace invariant}
+   $W \subseteq V$ est un sous espace invariant pour $A$ application linéaire $V\ap V$ ssi
+    $$\forall w \in W, A(w)\in W$$
+   C'est-à-dire : $A W \subseteq W$.
+
+  \subsection{Lemme : noyau, sous espace invariant} %|:PN:|\footnote{+preuve: 27/02/08, p2}
+   Soit $f\in K[X]$ et $A$ une matrice d'application linéaire $V\ap V$, alors $\ker f(A)$ est un sous espace invariant de $A$.
+
+  \subsection{Lemme des noyaux}%|:PN:|\footnote{+preuve: 12/03/08, p2}
+   Soit $A$ une application linéaire $V\ap V$, $p=p_1\cdot p_2 \in K[X]$ avec $\pgcd(p_1,p_2)=1$ tel que $p(A)=0$. Alors,
+    $$\ker(p(A))=V=\ker p_1(A) \oplus \ker p_2(A)$$
+
+  \subsection{Lemme des noyaux généralisé}
+   Soit $A$ une application linéaire $V\ap V$. Soit $p\in \CC[X]$ de degré $n\geq 1$, avec $p_n=1$, soit $\alpha_1, \hdots, \alpha_k \in \CC$ et $i_1+\cdots+i_k=n$ tels que $p(X)=(X-\alpha_1)^{i_1}\cdots (X-\alpha_k)^{i_k}$. On note $U_j=\ker(A-\alpha_j \id)^{i_j}$. Supposons que $p(A)=0$, alors
+    $$V=U_1 \oplus U_2 \oplus \cdots \oplus U_k$$
+
+  \subsection{Restriction d'application linéaire}
+   Soit $A$ une application linéaire $V \ap V$ et $W\subset V$. On note la restriction de l'opération $A$ à $W$
+    $$\rstrct{A}{W}$$
+   Il s'agit de l'opération $A$ avec son domaine restreint à $W$. Elle possède donc (en général) des propriétés particulières par rapport à $A$.
+
+   \paragraph{Remarque} $\ker(\rstrct{A}{W}) = \ker(A) \cap W$
+
+  \subsection{Application aux equations différentielles polynomiales}
+   Soit $D:\mathcal{C}^{\infty}(\RR)\ap \mathcal{C}^{\infty}(\RR)$ l'opérateur de dérivation des fonctions. On veut résoudre l'équation différentielle :
+    $$f''-3f'+2f=0$$
+   On pose : $p=X^2-3X+2$ et on a $(p(D))(f)=f''-3f'+2f$. Donc, en fait on cherche ici les solutions de $(p(D))(f)=0$. C'est à dire : on cherche :
+    $$\ker(p(D)) \subseteq \mathcal{C}^{\infty}(\RR)$$
+   Pour cela, on va utiliser le lemme des noyaux. En effet, on va décomposer $p$ en polynômes irréductibles :
+    $$p=(X-2)(X-1)$$
+   on pose $p_1=(X-2)$ et $p_2=(X-1)$. On a $\pgcd(p_1,p_2)=1$. Donc, par le lemme des noyaux :
+    $$\ker(p(D))=\underb{\ker(D-2\id)}{\set{f|f'=2f}} \oplus \underb{\ker(D-\id)}{\set{f|f'=f}}$$
+   On a $e^{2t} \in \ker(D-2\id)$ et $e^t \in \ker(D-\id)$. Ces deux vecteurs forment chacuns une base du noyaux auquel ils appartiennent. Ainsi, on a qu'une base de $\ker p(D)$ est $\set{e^t,e^{2t}}$ et donc que $\ker p(D)=\grp{e^t,e^{2t}}$. C'est-à-dire que toutes les solutions sont de la forme, avec $\lambda_1, \lambda_2 \in \CC$ : $$f=\lambda_1 e^t+\lambda_2 e^{2t}$$
+
+  \subsection{Lemme des vecteurs cycliques}
+   Soit $B\in \mathrm{Lin}(V,V)$, soit $v \in \ker B^r$ et tel que $v \notin \ker B^{r-1}, v \notin \ker B^{r-2}  \cdots v \notin \ker B$. Alors,
+    $$\ker B^r=\grp{v,Bv,\hdots,B^{r-1}v}$$
+  
+  \subsection{Diagonalisation/Jordanisation}
+  \begin{comment}
+   \subsubsection{Introduction}
+    Soit $A$ une matrice d'application $K$-linéaire de $V_1\ap V_2$. On va chercher les vecteurs propres de l'application linéaire $A$, c'est-à-dire les vecteurs $v_{\lambda_i}$ tels que $Av_{\lambda_i}=\lambda_i v_{\lambda_i}$ avec $\lambda_i \in K$ la valeur propre associée à ces vecteurs. Cela veut dire que pour les vecteurs appartenant à l'espace propre $V_{\lambda_i}$, l'application de $A$ effectue une homothétie.\\
+    Puis, on va exprimer l'application $A$ dans la base de ces vecteurs propres. Pour cela, il faut qu'il y ait autant de valeurs propres (et donc d'espace propres différents) que $\dim V_1=n$, sinon on ne peux pas faire une base avec ces vecteurs propres. ... %TODO: On rajoute ou on supprime !!!
+  \end{comment}
+   \subsubsection{Méthode}%|:PN:|\footnote{détails du cours: SE : 09/04/08 p2}
+    La diagonalisation est un cas plus simple de la jordanisation\footnote{Le cas de la jordanisation est fait plus précisemment dans le \textit{Serge Lang}, \textbf{Algèbre Linéaire 2}, page 297}.
+    
+    Soit $A$ une matrice d'application $K$-linéaire de $V_1 \ap V_2$ et $\omega=\dim V_1$.
+
+    \begin{enumerate}
+     \item
+      On cherche les valeurs propres de $A$. Pour cela, nous regardons le polynôme caractéristique de $A$.
+
+      Le polynôme caractérique de $A$ : $p_A$ est donné par
+       $$p_A=\det(A-X\cdot \id)$$
+      Les valeurs propres de $A$ sont les racines de $p_A$. On note $m_i$ la multiplicité de la valeur propre $\lambda_i$ et on pose $r$ le nombre de valeurs propres différentes.
+     \item
+      On cherche maintenant les espaces propres associés à ces valeurs propres.
+
+      Appelons l'espace propre associé à la valeur propre $\lambda_i$ : $E_{\lambda_i}$. On a que
+       $$E_{\lambda_i}=\ker(A-\lambda_i \id)$$
+      En effet,
+      \begin{eqnarray*}
+       E_{\lambda_i}&=&\set{v\in V | Av=\lambda_i v} ~~~~~\text{(Par définition d'être vecteur propre)}\\
+        &=&\set{v\in V | Av-\lambda_i v=0}\\
+        &=&\set{v\in V | (A-\lambda_i \id)(v)=0}\\
+        &=&\ker(A-\lambda_i \id)
+      \end{eqnarray*}
+
+      Si une des valeurs propres $\lambda_j$ est, comme racine du
+      polynôme caractéristique, de multiplicité $m > 1$, on regarde
+      $\dim E_{\lambda_j}$ (on peut le voir par sa géométrie grâce aux
+      équation qui le définissent, par exemple si c'est une droite ou
+      un plan dans $\RR^3$). On a alors deux cas :
+      \begin{itemize}
+       \item $m = \dim E_{\lambda_j}$. Dans ce cas, $A$ est
+        diagonalisable. On place sur la diagonale d'une matrice $\omega
+        \times \omega$, les valeurs propres, autant de fois que leur
+        multiplicité. Soit, un exemple avec une matrice $4\times 4$
+        où $\lambda_2$ est de multiplicité $2$:
+         $$D=
+         \begin{pmatrix}
+              \lambda_1 & 0         & 0         & 0         \\
+              0         & \lambda_2 & 0         & 0         \\
+              0         & 0         & \lambda_2 & 0         \\
+              0         & 0         & 0         & \lambda_3 \\
+             \end{pmatrix}
+         $$ Puis, on choisi dans chaque espace propre autant de vecteurs
+        propres non colinéaires que la multiplicité de la valeur propre
+        associée à l'espace propre. Dans l'exemple, avec $v_1$ un vecteur
+        propre associé à la valeur propre $\lambda_1$, $v_2$ et $v_3$
+        associés à $\lambda_2$, deux vecteurs non colinéaires et $v_4$
+        associé à $\lambda_3$. Avec $v_{i_1},\hdots,v_{i_\omega}$ la
+        décomposition de $v_i$ dans la base de départ.  $$P=
+        \begin{pmatrix}
+              v_{1_1} & v_{2_1} & v_{3_1}  & v_{4_1} \\
+              v_{1_2} & v_{2_2} & v_{3_2}  & v_{4_2} \\
+              v_{1_3} & v_{2_3} & v_{3_3}  & v_{4_3} \\
+              v_{1_4} & v_{2_4} & v_{3_4}  & v_{4_4} \\
+             \end{pmatrix}
+         $$ Et on a :
+         $$A=P\cdot D \cdot P^{-1}$$
+       \item $m \neq \dim E_{\lambda_j}$. Dans ce cas, $A$ n'est pas
+        diagonalisable. On va donc la jordaniser.
+        On regarde l'espace propre de la ou les valeurs propres de
+        multiplicité supérieure à 1. On va traiter la valeur propre
+        $\lambda$, de multiplicité 2\footnote{Si la multiplicité $m$
+        est supérieure à 2, en posant $(B-\lambda \id)=A$, il faut
+        trouver une base de $\ker A^m$. C'est plus compliqué, il faut
+        toujours utiliser le lemme des vecteurs cycliques et trouver un
+        $w$ qui vérifie toutes les hypothèses requises pour avoir $\ker
+        A^m=\grp{w,Aw,A^2w, \hdots, A^{m-1}w}$ et ainsi obtenir notre base
+        (Quand $m$ est pair on peut juste réapliquer le même procédé
+        en boucle que pour $m=2$, càd que quand on a obtenu $w$ tel
+        que $Aw=v$, on va chercher $w_2$ tel que $A^2w_2=w$ etc...).}
+        (on répète la méthode pour chaque valeur propre) :\\
+        On veut trouver une base de $\ker(B-\lambda \id)^2$, on sait que
+        $v$ est un vecteur propre de $B$ et donc que $v \in \ker(B-\lambda
+        \id)$.\\
+        Il suffit de trouver $w\neq0$ tel que $(B-\lambda \id)w=v\neq0$. En
+        effet, ainsi on a que $(B-\lambda \id)^2w=(B-\lambda \id)v=0$. Et
+        donc par le lemme des vecteurs cycliques on a que
+         $$\ker(B-\lambda \id)^2=\grp{w,Bw}$$
+        C'est-à-dire qu'on va résoudre l'équation, pour trouver un $w$ :
+         $$v=(B-\lambda \id)w$$
+      \end{itemize}
+     \item
+      Maintenant\footnote{La diagonalisation a déjà été traitée, on est ici dans le cas de la jordanisation}, on doit écrire la matrice $J$ qui est une matrice triangulaire, composée de blocks de Jordan. On a, par le lemme des noyaux : 
+       $$V_1=\ker(B-\lambda_1\id)^{m_1} \oplus \cdots \oplus \ker(B-\lambda_i\id)^{m_i} \oplus \cdots \oplus \ker(B-\lambda_r)^{m_r}$$
+      On connait les bases de chacuns de ces noyaux, elles ont été calculées précédemment (ce sont les vecteurs propres associés et les contructions de bases quand la multiplicté de la valeur propre associée est supérieure à 1).
+
+      La matrice $J$ est en fait la matrice $B$ exprimée dans l'union de ces bases qui forme une base de $V_1$ (par le lemme des noyaux). Donc, dans chaque colonne de $J$ on va placer les facteurs de la décomposition de $Bv_i$ dans la base dans laquelle est exprimée $B$\footnote{Typiquement, il s'agit de la base canonique de $V_1$}.
+
+      Ensuite, on a besoin de la matrice de changement de base, qui sera tout simplement la matrice formée par les vecteurs propres (et ceux générés pour compléter les bases) en colonnes (en tenant compte de l'ordre dans lequel on a placé les vecteurs correspondants aux valeurs propres associées dans $J$).
+    \end{enumerate}
+
+   \subsubsection{Critère de diagonalisabilité}
+    \begin{enumerate}
+     \item $A$ est diagonalisable ssi $\exists p\in K[X]$ tel que $p(A)=0$ et que $p(x)$ n'admet que des racines simples.
+     \item $A$ est symétrique.
+     \item La somme des dimensions des espaces propres de $A$ vaut $\dim V$
+    \end{enumerate}
+
+\begin{comment}
+  \subsection{Application aux suites couplées}
+   Voir cours : Algèbre-lin, Sp-Maths 12/03/08 p1, Mr.Duval
+\end{comment}
+
+ \section{Bilinéarité}
+  \subsection{Application bilinéaire}
+   Soient $K$ un corps, $V$ et $W$ des $K$-vecoriels. Une application $g:V\times W \ap K$ est dite bilinéaire si elle vérifie les propriétés suivantes :
+    \begin{enumerate}
+     \item $\forall \lambda_1, \lambda_2 \in K, \forall v \in V, \forall w \in W, g(\lambda_1 v, \lambda_2 w)=\lambda_1  \lambda_2 g(v,w)$
+     \item $\forall v_1, v_2 \in V, \forall w \in W, g(v_1 + v_2, w)=g(v_1,w)+g(v_2,w)$
+     \item $\forall v \in W, \forall w_1,w_2 \in W, g(v,w_1 + w_2)=g(v,w_1)+g(v,w_2)$
+    \end{enumerate}
+   C'est-à-dire qu'elle est linéaire à gauche, et à droite.
+
+   \paragraph{Notation} Quand le nom de l'application linéaire n'est pas essentiel ou est sous-entendu, on notera parfois :
+    $$g(v,w)=\grp{v,w}$$
+
+  \subsection{Forme bilinéaire}
+   Soit $V$ un $K$-espace vectoriel. Une forme bilinéaire est une application bilinéaire du type
+    $$g:V\times V \ap K$$
+
+  \subsection{Exemple de formes bilinéaire}
+   Les produits scalaires sont des formes bilinéaires symétrique, c'est-à-dire que
+    $$\forall v,w \in V, \grp{v,w}=\grp{w,v}$$
+
+   Voici un exemple de produit scalaire sur $\mathcal{C}([0:1])$ :
+    $$\grp{f,g}=\int^1_0 f(t)g(t)\:dt$$
+
+  \subsection{Vocabulaire - Cas particuliers}
+   \subsubsection{Forme bilinéaire symétrique}
+    On parle de forme bilinéaire symétrique quand :
+     $$\forall v,w \in V, \grp{v,w}=\grp{w,v}$$
+    Toute forme bilinéaire symétrique est un produit scalaire (et inversément).
+
+   \subsubsection{Forme bilinéaire non dégénérée}
+    On dit que $g:V\times V\ap K$ est une forme bilinéaire non dégénérée à droite si :
+     $$\forall v \in V, (g(v,w)=0) \so (w=0)$$
+    Elle est non dégénérée à gauche si :
+     $$\forall w\in V, (g(v,w)=0) \so (v=0)$$
+
+  \subsection{Simplification du calcul par l'écriture dans la base}
+   Soit $g:V \times V \ap K$ une forme bilinéaire. Soit $B_V=\set{u_1, \hdots, u_k}$ une base de $V$. Alors $g(x,y)$ est complétement déterminé par la connaissance des $g(u_i,u_j)$, avec $1\leq i,j\leq k$
+
+   En effet, on écrit $x$ et $y$ dans la base $B_V$ : $x=\sum^{k}_{i=1}\lambda_i u_i$ et $y=\sum^{k}_{i=1} \nu_i u_i$. On a donc :
+    $$g(x,y)=g\left( \sum^{k}_{i=1}\lambda_i u_i ~,~ \sum^{k}_{i=1} \nu_i u_i\right)=\sum^{k}_{i=1}\sum^{k}_{j=1} \lambda_i \nu_j g(u_i,u_j)$$
+   Or, les $g(u_i,u_j)$ sont connus et appartiennent à $K$.
+
+  \subsection{Écriture matricielle d'une forme bilinéaire}
+   Soit $g:V\times V\ap K$ une forme bilinéaire, avec $V=\grp{u_1,\hdots, u_k}$. Sa matrice associée est la suivante :
+    $$\begin{pmatrix}
+       g(u_i,u_j)
+      \end{pmatrix}_{1\leq i,j \leq k}
+    $$
+
+   Soit $x=\sum^{k}_{i=1}\lambda_i u_i \in V$ et $y=\sum^{k}_{i=1} \nu_i u_i \in V$, alors
+    $$g(x,y)=
+     \begin{pmatrix}
+      \lambda_1 & \cdots & \lambda_k
+     \end{pmatrix}
+     \begin{pmatrix}
+      g(u_i,u_j)
+     \end{pmatrix}
+     \begin{pmatrix}
+      \nu_1\\
+      \vdots\\
+      \nu_k
+     \end{pmatrix}
+     =\sum^{k}_{i=1}\sum^{k}_{j=1} \lambda_i \nu_j g(u_i,u_j)
+    $$
+
+    Soit $M$ une matrice $k\times k$, elle représentera toujours une forme bilinéaire $M:V\times V\ap K$, avec $\dim V=k$
+
+    \paragraph{Remarque} Cela implique que si deux formes bilinéaires ont même image sur les éléments de la base alors elles sont égales.
+
+    \paragraph{Remarque} Une matrice symétrique est associée à une forme bilinéaire symétrique et inversément.
+ 
+  \subsection{Le produit scalaire classique}
+   \subsubsection{En tant que forme bilinéaire}
+    Le produit scalaire classique\footnote{Le produit scalaire classique comme défini en analyse, est un produit scalaire non dégénéré dans le cas réel défini positif.} sur $\RR^N$ est une forme bilinéaire (comme tout produit scalaire) et est associé à la matrice identité. En effet, par définition :
+     $$\grp{(a_1, \hdots, a_N), (b_1, \hdots, b_N)}=
+      \begin{pmatrix}
+       a_1 & \cdots & a_N
+      \end{pmatrix}
+      \begin{pmatrix}
+       b_1 \\
+       \vdots \\
+       b_N
+      \end{pmatrix}
+     $$
+    Ce qui est équivalent à
+     $$
+      \begin{pmatrix}
+       a_1 & \cdots & a_N
+      \end{pmatrix}
+      \id
+      \begin{pmatrix}
+       b_1 \\
+       \vdots \\
+       b_N
+      \end{pmatrix}
+     $$
+
+    On connait aussi la formule, avec $\theta$ l'angle entre $v$ et $w$.
+     $$\grp{v,w}=|v||w|\cos \theta\footnote{Rappel : $\grp{w,w}=||w||^2$}$$
+
+   \subsubsection{Vecteurs orthogonaux}
+    Soient $v,w \in V$, il existe $c\in \RR$ tel que $v-cw \perp w$, c'est-à-dire que $\grp{v-cw,w}=0$. Comme $\grp{v,w}=|v||w|\cos \theta$, on a que
+     $$|cw|=|v|\cos \theta=\frac{\grp{v,w}}{|w|}$$
+    Et donc que
+     $$c=\frac{\grp{v,w}}{\grp{w,w}}$$
+
+  \subsection{Lemme : vecteurs orthogonaux}%|:PN:|\footnote{+preuve: 06/05/08, p2}
+   Soit $V$ un espace vectoriel muni d'un produit scalaire $\grp{~,\:}$. Soit $w$ tel que $\grp{w,w}\neq 0$, alors $v-\frac{\grp{v,w}}{\grp{w,w}}w$ vérifie :
+    $$\grp{v-\frac{\grp{v,w}}{\grp{w,w}}w, w}=0$$
+
+  \subsection{Procédé d'orthogonalisation de Gram-Schmidt}
+   \subsubsection{Base orthogonale}
+    Une base $\set{w_1, \hdots, w_m}$ est orthogonale si et seulement si :
+     $$\forall i,j \in \set{1, \hdots m}, (i\neq j) \so (\grp{w_i,w_j}=0)$$
+   \subsubsection{Théorème : Complétion de base orthogonale de sous vectoriel}%|:PN:|\footnote{+preuve: 07/05/08, p1}
+    Soit $V$ un $\RR$-vectoriel muni d'un produit scalaire défini positif (c'est-à-dire que $v\neq 0 \so \grp{v,v} > 0$). Soit $W$ un sous-$\RR$-vectoriel de $V$, dont $\set{w_1,\hdots, w_m}$ est une base orthogonale.\\
+    Alors si $W\neq V$, il existe $w_{m+1},\hdots, w_n$ avec $n=\dim V$ tels que $\set{w_1,\hdots,w_m,w_{m+1},\hdots,w_n}$ forment une base orthogonale de $V$.
+
+    \paragraph{Le procédé :} La preuve de ce théorème constitue le procédé d'orthogonalisation de Gram-Schmidt.
+
+    \begin{proof}
+     On sait que $\set{w_1,\hdots,w_m}$ est une famille libre dans $V$ (car c'est une base de $W$, un sous vectoriel de $V$), on peut donc la compléter en une base de $V$ que l'on notera :
+      $$\set{w_1,\hdots,w_m,\mt{w}_{m+1},\hdots,\mt{w}_n}$$
+     Il n'y a, à priori, aucune raison que cette base soit orthogonale.
+
+     On considère $W_{m+1}=\im \sigma_{v_1,\hdots,w_m,\mt{w}_{m+1}}$. On projette $\mt{w}_{m+1}$ sur les vecteurs $w_1,\hdots,w_m$ on obtient alors les projections
+      $$\frac{\grp{\mt{w}_{m+1},w_1}}{\grp{w_1,w_1}}w_1, \cdots, \frac{\grp{\mt{w}_{m+1},w_m}}{\grp{w_m,w_m}}w_m$$
+     Considérons maintenant
+      $$w_{m+1}=\mt{w}_{m+1}-\sum^m_{j=1}\frac{ \grp{\mt{w}_{m+1},w_j} }{\grp{w_j,w_j}}w_j$$
+     On affirme que ce nouveau vecteur est orthogonal aux précédants, vérifions le. C'est-à-dire, vérifions que $\grp{w_{m+1},w_{j_0}}=0$ pour $j_0=1,\hdots,m$.
+     \begin{eqnarray*}
+      \grp{w_{j_0},\mt{w}_{m+1}-\sum^m_{j=1}\frac{ \grp{\mt{w}_{m+1},w_j} }{\grp{w_j,w_j}}w_j} =&
+      \displaystyle \grp{w_{j_0},\mt{w}_{m+1}} - \sum^m_{j=1}\frac{ \grp{\mt{w}_{m+1},w_j} }{\grp{w_j,w_j}}
+      \underb{
+       \underset{
+        \underset{j_0=j}{\text{sauf si}}
+       }{=0}
+      }
+      {\grp{w_{j_0},w_j}
+      }\\
+      =&\displaystyle \grp{w_{j_0},\mt{w}_{m+1}} - \frac{\grp{\mt{w}_{m+1},w_{j_0}}} {\grp{w_{j_0},w_{j_0}}} \grp{w_{j_0},w_{j_0}}
+      \underset {
+       \overset
+        { \text{\begin{tiny}simplification et\end{tiny}} }
+        {
+        \overset
+        { \text{\begin{tiny}symétrie du\end{tiny}} }
+        { \text{\begin{tiny}produit scalaire\end{tiny}} }
+        }
+      }
+      {=}0
+     \end{eqnarray*}
+
+     On vient de montrer que le $w_{m+1}$ qu'on a construit est orthogonal à tous les vecteurs de la base othogonale $\set{w_1,\hdots,w_m}$. Donc, on a trouvé une base orthogonale de $W_{m+1}$ qui est $\set{w_1,\hdots,w_m,w_{m+1}}$.
+
+     Puis, on recommence avec $$W_{m+2}=\im \sigma_{v_1,\hdots,w_m,w_{m+1},\mt{w}_{m+2}}$$ pour obtenir la base orthogonale $\set{w_1,\hdots,w_m,w_{m+1},w_{m+2}}$. Et on itère jusqu'à $W_n=V$.
+    \end{proof}
+
+   \subsubsection{Application}
+    Soit $W$ un espace-vectoriel et $B_W=\set{w_1, w_2, w_3}$ une base de de $W$. On veut obtenir une base orthogonale de $W$, pour cela, on va utiliser le procédé d'orthogonalisation de Gram-Schmidt.
+
+    Comme premier élément de la base orthogonale $\mt{B}_W$, on prend $w_1$.
+
+    Prenons
+     $$\mt{w}_2=w_2-\frac{\grp{w_2,w_1}}{\grp{w_1,w_1}}w_1$$
+    $\mt{w}_2$ est orthogonal à $w_1$. On a $\set{w_1,\mt{w}_2}$ qui forme une base orthogonale de $W_2$ un sous-vectoriel de $W$.
+
+    Prenons maintenant
+     $$\mt{w}_3=w_3-\frac{\grp{w_3,w_1}}{\grp{w_1,w_1}}w_1-\frac{\grp{w_3,\mt{w}_2}}{\grp{\mt{w}_2,\mt{w}_2}}\mt{w}_2$$
+    On a que $\mt{B}_W=\set{w_1,\mt{w}_2, \mt{w}_3}$ forme une base orthogonale de $W$.
+
+  \subsection{Proposition : Espace supplémentaire orthogonal}%|:PN:|\footnote{+preuve:07/05/08, p2}
+   Si $V$ est un $\RR$-vectoriel muni d'un produit scalaire défini positif et $W$ un sous vectoriel de $V$ avec $W\neq V$, alors il existe\footnote{On sait qu'il existe toujours $W'\subseteq V$ tel que $W \oplus W'=V$ par la propriété d'admission d'un supplémentaire au point \ref{admitsuppl}} $W^\perp$ un sous vectoriel de $V$ tel que $W \oplus W^\perp = V$ et
+    $$\forall w \in W,\forall v\in W^\perp, \grp{w,v}=0$$
+
+  \subsection{Proposition : Produit scalaire nul et indépendance linéaire}%|:PN:|\footnote{+preuve:07/05/08, p2}
+   Soit $V$ un espace vectoriel muni d'un produit scalaire tel que $\forall v \in V\setminus\set{0}, \grp{v,v}\neq 0$\footnote{C'est-à-dire que le produit scalaire est non dégénéré.} alors $$(\grp{v,w}=0) \so (v \text{ et } w \text{ sont linéairement indépendants})$$
+
+   \subsubsection{Genéralisation : perpendicularité et indépendance linéaire}%|:PN:|\footnote{+preuve:07/05/08, p2}
+
+    Si $w_1, \hdots, w_m \in V$ sont $\perp$, alors ils sont linéairement indépendants.
+
+  \subsection{Produit hermitien}
+   Un produit hermitien $g$ est une forme bilinéaire sur $V$ un $\CC$-vectoriel $g:V \times V \ap \CC$ et qui vérifie :
+    $$\forall v,w \in V, g(v,w)=\overline{g(w,v)}$$
+   Ainsi que le fait qu'il soit défini positif\footnote{Quand il n'est pas défini positif, on appelle cela une forme hermitienne}, c'est-à-dire que
+    $$\forall v \in V\setminus \set{0}, \grp{v,v} > 0$$
+   et
+    $$\forall v \in V, (\grp{v,v}=0) \so (v=0)$$
+
+   On notera également le produit hermitien $\grp{~,\:}$ quand c'est non ambigu ou parfois $\grp{~|\:}$.
+
+   \paragraph{Remarque} On a que $g(v,v) \in \RR_+$. En effet, comme $g(v,v)=\overline{g(v,v)}$ cela implique que $g(v,v)\in \RR$ et c'est dans $\RR_+$ car c'est défini positif.
+
+   \paragraph{Remarque} Toute la théorie faite pour les produits scalaires réels définis positifs est valable pour les produits hermitiens définis positifs.
+
+   \paragraph{Exemple de produit hermitien} $\grp{z_1,z_2}=z_1\overline{z_2}$ est un produit hermitien.
+
+   \subsubsection{Produit hermitien canonique sur $\CC^N$}
+    Sur $\CC^N$ le produit hermitien canonique est le suivant :
+     $$\grp{X | Y} \overset{\Delta}{=} \sum^n_{i=1}X_i \overline{Y_i}$$
+     où $X=(X_1,\hdots,X_N)$ et $Y=(Y_1,\hdots,Y_N)$.
+
+  \subsection{Matrice de produit scalaire sur une base orthogonale}
+   Par définition, la matrice associée au produit scalaire $A$ sur $V$ dont une base est $B_V=\set{v_1,\hdots,v_n}$ est :
+    $$
+    \begin{pmatrix}
+     A(v_i,v_j)
+    \end{pmatrix}
+    $$
+   Mais si la base $B_V$ est orthogonale, on a alors, par definition de $\perp$ :
+    $$A(v_i,v_j)=0 \ioi i\neq j$$
+   Cela est équivalent à dire que la matrice du produit scalaire est diagonale.
+
+  \subsection{Base orthonormale}
+   Une base est dite orthonormale pour un produit scalaire si la matrice de ce produit scalaire dans cette base est la matrice unité.
+
+  \subsection{Rang d'une matrice}
+   Le rang d'une matrice est le nombre de lignes/colonnes\footnote{Ce nombre est identique que l'on compte les lignes ou les colonnes linéairement indépendantes.} linéairement indépendantes de la matrice.
+
+  \subsection{Produit scalaire réel défini positif et norme}
+   Soit $V$ de dimension finie $n$ muni d'un produit scalaire réel défini positif. Ce produit scalaire nous donne une norme. Avec le produit scalaire classique, norme est donnée par : 
+    $$|v|=\sqrt{\grp{v,v}}$$
+
+  \subsection{Matrice unitaire}
+   On dit que $M$ est une matrice unitaire si $|Mv|=|v|$.
+
+  \subsection{Definition de transposée par rapport au produit scalaire et symétrie}
+   On a $\grp{Mv,w}=\grp{v,\transposee{M}w}$, c'est ainsi qu'on va définir $\transposee{M}$.
+
+   On a donc que $M$ est symétrique si et seulement $$\forall v,w\in \RR^n, \grp{Mv,w}=\grp{v,Mw}$$
+
+ \begin{comment}
+  \subsection{Hessienne}
+   voir cours 14/05/08 p3
+ \end{comment}
+
+
+\begin{comment}
+ \section{En vrac}
+  \begin{itemize}
+   \item Dans les polynômes, une application linéaire interressante est la dérivation $D$.
+   \item Soit $A$ une app linéaire et $p$ un polynôme, alors $M_{p(A)}=p(M_A)$.
+   \item $\ker$ d'une app lin est un espace vect.
+   \item Comment calculer $\ker (D-\alpha \id)^r$ : voir Serge Lang, Alg.Lin 2, p.295.
+   \item Dans les matrices, on peut sélectionner un élément ou une ligne en plaçant des 1 et des 0 où il faut et faisant une multiplication matricielle.
+   \item Des trucs $M$ hernitienne, valeurs propres, fonctions de deux variables au 14/05/08 p2 (fin du cours)
+  \end{itemize} 
+\end{comment}
+\end{document}

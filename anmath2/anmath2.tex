@@ -1,0 +1,167 @@
+\documentclass[a4paper,10pt]{article}
+
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage[utf8]{inputenc}
+\usepackage[francais,french,frenchb]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{fullpage}
+\usepackage{graphicx}
+\usepackage[perpage]{footmisc}
+\usepackage{srctex}
+\usepackage{verbatim}
+
+\author{Pierre Hauweele}
+\title{Synth\`ese Analyse Math\'ematiques 2 - 2008-2009}
+\date{}
+
+\newcommand{\ap}{ \to} % Application
+\newcommand{\mt}[1]{\widetilde{ #1 }} % Wide tilde in math mode
+\newcommand{\grp}[1]{\left\langle #1 \right\rangle} % Group
+\newcommand{\set}[1]{\left\lbrace #1 \right\rbrace } % Set
+\newcommand{\im}{\mathrm{Im}\:} % Im(age)
+% Underbrace with argument
+\newcommand{\underb}[2]{\underset{ #1 }{\underbrace{ #2 }}}
+\newcommand{\st}[1]{#1^{\star}} % .^star
+\newcommand{\so}{\Rightarrow} % so/implies
+%\newcommand{\iff}{\Leftrightarrow} % If and only if
+\newcommand{\IZ}{\mathbb{Z}} % Integer set
+\newcommand{\IR}{\mathbb{R}} % Real set
+\newcommand{\IN}{\mathbb{N}} % Natural set
+\newcommand{\IQ}{\mathbb{Q}} % Rational set
+\newcommand{\IC}{\mathbb{C}} % Complex set
+\newcommand{\pgcd}{\mathrm{pgcd}} % french g.c.d=p.g.c.d
+\newcommand{\ppcm}{\mathrm{ppcm}}
+\newcommand{\id}{\mathrm{Id}} % Identity
+\newcommand{\rstrct}[2]{{ #1 }_{\upharpoonright_{ #2 }}} % Operator restriction
+\newcommand{\transposee}[1]{{\vphantom{#1}}^{\mathit t}{#1}} % Transpos\'ee
+\newcommand{\abs}[1]{\left\vert #1 \right\vert} % Absolute
+\newcommand{\adh}[1]{\mathrm{adh}\left( #1\right)}
+\newcommand{\eint}[1]{\mathrm{int}\left( #1\right)}
+\newcommand{\overcircle}[1]{\stackrel{\ \circ}{#1}}
+\newcommand{\mfootnote}[1]{\up{(}\footnote{#1}\up{)}}
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+\section{Topologie}
+ \subsection{Rappels}
+  \subsubsection{$K$-espace vectoriel}
+   Un $K$-espace vectoriel est la donn\'ee d'un un groupe additif commutatif (le vecteur) et d'un corps commutatif (le scalaire) ainsi que d'une op\'eration (multiplication scalaire) $K \times V \ap V$ qui v\'erifie :\\
+   \begin{enumerate}
+     \item $\forall v \in V, 1_K \cdot v = v$
+     \item Distributivit\'e du scalaire sur le vecteur :
+       $\forall k \in K, \forall v_1, v_2 \in V,~ k \cdot (v_1+v_2) = k \cdot v_1+k \cdot v_2$
+     \item Distributivit\'e du vecteur sur le scalaire :
+       $\forall k_1, k_2 \in K, \forall v \in V,~ (k_1+k_2) \cdot v = k_1\cdot v + k_2 \cdot v$
+     \item Associativit\'e mixte :
+       $\forall k_1,k_2 \in K, \forall v \in V,~ (k_1 \cdot k_2) \cdot v = k_1 \cdot (k_2 \cdot v)$
+   \end{enumerate}
+
+  \subsubsection{Norme}
+   Une norme est une fonction $||\cdot|| : E \ap \IR^+$, avec $E$ $K$-espace vectoriel, qui v\'erifie les propri\'et\'es suivantes :
+   \begin{enumerate}
+     \item $\forall x \in E, ||x||=0 \so x=0$
+     \item $\forall \lambda \in K, \forall x \in E, ||\lambda x ||=|\lambda|.||x||$
+     \item $\forall x,y \in E, ||x+y|| \le ||x|| + ||y||$
+   \end{enumerate}
+
+ \subsection{Espace norm\'e}
+  Un espace norm\'e $E$ est la donn\'ee d'un espace vectoriel $E$ et d'une norme.
+
+ \subsection{Espace m\'etrique}
+  Soit $E$ un ensemble et $d: E \times E \ap \IR^+$ qui v\'erifie :
+  \begin{enumerate}
+    \item $\forall x, y \in E, d(x,y)=d(y,x)$ (``sym\'etrie'') 
+    \item $\forall x, y \in E, d(x,y)=0 \iff x=y$ 
+    \item $\forall x, y, z \in E, d(x,z) \le d(x,y) + d(y,z)$ (``in\'egalit\'e triangulaire'') 
+  \end{enumerate}
+
+  \paragraph{Remarques :}
+   \begin{enumerate}
+     \item $\forall x,y \in E, d(x,y) = ||x-y||=||y-x||$ est une distance.
+     \item Il existe des espaces m\'etriques non norm\'es.
+   \end{enumerate}
+
+  \subsubsection{Distance usuelle}
+   Soit $(\IR,d_{us})$, $d_{us}$ est d\'efinie par :
+   $$\forall x,y \in \IR, d_{us}(x,y)=|x-y|$$
+   
+  \subsubsection{Distance discr\`ete}
+   Soit $(E,d_{dis})$, $d_{dis}$ est d\'efinie par : 
+   $$\forall x,y \in E, d_{dis}(x,y)=
+   \begin{cases}
+      0 \mbox{ si } x=y\\
+      1 \mbox{ sinon}
+   \end{cases}$$
+
+  \subsubsection{Propri\'et\'es d'ouverts}
+   \begin{enumerate}
+     \item $O$ est ouvert $\iff$ $O$ est une union de boules ouvertes.
+   \end{enumerate}
+
+  \subsubsection{Espace m\'etrique s\'epar\'e}
+   On dit que $(E,d)$ est s\'epar\'e si :
+   $$\forall a, b \in E, a \ne b, \exists B_a, \exists B_b, B_a \cap B_b = \emptyset$$
+
+  \subsubsection{Distance entre un point et un ensemble}
+   Soit $(E,d), A \subseteq E, x \in E$, on d\'efinit : 
+   $$d(x,A)= \inf_{y\in A} d(x,y)$$
+   \paragraph{Remarques}
+    \begin{enumerate}
+      \item $d(x,A)=0 \iff x \in \overline{A}$
+      \item $d(x,A)=d(x,\overline{A})$
+    \end{enumerate}
+
+ \subsection{Propri\'et\'es sur les ouverts et ferm\'es}
+  \begin{enumerate}
+    \item $A$ ferm\'e $\iff$ $\complement A$ ouvert.
+    \item $\overcircle{A}$ est le plus grand ouvert inclus \`a $A$.
+    \item Une union quelconque d'ouverts est un ouvert
+    \item Une intersection finie d'ouverts est un ouvert.
+    \item $\overline{A}$ est le plus petit ferm\'e contenant A
+  \end{enumerate}
+
+ \subsection{Espace topologique}
+   Soit $E$ un ensemble, on dit que $\mathcal{T} \subset \mathcal{P} (E)$ est une topologie si : 
+   \begin{enumerate}
+     \item $\emptyset, E \in \mathcal{T}$
+     \item Toute union quelconque d'\'el\'ements de $\mathcal{T}$ est un \'el\'ement de $\mathcal{T}$
+     \item Toute intersection finie d'\'el\'ements de $\mathcal{T}$ est un \'el\'ement de $\mathcal{T}$
+   \end{enumerate}
+
+   $(E,\mathcal{T})$ est appel\'e un espace topologique. Les \'el\'ements de $\mathcal{T}$ d\'efinissent les ``ouverts'' de $E$.
+
+  \subsubsection{Int\'erieur / Adh\'erence}
+   Soit $(E, \mathcal{T})$ un espace topologique.
+   \begin{itemize}
+     \item[Int\'erieur :] $x \in \eint{A} \iff \exists O_x \in \mathcal{T}, O_x \subset A$
+       \mfootnote{Par $O_x \in \mathcal{T}$ on entend un ouvert contenant $x$}
+     \item[Adh\'erence :] $x \in \adh{A} \iff \forall O_x \in \mathcal{T}, O_x \cap A \ne \emptyset$
+   \end{itemize}
+
+  \subsubsection{Propri\'et\'es d'int\'erieur et d'adh\'erence}
+   \begin{itemize}
+     \item $E \setminus \overline{A} = \eint{E\setminus A}$
+     \item $E \setminus \eint{A} = \adh{E \setminus A}$
+     \item $\overline{A \cap B} \subset \overline{A}\cap \overline{B}$
+     \item $\eint{A} \cup \eint{B} \subset \eint{A \cup B}$
+   \end{itemize}
+
+  \subsubsection{Espace topologique s\'epar\'e}
+   On dit que $(E, \mathcal{T})$ espace topologique est s\'epar\'e si : 
+   $$\forall x,y \in E, x \ne y, \exists O_x, O_y \in \mathcal{T}, O_x \cap O_y = \emptyset$$
+
+   \paragraph{Exemples}
+    \begin{itemize}
+      \item $(E, \mathcal{T}_{\mbox{grossi\`ere}})$ n'est pas s\'epar\'ee.
+      \item $(E, \mathcal{T}_{\mbox{discr\`ete}})$ est s\'epar\'ee.
+    \end{itemize}
+
+  \subsubsection{Limites}
+   Soient $X,E$ deux espaces topologiques, $F \subset E$ quelconque et $f: A \ap F$.
+   $$\lim_{\underset{x \in A}{x \ap a}}{f(x)}=l \in \adh{F} \iff \forall V_l, \exists V_a, f(V_a \cap A) \subset V_l$$
+\end{document}

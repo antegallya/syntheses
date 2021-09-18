@@ -1,0 +1,29 @@
+\begin{picture}(0,0)%
+\includegraphics{kersigma.pstex}%
+\end{picture}%
+\setlength{\unitlength}{4144sp}%
+%
+\begingroup\makeatletter\ifx\SetFigFontNFSS\undefined%
+\gdef\SetFigFontNFSS#1#2#3#4#5{%
+  \reset@font\fontsize{#1}{#2pt}%
+  \fontfamily{#3}\fontseries{#4}\fontshape{#5}%
+  \selectfont}%
+\fi\endgroup%
+\begin{picture}(4299,2241)(-11,-1873)
+\put( 46,209){\makebox(0,0)[lb]{\smash{{\SetFigFontNFSS{12}{14.4}{\rmdefault}{\mddefault}{\updefault}{\color[rgb]{0,0,0}$G$}%
+}}}}
+\put(2566,209){\makebox(0,0)[lb]{\smash{{\SetFigFontNFSS{12}{14.4}{\rmdefault}{\mddefault}{\updefault}{\color[rgb]{0,0,0}$H$}%
+}}}}
+\put(451,-286){\makebox(0,0)[lb]{\smash{{\SetFigFontNFSS{12}{14.4}{\rmdefault}{\mddefault}{\updefault}{\color[rgb]{0,0,0}$\sigma^{-1}(h_1)$}%
+}}}}
+\put(181,-961){\makebox(0,0)[lb]{\smash{{\SetFigFontNFSS{12}{14.4}{\rmdefault}{\mddefault}{\updefault}{\color[rgb]{0,0,0}$\Ker \sigma = \sigma^{-1}(1_H)$}%
+}}}}
+\put(451,-1636){\makebox(0,0)[lb]{\smash{{\SetFigFontNFSS{12}{14.4}{\rmdefault}{\mddefault}{\updefault}{\color[rgb]{0,0,0}$\sigma^{-1}(h_2)$}%
+}}}}
+\put(3466,-286){\makebox(0,0)[lb]{\smash{{\SetFigFontNFSS{12}{14.4}{\rmdefault}{\mddefault}{\updefault}{\color[rgb]{0,0,0}$h_1$}%
+}}}}
+\put(3196,-961){\makebox(0,0)[lb]{\smash{{\SetFigFontNFSS{12}{14.4}{\rmdefault}{\mddefault}{\updefault}{\color[rgb]{0,0,0}$1_H$}%
+}}}}
+\put(3421,-1636){\makebox(0,0)[lb]{\smash{{\SetFigFontNFSS{12}{14.4}{\rmdefault}{\mddefault}{\updefault}{\color[rgb]{0,0,0}$h_2$}%
+}}}}
+\end{picture}%

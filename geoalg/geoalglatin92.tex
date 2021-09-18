@@ -1,0 +1,376 @@
+\documentclass[reqno,a4paper,10pt]{report}
+
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage[latin9]{inputenc}
+\usepackage[francais]{babel}
+\usepackage{xspace,aeguill,ae}
+\usepackage[T1]{fontenc}
+\usepackage{fullpage}
+\usepackage{verbatim,mathrsfs,enumerate,url}
+\usepackage[dvips]{color}
+\usepackage{nag}
+
+\author{Pierre Hauweele \and Noémie Meunier}
+\title{Introduction à la géométrie algébrique/algèbre commutative}
+\date{2009-2010}
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\mt}[1]{\widetilde{#1}} % Wide tilde in math mode
+\newcommand{\gen}[1]{\left\langle #1 \right\rangle} % Generator
+\newcommand{\set}[1]{\left\lbrace #1 \right\rbrace} % Set
+\newcommand{\im}{\mathrm{Im}\:} % Im(age)
+% Underbrace with argument
+\newcommand{\underb}[2]{\underset{#1}{\underbrace{#2}}}
+\newcommand{\st}[1]{#1^{\star}} % .^star
+\newcommand{\IZ}{\ensuremath{\mathbb{Z}}\xspace} % Integer set
+\newcommand{\IR}{\ensuremath{\mathbb{R}}\xspace} % Real set
+\newcommand{\IN}{\ensuremath{\mathbb{N}}\xspace} % Natural set
+\newcommand{\IQ}{\ensuremath{\mathbb{Q}}\xspace} % Rational set
+\newcommand{\IC}{\ensuremath{\mathbb{C}}\xspace} % Complex set
+\newcommand{\so}{\Rightarrow}
+\newcommand{\inj}{\hookrightarrow}
+\newcommand{\surj}{\twoheadrightarrow}
+\newcommand{\bij}{\overset{\sim}{\to}} % Bijection
+\newcommand{\pgcd}{\mathrm{pgcd}} % french g.c.d=p.g.c.d
+\newcommand{\ppcm}{\mathrm{ppcm}}
+\newcommand{\id}{\ensuremath{\mathrm{Id}}} % Identity
+\newcommand{\rstrct}[2]{{#1}_{\upharpoonright_{#2}}} % Operator restriction 
+\newcommand{\transpose}[1]{{\vphantom{#1}}^{\mathit t}{#1}} % Transpose
+\newcommand{\abs}[1]{\left\vert #1 \right\vert} % Absolute
+\newcommand{\adh}[1]{\mathrm{adh}\left( #1\right)}
+\newcommand{\overcircle}[1]{\stackrel{\ \circ}{#1}}
+\newcommand{\ord}{\mathrm{ord}} % order of an element
+\newcommand{\pfootnote}[1]{\up{(}\footnote{#1}\up{)}} % Footnote w/ parenthesis
+\newcommand{\Homgrp}[1]{\text{Hom}_{\text{grp}}\left(#1\right)}
+\newcommand{\Autgrp}[1]{\text{Aut}_{\text{grp}}\left(#1\right)}
+\newcommand{\Autens}[1]{\text{Aut}_{\text{ens}}\left(#1\right)}
+\newcommand{\Aut}[1]{\text{Aut}\left(#1\right)}
+\newcommand{\Int}[1]{\text{Int}\left(#1\right)}
+\newcommand{\Endgrp}[1]{\text{End}_{\text{grp}}\left(#1\right)}
+\newcommand{\Endom}[2]{\text{End}_{#1}\left(#2\right)}
+\newcommand{\Orb}[2]{\text{Orb}_{#1}\left( #2 \right)}
+\newcommand{\Stab}[2]{\text{Stab}_{#1}\left( #2 \right)}
+\newcommand{\Card}[1]{\text{Card}\left( #1 \right)}
+\newcommand{\such}{\ \Big| \ }
+\newcommand{\Nmid}{\not\Big| \ } % divides not
+\newcommand{\ioi}{\Leftrightarrow} % If and Only If (tiny \iff)
+
+\newtheorem*{theorem*}{Théorème}
+\newtheorem*{lemma*}{Lemme}
+\newtheorem*{proposition*}{Proposition}
+
+\makeatletter
+\AtBeginDocument{%
+  \let\olditemize=\itemize%
+  \renewenvironment{itemize}{%
+    \olditemize%
+  }{%
+    \@noparlisttrue%
+    \endlist%
+  }%
+  \let\oldenumerate=\enumerate%
+    \renewenvironment{enumerate}{%
+    \oldenumerate%
+  }{%
+    \@noparlisttrue%
+    \endlist%
+  }%
+}%
+\makeatother
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\maketitle
+\tableofcontents
+\chapter{Anneaux}
+\section{Anneaux}
+\subsection{Définitions}
+\subsubsection{Groupe (rappel)} 
+Un groupe est un ensemble G muni d'une application
+% Commentaire : un ``array'' c'est un tableau, donc il peut avoir plusieurs
+% colonnes. [t] définit l'alignement vertical du tableau avec le texte, t c'est
+% pour top. Donc il va aligner le haut du tableau avec le texte. Si
+% on le met pas, il centre le tableau verticalement dans le texte.
+%
+% {r@{\ }l} ça... c'est l'indicateur d'alignement des colonnes du tableau ça
+% dit : 'r' : aligner la première colonne à droite (right).
+% @{\ } : le séparateur de colonne c'est un espace, qu'on spéicifie comme '\ '.
+% Parceque les espaces simples sont ignorés donc on 'l'escape' avec le
+% backslash.
+% 'l' : aligner la deuxième colonne à gauche (left).
+% on peut mettre 'c' aussi pour center.
+% Tu peux remplacer le '\ ' de @{\ } par ce que tu veux, par exemple
+% @{=} va utilise le signe = comme séparateur...
+% si tu met | comme séparateur sans utiliser @{}, cad : {r|l}, séparer avec une
+% ligne verticale pour faire un tableau avec des colonnes.
+% le nombre de colonnes du tableau est défini par le nombre de définitions de
+% colonnes que tu donnes, par exemple : 
+% {r@{=}l@{Sep}c|c|c}
+% te donnes un tableau à 5 colonnes n'importe comment.
+%
+% dans le tableau, le caractère '&' définit la séparation entre les colonnes.
+% donc ici, on sépare entre 'G' et '\to ...' et sur la deuxième ligne entre
+% '(x,y)' et '\mapsto xy'. Et ducoup la flèche \to et le \mapsto sont alignés.
+$\begin{array}[t]{r@{\ }l}
+  G &\to G\\
+  (x,y) &\mapsto xy
+\end{array}$
+tq $\forall x,y,z \in G$
+\begin{enumerate}[(1)]
+  \item (Associativité) $x.(y.z)=(x.y).z$
+  \item (Neutre) $\exists 1_R \in R$ tq $\forall x \in R, 1_R.x = x.1_R = x$
+  \item (Inverse) $\forall x \in G$ , $\exists x^*\in G$, $x.x^* = x^*.x = 1_R$
+\end{enumerate}
+
+\subsubsection{Anneau}
+Un anneau $R$ est un groupe abélien $(R, +)$ muni d'une application
+$\begin{array}[t]{r@{\ }l}
+  \mu_R: R \times R &\to R\\
+  (x,y) &\mapsto x.y = xy
+\end{array}$
+telle que $\forall x,y,z \in R$ on a :
+\begin{enumerate}[(1)]
+  \item (Associativité) $x.(y.z)=(x.y).z$
+  \item (Neutre) $\exists 1_R \in R$ tq $\forall x \in R, 1_R.x = x.1_R = x$
+  \item (Distributivité) 
+    $\begin{array}[t]{r@{\ }l}
+      x.(y+z) &= x.y + x.z\\
+      \text{et }~ ~ (y+z).x &= y.x + z.x
+    \end{array}$
+\end{enumerate}
+
+\paragraph{Remarques}
+(1): permet d'écrire $xyz$ et $x^n, n \in \IN$.\\
+(2): $1_R$ est unique.\\
+(3) équivaut à $\mu_R$ est un bimorphisme de groupe, i.e.
+$\forall x \in R$,
+$\left.\begin{array}{r@{\ }l}
+  R &\to R\\
+  y &\mapsto xy
+\end{array}\right\}$
+et
+$\left.\begin{array}{r@{\ }l}
+  R &\to R\\
+  y &\mapsto yx
+\end{array}\right\}$
+morphismes de $(R,+)$\\
+En particulier $\forall x \in R, x.0_R=0_R.x=0_R$ (0 est absorbant).
+
+% Commentaire : ``je n'arrive pas a passer une ligne...''
+% J'ai enlevé le parskip d'une ligne dans ce fichier que je t'avais expliqué,
+% parceque je trouvais ça un peu trop espacé pour une synthèse.
+%
+% En fait, Latex s'en fou du nombre de lignes blanches entre deux lignes, si il
+% y a au moins une ligne blanche, il démarre un nouveau paragraphe.
+% Il s'en fou aussi des retours à la ligne, si il n'y a pas de lignes blanches,
+% il faut le forcer à retourner à la ligne avec '\\'.
+% Et il s'en fou du nombre d'espaces aussi, tu as beau en mettre 50, il n'en
+% fera qu'un.
+% En fait c'est parceque le latex est à la base considéré comme un langage de
+% programmation et pas comme un processeur de texte.
+% (ptite leçon d'histoire : à la base c'était le TeX, créé par
+% Donald Knuth (le dieu de Troestler) qui a écrit The art of Computer
+% Programming (la bible de Troestler) et il a créé le langage TeX juste
+% parcequ'il trouvait que les systèmes de mise en page de bouquins de l'époque
+% étaient tous pourris et moches alors il s'est dit qu'il allait faire le sien
+% lui même et il y a passé 8 ans (juste...); le LaTeX c'est qu'une surcouche de
+% macros rajoutées au TeX par Leslie Lamport qui est un gars de chez
+% Microsoft... mais bon, on lui pardonne :D)
+% Je te l'ai pas déjà raconté tout ça ??? (après relecture, je pense plein de
+% fois non ? :P)
+% Bref, si tu veux encore une ligne d'écart, tu peux utiliser
+% \vskip 1em
+% vskip pour ``vertical skip'' et 1em ben... c'est 1 em quoi. Le em c'est une
+% unité de mesure, qui vaut la taille en points de la taille de fonte blablabla
+% Bref 1em = une ligne, 2em = 2 lignes, nem = n lignes.
+% Et pourquoi on dit un ``em'', ça j'en sais rien.
+\vskip 1em
+Il y a $3$ éléments remarquables dans $R$ : $0_R$, $1_R$ et
+$-1_R$.
+
+\paragraph{Remarque}
+%  Commentaire : \Leftrightarrow c'est long... il y a \iff pour
+% ``IF and only iF'' (ou ``ifffff''), la flèches est plus longue mais je trouve
+% ça plus clair.
+% Si tu veux, j'ai rajouté la commande \ioi ``If and Only If'' qui donne
+% \Leftrightarrow.
+$0_R = 1_R \equiv \forall x \in R, x = 0_R \iff R = 0_R$: anneau
+$\left\{\begin{array}{l}
+  \text{nul}\\
+  \text{trivial}
+\end{array}\right.$
+
+\paragraph{Définition: $R$ anneau commutatif} si de plus $\forall x,y \in R,
+x.y = y.x$ (la 2\up{e} loi est commutative)\\
+Exemples :
+% Commentaire : tu voulais faire qqch de spécial avec
+% l'accolade dans : 
+%  \item{Anneaux de nombres:} ils sont commutatifs
+% ?
+% Et quoi les applications à valeurs dans un anneau ?
+\begin{enumerate}[1.]
+  \item{Anneaux de nombres:} ils sont commutatifs
+  \item{Anneaux de tranformations:} non commutatifs en général
+  \item{Applications à valeurs dans un anneau $(R,+,.)$}
+\end{enumerate}
+
+\subsubsection{$R^\times$, ensemble des inversibles}
+L'ensemble des inversibles de $R$ est noté $R^\times$ : 
+\[R^\times = \set{x \in R tq \exists y \in R tq x.y =y.x} = 1_R\]
+
+\subsubsection{Corps}
+Un corps est un anneau commutatif K tel que $K^{\times} = K\setminus\set{0}$.
+
+\subsection{Anneaux de transformation}
+\subsection{Applications à valeurs dans un anneau $(R,+,.)$}
+\subsubsection{Lemme: Centre de ${\IZ[i]}^\times$}
+\[{\IZ[i]}^\times = \set{1,-1,i,-i} = \gen{i}_{\IC^\times} \simeq \IZ/4\IZ\]
+\begin{comment}
+  preuve 17/09/09 p1
+\end{comment}
+
+\section{Sous-anneaux}
+\subsection{Définition : Sous-anneau}
+Soit $R=(R,+,.)$ un anneau et $S \subseteq R$. $S$ est un sous-anneau de $R$
+si :
+\begin{itemize}
+  \item $(S,+)$ est un sous-groupe de $(R,+)$
+  \item $1_R \in S$
+  \item $\forall x,y \in S, xy \in S$
+\end{itemize}
+
+\paragraph{Remarques}
+\begin{itemize}
+  \item $S$ sous-anneau de $R \so (S,+,.)$ anneau.
+  \item $(S^\times, .)$ sous-groupe de $(R^\times, .)$.
+\end{itemize}
+
+\subsection{Chaînes de sous-anneaux}
+\begin{itemize}
+  \item $\IZ \subseteq \IQ \subseteq \IR \subseteq \IC$ chaine de sous-anneaux.
+  \item $\IZ \subseteq \IZ[i] \subseteq \IC$ chaîne de sous-anneaux.
+  \item $\IZ^\times < {\IZ[i]}^\times < \IC^\times$ chaîne de sous-groupes.
+  \item $\IZ + 2i\IZ \underset{\text{def}}{=} \set{a+i2b; a,b \in \IZ}$
+    est un sous-anneau de $\IZ[i]$ et ${(\IZ+2i\IZ)}^\times = \set{-1, 1}
+    = \IZ^\times$.
+\end{itemize}
+
+\subsection{Sous-anneaux d'endomorphismes}
+On obtient des sous-anneaux des anneaux du type $R=\Endgrp{A}$, où $(A,+)$
+groupe abélien, en ajoutant des structures supplémentaires sur $A$ qui sont
+compatibles avec la loi $+$.
+
+\paragraph{Exemple} $(A,+) = (\IR^n, +)$
+\begin{itemize}
+  \item $R = \Endgrp{\IR^n}$
+  \item $S=\Endom{\underset{\text{cont}}{\text{grp}}}{\IR^n}$ sous-anneau de
+    $R$.
+  \item $T=\Endom{\IR-\text{lin}}{\IR^n}=M_n(R)$ sous-anneau de $S$. Et en fait
+    $S=T$.
+\end{itemize}
+
+De façon similaire, 
+\begin{itemize}
+  \item $R=\mathcal{A}(\IC, \IC)$.
+  \item $S=\mathcal{A}_\text{cont}(\IC, \IC)$ sous-anneau de $R$.
+  \item $T=\mathscr{H}(\IC)=\set{\text{applications holomorphes}}$ sous-anneau
+    de $S$.
+\end{itemize}
+
+\subsection{Centre d'un anneau (est un sous-anneau)}
+Le centre de $R$ est :
+\[Z(R)=\set{x \in R \such \forall y \in R, xy=yx}\]
+$Z(R)$ est un sous-anneau de $R$.
+
+Exemple: $K$ corps, $R=M_n(K)$ anneau. On a $Z(R)=\set{\lambda . \id_n}$
+
+\subsection{Génération d'anneaux}
+$T$ anneau, $R,S$ sous-anneaux de $T$.
+\begin{itemize}
+  \item Alors $R \bigcap S$ est un sous-anneau de $T$, de $T$ et de $S$.
+    On a : $R \bigcap S =$ le plus grand (pour $\subseteq$) sous-anneau de $T$
+    contenu dans $S$ et dans $R$.\\
+    Plus généralement, une intersection de sous-anneaux est un sous-anneaux.
+  \item $P$ une partie de $T$.
+    \begin{eqnarray*}
+      \gen{P} &\underset{\text{def}}{=}&\bigcup_{
+      \left(\begin{array}{c}
+        U\text{ sous-anneau}\\
+        \text{de } T\\
+        \text{tq }P \subseteq U
+      \end{array}\right)} U\\
+      &=&\text{le plus petit sous-anneau de } T \text{ contenant} P
+    \end{eqnarray*}
+\end{itemize}
+
+\section{Anneau produit}
+Soient $R,S$ anneaux. Alors l'ensemble $R\times S$ est muni d'une structure
+d'anneau par :
+\begin{itemize}
+  \item $(x_1, y1)+(x_2, y_2) = (x_1+x_2, y_1+y_2)$
+  \item $(x_1,y_1).(x_2, y_2) = (x_1x_2, y_1y_2)$
+\end{itemize}
+On a : $0_{R\times S}=(0_R, 0_S)$ et $1_{R\times S}=(1_R, 1_S)$.\\
+De plus, $(R\times S)^\times = R^\times\times S^\times$.
+\paragraph{N.B :} Les sous-ensembles de $R\times S$, $\set{(x,0_S); x \in
+\IR}$ et $\set{(0_R, y); y \in S}$ sont des sous-groupes de $(R\times S, +)$
+mais ne sont pas des sous-anneaux (si $S \neq \set{0}$, respectivement
+$R \neq \set{0}$).\\
+Plus généralement, on construit un produit quelconque d'anneaux.
+
+\section{Morphismes}
+
+\subsection{Déf:} Soient $R,S$ anneaux\\
+                 Un morphisme $f$ de $R$ dans $S$ est une application
+                 $f: R \to S$ tq, $\forall x,y \in R$
+                 \begin{enumerate}[(1)]
+                 \item $f(x+y) = f(x)+f(y)$
+                 \item $f(x.y) = f(x).f(y)$
+                 \item $f(1_R) = 1_S$
+                 \end{enumerate}
+                 
+\paragraph{Remarques:}
+\begin{itemize}
+\item $(1) \ioi  f$ morphisme grpe $(R,+) \to (S,+)$ ; on a alors $f(0_R) = 0_S$ et $f(-x) = -f(x)$\\
+      $(2)$ et $(3)$ : compatibilité avec 2\up{es} lois
+\item Si S anneau non nul, l'application $\left\{\begin{array}{ll}
+                                           \ R \to S\\
+                                           \ x \mapsto 0_S
+                                          \end{array}\right.$ 
+                                          est un morphisme de groupe, mais pas d'anneau.
+\item Si $f: R \to S$ morphisme d'anneau bijectif, alors $f^(-1): S \to R$ morphisme d'anneau
+\end{itemize}     
+
+\paragraph{Rmq:} $R \simeq S \ioi \exists$ isomorphisme d'anneau $R \bij S$ est une relation d'équivalence.
+
+\paragraph{Rmq:} $R$ anneau non nul.\\
+                 Il existe un unique morphisme d'anneau\\
+                 $\begin{array}{c}
+                   \mathbb{Z} \to R\\
+                   1 \mapsto 1_R\\
+                   n \mapsto n.1_R
+                  \end{array}$
+
+\subsection{Ker et Im}
+
+$R$, $S$ anneaux
+$f: R \to S$ morphisme d'anneau
+En particulier, $f: (R,+) \to (S,+)$ morphisme de grpe
+     $\begin{array}{l}
+      \ker f = \set{x \in R \such f(x) = 0_S} \text{ sous-groupe de } (R,+)\\
+      \im f = \set{f(x) ; x \in R} \text{ sous-groupe de } (S,+)
+     \end{array}$\\
+On a $:\begin{array}[t]{l}
+       f \text{ surjective } \ioi \im f = S\\
+       f \text{ injective } \ioi \ker f = \set{0_R}
+       \end{array}$    
+ 
+\chapter{Anneaux commutatifs}
+\chapter{Arithmétique des anneaux}
+\end{document}
+% vim:expandtab:shiftwidth=2:nu

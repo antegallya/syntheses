@@ -1,0 +1,1160 @@
+\documentclass[a4paper,10pt]{article}
+
+\usepackage[utf8x]{inputenc}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage[french]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[dvips]{graphicx}
+\usepackage{pst-all}
+\author{David Hauweele}
+\title{Synthèse Algèbre I}
+\date{2007-10-23}
+
+\newcommand{\card}[1]{\left\vert #1 \right\vert}
+\newcommand{\Fix}{\mbox{Fix }}
+\newcommand{\Sgn}{\mbox{Sgn }}
+\newcommand{\Supp}{\mbox{Supp }}
+%%\newcommand{\mod}{\mbox{ mod }}
+\newcommand{\dom}{\mbox{Dom }}
+\newcommand{\but}{\setminus}
+\newcommand{\Ker}{\mbox{Ker }}
+\newcommand{\im}{\mbox{Im }}
+\newcommand{\grp}[1]{\left\langle #1 \right\rangle}
+\newcommand{\ap}{\rightarrow}
+\newcommand{\nap}{ \longrightarrow {\kern-13,5pt{\backslash}}~~}
+\newcommand{\apw}[1]{\stackrel{#1}{\rightarrow}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\I}{\mathbb{I}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\so}{\Rightarrow}
+\newcommand{\os}{\Leftarrow}
+\newcommand{\ioi}{\Leftrightarrow}
+\newcommand{\tset}[1]{\left\lbrace #1 \right\rbrace}
+\newcommand{\conv}[1]{\mathop{\longrightarrow}\limits_{#1}}
+\newcommand{\nconv}[1]{\mathop{\nap}\limits_{#1}}
+\newcommand{\abs}[1]{\left\vert #1 \right\vert}
+\newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+\newcommand{\normal}{\triangleleft}
+\newcommand{\PGCD}{\mbox{PGCD}}
+\newcommand{\PPCM}{\mbox{PPCM}}
+\newcommand{\ordre}{\mbox{ordre }}
+\newcommand{\Inn}{\mbox{Inn }}
+\begin{document}
+
+\maketitle
+Last revision : \today
+
+%Document réalisé en \LaTeX
+
+%Document réalisé sous Vim
+
+%Figures réalisées sous XFig
+
+%Le tout sur Linux et FreeBSD
+\tableofcontents
+\newpage
+
+\section{Introduction}
+
+\subsection{Ensemble}
+
+Un ensemble est une collection d'objet (l'ordre importe peu). On peut citer :
+
+$$\mathbb{Z},\mathbb{R}^2,\mathbb{C}^2$$
+
+\subsection{Element}
+
+Un objet de la collection formant un ensemble.
+
+Pour signifier qu'un élément appartient à un ensemble on utilise $\in$ (appartient). Par exemple $2 \in \mathbb{Z}$.
+
+\subsection{Sous-ensemble ou partie}
+
+On dit que $Y$ est un sous-ensemble de $X$ ou aussi une partie\footnote{Ne pas confondre partie et élément, en effet $x\in X$ et $\left\lbrace x \right\rbrace \subset X$.} de $X$ si tous les éléments de $Y$ sont éléments de $X$
+
+Pour signifier qu'un ensemble est sous-ensemble d'un autre ensemble on utilise $\subset$ (inclu), $\subseteq$ (inclu ou égaux). Par exemple $\mathbb{Z} \subset \mathbb{R}$.
+
+\subsection{Ensemble des parties}
+
+On considère ici un ensemble qui comprend toutes les parties d'un autre ensemble.
+
+$$\forall Y \subseteq X, Y \in \mathcal{P} X$$
+
+On peut aussi considérer un ensemble qui comprend tous les ensemble des parties d'un ensemble.
+
+$$\forall Y \subseteq \mathcal{P} X, Y \in \mathcal{P}^2 X$$
+
+Prenons par exemple l'ensemble $\mathbb{R}^2$, on peut dire qu'une droite $D$ est un sous-ensemble tel que $D \subset \mathbb{R}^2$ donc $D \in \mathcal{P} \mathbb{R}^2$. Prenons maintenant deux droites $D_1$ et $D_2$, on peut dire que $D_1,D_2 \in \mathcal{P} \mathbb{R}^2$ mais on peut aussi dire que l'ensemble $\left\lbrace D_1 ; D_2  \right\rbrace \subset \mathcal{P} \mathbb{R}^2$ et encore $\left\lbrace D_1 ; D_2  \right\rbrace \in \mathcal{P}^2 \mathbb{R}^2$
+
+\newpage
+
+
+\subsection{Union d'ensembles}
+
+On note $A \cup B$ l'ensemble constitué des éléments de $A$ et des éléments de $B$
+
+$$A \cup B = \tset{x \vert x\in A \mbox{ ou } x \in B}$$
+
+\subsection{Intersection d'ensembles}
+
+On note $A \cap B$ l'ensemble constitué des éléments de $A$ ou $B$
+
+$$A \cap B = \left\{ x \vert x \in A \mbox{ et } x \in B \right\}$$
+
+\subsection{Partition}
+
+Une partition c'est une famille $\mathcal{F}$ de parties de $X$ qui vérifie:
+
+\begin{itemize}
+ \item{On recouvre $X$}
+ \item{Tous les éléments de $\mathcal{F}$ sont non vides}
+ \item{Deux éléments de $\mathcal{F}$ sont soit égaux, soit disjoints}
+\end{itemize}
+
+Autrement dit :
+
+$$\bigcup \mathcal{F} = X \mbox{ ou encore } \bigcup\limits_{Y \in \mathcal{F}} Y = X$$
+
+$$\forall Y (Y \in \mathcal{F} \Rightarrow Y \neq \emptyset)$$
+
+$$\forall Y_1, Y_2 (Y_1 \in \mathcal{F} \wedge Y_2 \in \mathcal{F} \Rightarrow (Y_1 = Y_2) \vee (Y_1 \cap Y_2 = \emptyset))$$
+
+\subsection{Relation binaire}
+
+Dans une relation binaire (par exemple $\mathcal{R}$) on met en relation des couples d'éléments d'un ensemble donné (par exemple $x \mathcal{R} y$), une relation binaire sur $X$ est donc une partie de $X^2$.
+
+\subsection{Relation d'équivalence}
+
+Une relation binaire sur $X$ est une relation d'équivalence si elle est réfléxive, symétrique et transitive.
+
+Autrement dit :
+
+$$\forall x \in X, x \mathcal{R} x$$
+$$\forall x,y \in X, x \mathcal{R} y \Leftrightarrow y \mathcal{R} x$$
+$$\forall x,y,z \in X, (x \mathcal{R} y \wedge x \mathcal{R} z) \Rightarrow y \mathcal{R} z$$
+
+On note souvent une relation d'équivalence par $\sim$ ou aussi $\equiv$.
+
+\subsection{Classe d'équivalence}
+
+On considère $\left\lbrace y \vert x \sim y \right\rbrace$, appelé classe d'équivalence et souvent noté $\left[ x \right]_\sim$
+
+La famille $\mathcal{F} = \left\lbrace { \left[ x \right]_\sim } \vert x \in X \right\rbrace$ est une partition sur $X$.
+
+Pour une partition $\mathcal{F}$ on peut trouver une relation d'équivalence.
+
+\subsection{Quotient}
+
+Soit $f : A \rightarrow B$ une fonction quelconque.
+
+Soit une relation d'équivalence $\sim$ telle que $x \sim y \Leftrightarrow f(x) = f(y)$
+
+On note $f^{-1}b = \left\lbrace x \in A \vert f(x) = b \right\rbrace$
+
+Premièrement on a $\left[ a \right]_\sim = f^{-1} (f(a))$
+
+Deuxièmement on a $\exists \mathcal{G} : \mathcal{F} \rightarrow \mbox{ Im } f : \left[ a \right]_\sim \mapsto f(a) \mbox{ ou encore } f^{-1} b \mapsto b$ 
+
+%\section{Théorie des groupes}
+\subsection{Modulo}
+L'opération de modulo par exemple $n$ modulo $d$ (noté aussi $n \mod d$) c'est le reste\footnote{Il est également utile de donner une interprétation plus géométrique de cette opération. On peut par exemple s'imaginer un angle restreint à un interval $2 \pi$ par l'opération modulo.} de la division de $n$ par $d$.
+Autrement dit, soit $n = qd + r$ (algorithme d'Euclide) alors $n \mod d = n - qd = r$.
+Notons que $0 \leq r < d$, le résultat de l'opération modulo doit donc lui appartenir à cette intervale.
+
+\subsection{Congruence}
+
+La congruence signifie avoir le même reste modulo $d$, souvent noté $\equiv_d$.
+
+$$x \equiv_d y \Leftrightarrow x \mod d = y \mod d \Leftrightarrow \exists q : x - y = qd$$
+\subsection{Ecriture en base $n$}
+Prenons l'exemple de la base 17. Le nombre 2597 peut s'écrire en base 17 comme $8.17^2 + 2597 \mod 17^2 = 8.17^2 + 285$ mais $285$ peut s'écrire comme $16.17^1 + 285 \mod 17^1 = 16.17^1 + 4$ et $4$ peut s'écrire comme $4.17^0 + 4 \mod 17^0 = 4.17^0 + 1$. Autrement dit, $2597 = 8.17^2 + 16.17^1 + 4.17^0$. Si on définie les chiffres de la base dix-sept par $\left[ 0, 1, 2, 3, 4, 5, 6 , 7, 8, 9 , A, B, C, D, E, F, G \right]$ alors 2597 s'écrit en base 17 : $800 + F0 + 4 = 8F4$.
+
+D'une manière plus générale pour écrire dans la base $n$, soit $r_j$ la valeur du $j-\mbox{ième}$ rang et $m$ le nombre à écrire. Alors le chiffre au $k-\mbox{ième}$ rang est donné par $\alpha_k = (m - r_{k-1}.\alpha_{k-1}) \mbox{ div } r_k$ autrement dit : 
+$$\alpha_k = (m \mod r_{k+1}) \mbox{ div } r_k$$
+
+Notons que les chiffres de l'écriture en base $n$ appartiennent à l'intervalle définie par $\left[ \mbox{min } \alpha , \mbox{Max } \alpha \right] \subset \mathbb{Z}$.
+
+Notons aussi que le rang ne se compte pas à partir de 1 mais à partir de 0, par exemple le nombre en base 16 EA28, le rang 0 est 8, le rang 1 est 2, le rang 3 est A et le rang 4 est E.
+\subsection{Suite de Fibonacci}
+Soit la suite définie par $F_{n+2} = F_n + F_{n+1}$ avec $F_0$ et $F_1$ donné\footnote{Une suite définie par $F_{n+k+1} = \sum_{i=n}^{n+k} F_{n+i}$ avec $F_0$ à $F_k$ donné est une suite dite de K-bonacci.}. On dit que la suite $F$ est de Fibonacci.
+
+La suite de Fibonacci a une croissance exponentielle, elle est lié au nombre d'or. En effet $\varphi = \lim\limits_{n \rightarrow \infty} \frac{\vert F_{n+1} \vert}{\vert F_n \vert}$
+
+\newpage
+
+\subsection{Ecriture en base de Fibonacci}
+La valeur au $n-\mbox{ième}$ rang de l'écriture en base de Fibonacci est donnée par le $n-\mbox{ième}$ terme de la suite de Fibonacci à savoir $F_n$. Le chiffre au rang $k$ est donc :
+$$\alpha_k = (m \mod F_{k+1}) \mbox{ div } F_k$$
+
+L'écriture en base de Fibonacci est utilisée pour montrer la complexité de l'agorithme d'Euclide.
+
+\subsection{Notation}
+
+On note $\mathbb{Z} / x \mathbb{Z}$ l'ensemble $\left\lbrace 0, 1, ... , x \right\rbrace$ et $\mathbb{F}_{x}$ si $x$ est premier.
+
+\subsection{Calcule}
+
+Prenons par exemple $2^{1993} \mod 5 = 2 . 2^{1992} \mod 5 = 2 . \left( 2^4 \right)^{498} \mod 5$ mais on sait que $2^4 \mod 5 = 1$ donc $2 . \left( 2^4 \right)^{498} \mod 5 = 2 . 1^{498} \mod 5 = 2$.
+
+\subsection{Groupe}
+
+Un groupe est un ensemble munie d'une loi qui est partout définie et interne, contient un neutre, contient l'inverse de chaque élément, est associatif.
+
+Exemple :
+
+$$\forall x,y \in \mathbb{F}_5, x +_5 y \in \mathbb{F}_5$$
+$$\forall x \in \mathbb{F}_5, x +_5 0 = 0 +_5 x = x$$
+$$\forall x \in \mathbb{F}_5, \exists y \in \mathbb{F}_5 : x +_5 y = 0$$
+$$\forall x,y,z \in \mathbb{F}_5, (x +_5 y)  +_5 z  = x +_5 (y +_5 z)$$
+
+On dira que $\left\langle \mathbb{F}_5 , +_5 , 0 \right\rangle$ est un groupe. De plus, on peut dire que c'est un groupe commutatif car :
+
+$$\forall x,y \in \mathbb{F}_5, x +_5 y = y +_5 x$$
+
+\newpage 
+
+\section{Théorie des groupes}
+
+\subsection{Opération binaire}
+
+Une opération binaire $\star$ sur un ensemble $G$ est une fonction 
+
+$$\star : G \times G \rightarrow G : (x,y) \mapsto x \star y$$
+
+\subsection{Monoïde}
+
+Un monoïde ou semi-groupe avec neutre c'est la donnée\footnote{Cette donnée est notée $\left\langle G , \cdot_G \right\rangle$ ou $\left\langle G , \cdot_G , 1_G \right\rangle$. Reste valable pour les monoïdes, groupes et groupes commutatifs.} d'un ensemble $G \neq \emptyset$ et d'une opération binaire notée $\cdot_G$ qui vérifie :
+
+\begin{itemize}
+ \item[1]{L'opération $\cdot_G$ est interne}
+ \item[2]{L'opération $\cdot_G$ est partout définie}
+ \item[3]{L'opération $\cdot_G$ est associative}
+ \item[4]{L'opération $\cdot_G$ admet un neutre notée $1_G$}
+\end{itemize}
+
+Autrement dit :
+
+$$\mbox{(1) et (2) }\forall x,y \in G, x \cdot_G y \in G$$
+$$\mbox{(3) } \forall x,y,z \in G, ( x \cdot_G y ) \cdot_G z = x \cdot_G ( y \cdot_G z )$$
+$$\mbox{(4) } \forall x \in G, 1_G \cdot_G x = x \cdot_G 1_G = x$$
+
+\subsection{Groupe}
+
+Un groupe c'est la donnée d'un ensemble $G \neq \emptyset$ et d'une opération binaire notée $\cdot_G$ qui vérifie :
+
+\begin{itemize}
+ \item[1]{L'opération $\cdot_G$ est interne}
+ \item[2]{L'opération $\cdot_G$ est partout définie}
+ \item[3]{L'opération $\cdot_G$ est associative}
+ \item[4]{L'opération $\cdot_G$ admet un neutre notée $1_G$}
+ \item[5]{L'opération $\cdot_G$ est inversible}
+\end{itemize}
+
+Autrement dit :
+
+$$\mbox{(1) et (2) }\forall x,y \in G, x \cdot_G y \in G$$
+$$\mbox{(3) } \forall x,y,z \in G, ( x \cdot_G y ) \cdot_G z = x \cdot_G ( y \cdot_G z )$$
+$$\mbox{(4) } \forall x \in G, 1_G \cdot_G x = x \cdot_G 1_G = x$$
+$$\mbox{(5) } \forall x \in G, \exists y \in G : x \cdot_G y = y \cdot_G x = 1_G$$
+
+\newpage
+
+\subsection{Groupe abélien}
+
+Un groupe abélien (ou groupe commutatif) c'est la donnée d'un ensemble $G \neq \emptyset$ et d'une opération binaire notée $\cdot_G$ qui vérifie :
+
+\begin{itemize}
+ \item[1]{L'opération $\cdot_G$ est interne}
+ \item[2]{L'opération $\cdot_G$ est partout définie}
+ \item[3]{L'opération $\cdot_G$ est associative}
+ \item[4]{L'opération $\cdot_G$ admet un neutre notée $1_G$}
+ \item[5]{L'opération $\cdot_G$ est inversible}
+ \item[6]{L'opération $\cdot_G$ est commutative}
+\end{itemize}
+
+Autrement dit :
+
+$$\mbox{(1) et (2) }\forall x,y \in G, x \cdot_G y \in G$$
+$$\mbox{(3) } \forall x,y,z \in G, ( x \cdot_G y ) \cdot_G z = x \cdot_G ( y \cdot_G z )$$
+$$\mbox{(4) } \forall x \in G, 1_G \cdot_G x = x \cdot_G 1_G = x$$
+$$\mbox{(5) } \forall x \in G, \exists y \in G : x \cdot_G y = y \cdot_G x = 1_G$$
+$$\mbox{(5) } \forall x,y \in G, x \cdot_G y = y \cdot_G x$$
+
+\subsection{Groupe linéaire de dimension $n$}
+
+Le groupe linéaire de dimension $n$ (noté $GL_n(\mathbb{R})$) c'est l'ensemble des matrices $n \times n$ inversibles à coefficients dans $\mathbb{R}$.
+
+\subsection{Ensemble des bijections de $A$ vers $B$}
+
+On note l'ensemble des bijections de $A$ vers $B$ $\mbox{Bij} (A,B)$.
+
+Notons que la composition de fonction est définie seulement si $A=B$.
+
+\subsection{Sous groupe}
+Soit $\grp{G,._G,1_G}$ un groupe et $H \subset G$, on dit que $H$ est un sous-groupe de $G$ (on note $\grp{H,._G,1_G} < \grp{G,._G,1_G}$ ou $H < G$) si:
+
+\begin{itemize}
+ \item[1]{Le neutre $1_G$ appartient à $H$}
+ \item[2]{L'ensemble $H$ forme un groupe avec l'opération $._G$ et le neutre $1_G$}
+\end{itemize}
+
+\subsection{Critère de sous groupe}
+Soit $\grp{G,._G,1_G}$ un groupe. Soit $H \subset G$ alors $H$ est un sous-groupe de $G$ ssi :
+
+\begin{itemize}
+ \item[1]{Le neutre $1_G$ appartient à $H$}
+ \item[2]{L'opération $._G$ et interne à $H$}
+ \item[3]{L'inverse de tout élément de $H$ (au sens de $G$) est élément de $H$}
+\end{itemize}
+
+\subsection{Morphisme}
+
+Soit $\grp{G,._G,1_G}$ et $\grp{H,._H,1_H}$ deux groupes quelconques, soit $\sigma$ une application $G \ap H$. On dit que $\sigma$ est un morphisme de groupe si :
+
+$$\forall g_1, g_2 \in G, \sigma(g_1) ._H \sigma(g_2) = \sigma(g_1 ._G g_2)$$
+
+\subsection{Monomorphisme}
+
+Un monomorphisme est un morphisme injectif.
+
+\subsection{Epimorphisme}
+
+Un épimorphisme est un morphisme surjectif.
+
+\subsection{Isomorphisme}
+
+Un isomorphisme est un morphisme bijectif (càd un monomorphisme et un épimorphisme).
+
+\subsubsection{Remarque sur les morphismes}
+Soit $\sigma : G \ap H$ un morphisme de groupes,
+
+Alors $\sigma (1_G) = 1_H$
+
+Alors $\forall g \in G, \sigma(g^{-1}) = \sigma(g)^{-1}$
+
+\subsection{Domaine}
+
+Soit $f: A \ap B$, on a $\dom f = \tset{a \in A, f(a) \mbox{ existe}}$
+
+\subsection{Ensemble image}
+
+Soit $f: A \ap B$, on a $\im f = \tset{b \in B \vert \exists a, f(a)=b} = \tset{f(a) \vert a \in \dom f}$
+
+Dans le cas d'un morphisme de $G$ vers $H$ on a $\im \sigma < \grp{H, . , 1_H}$
+
+\subsection{Ensemble préimage}
+
+Soit $f:A \ap B$, on a $f^{-1}(b) = \tset{a \in A \vert f(a) = b}$ càd tous les points qui atteignent $b$.
+
+Note $f^{-1} \neq \emptyset \ioi b \in \im f$
+
+Note $\left[ a \right]_{\sim_f} = f^{-1} (f(a))$
+
+Note $\bigcup f^{-1}B = A$ et $b_1 \neq b_2 \ioi f^{-1}(b_1) \neq f^{-1}(b_2)$
+
+
+\newpage
+
+\subsection{Noyau}
+
+Soit $f:A \ap B$, on a $\Ker f = f^{-1}(0) = \tset{a \in A \vert f(a) = 0}$
+
+Soit $\sigma: G \ap H$ un morphisme, on a $\Ker \sigma = \sigma^{-1}(0) = \tset{a \in A \vert \sigma(a) = 1_H}$
+
+Dans le cas d'un morphisme, on a aussi $\Ker \sigma < \grp{G, . , 1_G}$ 
+
+\begin{figure}[h]
+	\centering{\input{kersigma.pstex_t}}
+\end{figure}
+ 
+\subsection{Surjectivité, Injectivité, Bijectivité}
+
+Soit $f : A \ap B$ une fonction,
+
+$f$ est surjective sur $B$ ssi $\forall b, f^{-1}(b) \neq \emptyset$
+
+$f$ est injective sur $\dom f$ ssi $f^{-1}(b)$ est un singleton ou vide (pas garantie qu'on à la surjection).
+
+$f$ est une bijection de $\dom f$ sur $B \ioi \forall b \in B, f^{-1}(b)$ est un singleton. 
+
+\subsection{Epimorphisme, Monomorphisme,Isomorphisme}
+
+Soit $\sigma : G \ap H$ un morphisme de groupe,
+
+$\sigma$ est épimorphisme ssi $\forall b, \sigma^{-1}(b) \neq \emptyset$
+
+$\sigma$ est monomorphisme ssi $\sigma^{-1}(b)$ est un singleton ou vide.
+
+$$\Updownarrow$$
+
+$\sigma$ est monomorphisme ssi $\Ker \sigma = \tset{1_G} \ioi \mbox{L'équation } \sigma(g) = 1_H \mbox{ a comme unique solution } 1_G$
+
+\subsection{Même images}
+
+Dans un morphisme, deux points $x$ et $y$ ont même image ssi $xy^-1 \in \Ker \sigma$
+
+\newpage
+
+\subsection{Lemme}
+
+Soit $\sigma : G \ap H$ un morphisme de groupe.
+
+Soit $g \in G$ et soit $h \in H$ définie par $\sigma(g) = h$
+
+Alors $\sigma^{-1}(h) = g . \Ker{\sigma} \stackrel{\Delta}{=} \tset{g.u \vert u \in \Ker \sigma}$
+
+\begin{figure}[h]
+	\centering{\input{kerlemma.pstex_t}}
+\end{figure}
+
+\subsection{Bijection canonique}
+
+On appelle bijection canonique la bijection 
+
+$$\tau : \tset{\sigma^{-1}(h)\vert h \in \im \sigma} \apw{\tau} \im \sigma$$
+$$\tau(\sigma^{-1}(h))=h$$
+$$\tau(g.\Ker \sigma)=\sigma(g)$$
+
+\subsection{Quotient de G par le noyau}
+
+On note $\tset{\sigma^{-1} (h) \vert h \in \im \sigma}$ le quotient de $G$ par $\Ker \sigma$, noté plus souvent $\tset{g . \Ker \sigma \vert g \in G}$
+%On note $\tset{ \sigma^{-1} \vert h \in \im \sigma}$ le quotient de $G$ par $\Ker \sigma$, note plus souvent $\tset{g.\Ker \sigma \vert g \in G}$
+
+\subsection{Classe latérale}
+
+On appelle aussi $g.\Ker \sigma$ une classe latérale car c'est une translation du noyau
+
+\subsection{Multiplication des classes}
+
+On définie la multiplication des classes par $(g_1 . \Ker \sigma) . (g_2.\Ker \sigma) = (g_1.g_2) . \Ker \sigma$
+
+\subsection{Théorème fondamental, premier théorème d'isomorphisme}
+
+Le quotient de $G$ par le noyau munie de la multiplication des classes est un groupe
+
+La bijection canonique est un isomorphisme de groupe
+
+\subsection{Isomorphe}
+
+Soit $G$ et $H$ deux groupes
+
+On dit $G$ est isomorphe à $H$ ssi il existe un isomorphisme de $G$ vers $H$
+
+Ce qu'on note $G \cong H$
+
+Remarque : $G \cong H$ est une relation d'équivalence
+
+\subsection{Lemme}
+
+$$g.\Ker \sigma.g^{-1} = \tset{g.x.g^{-1} \vert x \in \Ker \sigma} = \Ker \sigma$$
+
+\subsection{Sous groupe normal}
+
+On dit que $H < G$ est sous groupe normal (distingué) noté $H \normal G$ ssi 
+
+$$\forall g \in G, g H g^{-1} = H$$
+$$\Updownarrow$$
+$$gH = Hg$$
+
+On appelle $gH$ l'ensemble des classes latérale à gauche dans $G$
+
+On appelle $Hg$ l'ensemble des classes latérale à droite dans $G$
+
+Remarque :
+
+On appelle $g H g^{-1}$ le conjugué de $H$
+
+Remarque : 
+
+Pour $\sigma: G \ap H, \Ker \sigma \normal G$
+
+Si $G$ est commutatif alors $\forall H < G, H \normal G$
+
+\subsection{Lemme d'égalité des classes}
+
+$xH = yH$ ssi $x^{-1}y \in H$
+
+\subsection{Quotient}
+
+On note le quotient de $G$ par $H$:
+
+$$G/H = \tset{gH \vert g \in G}$$
+
+Remarque :
+
+Le quotient forme une partition de $G$
+
+\subsection{Groupe quotient}
+
+$\grp{G/H,.,1}$ est un groupe appelé groupe quotient
+
+\subsection{Epimorphisme canonique sur le quotient}
+
+$\kappa : G \ap G/H : g \mapsto gH$ est un épimorphisme de groupe appelé épimorphisme canonique sur le quotient
+
+Remarque :
+
+$\Ker \kappa = H$
+
+$\forall H \normal G, H = \Ker \kappa$
+
+\subsection{Union des près-images (exercice du premier semestre)}
+
+Soit $\sigma : G_1 \ap G_2$ un morphisme de groupe.
+
+Soit $E \subseteq G_2$
+
+On note $\sigma^-1 (E) = \tset{g \in G_2 \vert \sigma(g) \in E} = \bigcup\limits_{h \in E} \sigma^{-1}(h)$ avec $h \in E$
+
+Soit $H < G_2$, alors $\Ker \sigma \subset \sigma^{-1}(H)$ et $\sigma^{-1}(H) < G_1$
+
+Soit $L < G_1$ alors $\sigma(L) = \tset{\sigma(l) \vert l \in L} < \im \sigma = G_2$
+
+\subsection{Corrolaire du théorème fondamental}
+Comme $G / \Ker \sigma$ est isomorphe à $\im \sigma$, on a $\card{G} = \card{\im \sigma} . \card{\Ker \sigma}$
+
+De plus si $G$ est fini on a $\card{\Ker \sigma}$ divise $\card{G}$ et $\card{\im \sigma}$ divise $\card{G}$
+
+
+\subsection{Centre}
+
+Soit $\grp{G,.,1}$ un groupe.
+
+On définie le centre de $G$ l'ensemble des éléments qui commutent avec tous les autres
+
+On note $Z(G) = \tset{g \in G \vert \forall h \in G, g.h = h.g}$
+
+\section{Groupes finis et ordre}
+
+\subsection{Action de $\Z$}
+
+On a un morphisme $\sigma_g : \grp{\Z, +, 0} \ap G : z \mapsto g^z$
+
+\subsection{Groupe cyclique, sous groupe engendré}
+
+On apelle sous-groupe de $G$ engendré par $g$ ou groupe cyclique engendré par $g$ le plus petit sous-groupe de $G$ contenant $g$ 
+
+On le note $\grp{g}$ 
+
+On a $\grp{g} = \bigcap\limits_{g \in H < G} H$ 
+
+On a $\grp{g} = \tset{g^z \vert z \in \Z}$
+
+\subsection{Ordre d'un élément}
+
+Soit $G$ un groupe $\grp{G,.,1}$ soit $g\in G$ l'ordre de $g$ dans $G$ et le plus petit entier non nul $n$ tel que :
+
+$g^n = 1$ (dans le cas d'un groupe additif tel que $ng = 0$)
+
+
+\subsection{Théorème de Lagrange}
+
+Soit $\grp{G,.,1}$ un groupe fini, soit $H < G$
+
+On a $\card{H}$ divise $\card{G}$
+
+En particulier, si $g \in G$ on a $\ordre(g)$ divise $\card{G}$
+
+\subsection{Théorème}
+
+Si $G < \grp{\Z,+,0}$ alors $\exists n \in \N : G = n \Z$
+
+\subsection{Fonction caractéristique}
+
+Soit $X \subseteq Y$ un ensemble. 
+
+La fonction caractéristique $1_X : Y \ap \tset{0,1} : y \mapsto 1_X(y)$
+
+$1_X(y) = 1$ si $y \in X$
+
+$1_X(y) = 0$ sinon
+
+\subsection{Représentation binaire d'une partie de $\N$}
+
+Soit $X \subseteq \N$
+ 
+Posons $(x_n)_{n \in \N}$ définie par $x_n = 1_X(n)$ avec $1_X$ la fonction caractéristique de $X \subseteq \N$
+
+On a les éléments $1_X(0),1_X(1),1_X(2),\cdots$ càd par exemple $0,1,0,\cdots$ qui représentent une branche infinie d'un arbre binaire.
+
+Il y a une bijection entre l'ensemble des branches infinies de l'arbre et l'ensemble des parties de $\N$
+
+On ne peut pas numéroter ces branches, elles ne sont pas dénombrables par $\N$
+
+Ces branches sont dénombrables par $\R$
+
+\subsection{Dénombrable}
+
+L'ensemble des parties est dénombrable si la fonction $\sigma : \N \ap$ l'ensemble des branches est surjective
+
+Dans le cas de $\N$ une telle fonction n'existe pas (paradoxe de Russel)
+
+\subsection{Branche antidiagonale}
+
+On définie la branche $AD_\sigma$ qui va à gauche au niveau $n$ ssi $\sigma(n)$ va à droite au niveau $n$
+
+\subsection{Ensemble des parties de $\N$}
+
+
+L'ensemble des parties/branches de $\N$ est noté $2^\N$
+
+\subsection{Quantificateurs}
+
+Comme quantificateurs on a $\forall$ et $\exists$
+
+On a $\forall P = \neg \exists \neg P$
+
+\subsection{Projection d'un ensemble}
+
+Soit $E = \tset{(r_1,r_2) \vert \theta(r_1,r_2)} \subseteq V^2$
+
+On a :
+
+$P_x(E) = \tset{r_1 \in V \vert \exists r_2 \in V, \theta(r_1,r_2)}$ est la projection de $E$ sur l'axe $x$
+
+$P_y(E) = \tset{r_2 \in V \vert \exists r_1 \in V, \theta(r_1,r_2)}$ est la projection de $E$ sur l'axe $y$
+
+Remarque : les propriétés topologiques ne sont plus conservés par la projection. Par exemple le fait d'avoir un trou (comme le tore).
+
+\subsection{PGCD}
+
+Le $\PGCD(a,b)$ est le plus grand diviseur commun à $a$ et $b$
+
+\subsection{PPCM}
+
+Le $\PPCM(a,b)$ est le plus petit commun multiple
+
+Remarque $\PPCM(a,b) \leq a.b$
+
+\subsection{Remarque}
+
+$\PPCM(a,b).\PGCD(a,b) = a.b$
+
+\subsection{Diviseurs communs}
+
+L'ensemble des diviseurs communs à $a$ et $b$ c'est $D_{a,b} = \tset{d \in \N \vert d \mbox{ div } a \mbox{et} d \mbox{ div } b}$
+
+\subsection{Multiples communs}
+
+L'ensemble des multiples communs à $a$ et $b$ c'est $M_{a,b} = \tset{m \in \N \vert m \mbox{ est mul. de } a \mbox{ et } m \mbox{ est mul. de } b}$
+
+\subsection{Méthodes pour trouver le PGCD}
+
+\subsubsection{Décomposition en facteurs premiers}
+
+On décompose $a$ en un produit de facteurs premiers
+
+On décompose $b$ en un produit de facteurs premiers
+
+On regarde les facteurs premiers communs en tenant compte de leurs exposants
+
+\subsubsection{Algorithme a}
+
+$\PGCD(a,b) = \PGCD(a - b, b)$ ou en pseudo code :
+
+\begin{verbatim}
+a <- 0
+While (a >= b) do:
+Begin
+    a <- a - b
+    q <- q + 1
+End
+    q <- q
+    r <- a
+
+Return PGCD(b,r)
+\end{verbatim}
+
+\subsubsection{Algorithme b}
+
+$\PGCD(a,b) = \PGCD(b, a \mod b, a)$ ou en pseudo code:
+
+\begin{verbatim}
+R <- 0
+A <- a
+B <- b
+
+While (B != 0) do:
+Begin
+    R <- A mod B
+    A <- B
+    B <- R
+End
+
+Return A
+\end{verbatim}
+
+\subsection{Théorème de Bézout}
+
+Soit $a,b \in \N$ (vrai aussi pour $\Z$)
+
+Soit $d = \PGCD(a,b)$
+
+Alors $\exists u$ et $v$ dans $\Z$ tq :
+
+$u.a+v.b=d$
+
+\subsubsection{Algorithme de Bézout}
+
+\begin{verbatim}
+A  <- a
+B  <- b
+R  <- 0
+U  <- 1
+V  <- 0
+S  <- 0
+T  <- 1
+Q  <- 0
+CS <- 0
+CT <- 1
+
+While (B != 0) do:
+Begin
+     R  <- A mod B
+     Q  <- A div B
+     CS <- S
+     CT <- T
+
+     A  <- B
+     S  <- U - Q.S
+     U  <- CS
+
+     B  <- R
+     T  <- V - Q.T
+     V  <- CT
+End
+
+Return U, V
+\end{verbatim}
+
+\subsubsection{Nombres premiers entre eux}
+
+On a que $a$ et $b$ sont premiers entre eux ssi $\exists u,v \in \Z$ tq $u.a + v.b = 1$
+
+\subsubsection{Corollaire du théorème de Bézout}
+
+$\grp{a,b}_{\Z} = \Z.\PGCD(a,b) = \PGCD(a,b).\Z$
+
+\subsection{Sous groupes de $\Z$}
+
+On a que si $n \in \N$ alors $\grp{n \Z, +, 0} < \grp{\Z,+,0}$
+
+Sous groupe $0.\Z = 0$ (sous groupe trivial)
+
+Les $n \Z$ tel que $n \in \N$ sont les seuls sous groupes de $\grp{\Z,+,0}$
+
+\subsection{Anneau commutatif unitaire}
+
+On a que $\grp{A,+,.}$ est un anneau commutatif unitaire (souvent appelé anneau) ssi $\grp{A,+,0}$ est un groupe, $\grp{A,.,1}$ est un monoïde et on a la distributivité càd $\forall x,y,z \in A, x(y+z) = xy + xz$
+
+\subsection{Index}
+
+Soit $\grp{G,.,1}$ un groupe et $H < G$ on regardes toutes les classes latérales (COSETS) à gauche de $H$ c'est à dire les parties de $G$ de la forme $gH$
+
+On a que les $gH$ forment une partition de $G$ et il y a une bijection entre $gH$ et $g'H$ donnée par $gh \ap g'h$
+
+Donc si $H$ fini alors tous les $gH$ ont pour cardinal $\vert 1.H \vert = \vert H \vert$ et si $\vert G \vert < \infty$ alors le nombre de classes distinctes de type $gH$ est $\frac{\vert G \vert}{\vert H \vert}$ 
+
+On appel $\frac{\vert G \vert}{\vert H \vert}$ l'index (appelé pareillement dans le cas $\infty$ de $H$ dans $G$)
+
+\subsection{Morphisme de $\Z$ vers groupe cyclique}
+
+Soit $\grp{G,.,1}$ un groupe et $g \in G$
+
+On a un morphisme $\sigma_g : \Z \ap \grp{g} : z \ap g^z$
+
+%% TODO: Nom de ce morphisme ? Est ce un épimorphisme ?
+
+\subsection{Ordre d'un sous groupe engendré}
+
+Soit $\grp{G,.,1}$
+
+Soit $g_1,g_2 \in G$ tq $g_1.g_2 = g_2.g_1$
+
+On a $\ordre(g_1.g_2) \leq PPCM(\ordre(g_1) , \ordre(g_2))$
+
+On a $\PPCM(\ordre(g_1) , \ordre(g_2)) \in \Ker \sigma_{g_1.g_2}$
+
+D'autre part $\Ker \sigma_{g_1.g_2} = \alpha \Z$ avec $\alpha = \ordre(g_1.g_2)$ le générateur
+
+On a $\PPCM(\ordre(g_1) , \ordre(g_2))$ est un multiple de $\ordre(g_1.g_2)$
+
+\subsection{Théorème}
+
+Soit $g \in G$ d'ordre $m$
+
+Soit $g^i$ avec $i \in \tset{0,1,\cdots,m-i}$
+
+Alors $\ordre(g^i) = \frac{m}{\PGCD(m,i)}$
+
+%%TODO: racine primitive mième 25/02
+
+%%TODO: indicateur d'Euler
+
+\subsection{Théorème}
+
+Si $G$ est un groupe d'ordre premier càd $\card{G} = p$ avec $p$ premier alors $G$ est cyclique
+
+\subsection{Petit théorème de Fermat}
+
+Soit $a \in \Z$, soit $p$ premier alors $a^p \equiv a \mod p$
+
+\subsection{Lemme}
+
+Dans un groupe fini $G$ avec $\card{G}=n$ alors $\forall g \in G, g^n = 1$
+
+
+\section{Groupes de permutations}
+
+\subsection{Permutation}
+
+Soit $X$ un ensemble. Une permutation de $X$ est une bijection $X \ap X$
+
+\subsection{Ensemble des permutations de $X$}
+
+Soit $X$ un ensemble. L'ensemble des permutations de $X$ est noté $S_X$
+
+\subsection{Groupe de permutation}
+
+Soit $X$ un ensemble.
+
+On a que $\grp{S_X,\circ,\mathbb{I}}$ est un groupe de permutation
+
+Avec l'opération de composition de fonctions
+
+Avec le neutre la bijection qui $\forall x \in X, \mathbb{I} : x \mapsto x$
+
+Avec l'inverse la réciproque
+
+\subsection{Ensemble des applications linéaires bijectives}
+
+Soit $V$ un $K$-espace vectoriel de dimension $n$
+
+On note l'ensemble des applications linéaires bijectives $V \ap V$ par ${\mbox{Lin}}_{\mbox{bij}} (V,V)$
+ 
+On a ${\mbox{Lin}}_{\mbox{bij}} (V,V) \cong {GL}_n (K)$
+
+On a ${\mbox{Lin}}_{\mbox{bij}} (V,V) < S_V$
+
+\subsection{Rotation de $\R^2$}
+
+On note l'ensemble des rotations dans $\R^2$ par $\mbox{Rot}(\R^2) = {\mbox{SO}}_2(\R)$
+
+On a ${\mbox{SO}}_2(\R) < S_{\C}$
+
+\subsection{Trouver une permutation dans un groupe}
+
+Soit $\grp{G,.,1}$ un groupe
+
+Pour trouver une permutation dans ce groupe on fixe un $g \in G$
+
+Puis on regarde la bijection $m_g : G \ap G : h \mapsto m_g(h) = g.h$
+
+\subsection{Théorème}
+
+$\tau : \grp{G,.,1} \ap \grp{S_G, \circ, \I} : g \mapsto m_g$ est un monomorphisme de groupe
+
+On a $\im \tau < S_G$ 
+
+On a $G \cong \im \tau$ càd que $G$ plonge dans $S_G$ ce qu'on écrit $G \searrow S_G$
+
+\subsubsection{Remarque}
+
+Tout groupe peut être vu comme un sous groupe de permutation
+
+\subsection{Automorphisme}
+
+On appelle automorphisme de $G$ dans $G$ un isomorphisme $G \ap G$
+
+\subsection{Automorphisme intérieur}
+
+Soit $g \in G$
+
+On considère l'application $\alpha_g$ de $G \ap G$ définie par la conjugaison par $g$
+
+Càd $\alpha_g : G \ap G : h \mapsto g^{-1}.h.g$
+
+Cette application est appelé un automorphisme intérieur\footnote{Inner en anglais.}
+
+On dit intérieur car cet automorphisme est déterminé par $g$
+
+\subsection{Inner}
+
+On appelle Inner l'ensemble des automorphismes intérieur dans $G$
+
+On note $\Inn G = \tset{\alpha_g \vert g \in G}$
+
+\subsection{Théorème}
+
+\begin{itemize}
+\item{$\Inn G < S_G$}
+\item{$\alpha : G \ap \Inn G : g \mapsto \alpha_g$ est un épimorphisme de groupe}
+\item{$\Ker \alpha = \mathcal{Z}(G)$}
+\item{$\Inn G \cong G/\Ker \alpha$}
+\item{$\Inn G \cong G / \mathcal{Z}(G) \searrow S_G$}	
+\end{itemize}
+
+\subsection{Théorème}
+
+On a $\alpha$ est un morphisme de groupes dont $\Ker \alpha = Z(G)$
+
+\subsection{Corollaire}
+
+Par le théorème fondamental on a $G/\Ker \alpha \cong \im \alpha$ càd $G/Z(G) \cong \Inn G$
+
+\subsection{Conjugué}
+
+Soit $h \in G, g \in G$ on dit que $ghg^{-1}$ est le conjugué de $h$ par $g$ ce qu'on note parfois $h^g$.
+
+Remarque : $h^g = h \ioi gh = hg$ 
+
+Remarque : $\mathcal{Z}(G) = \tset{g \in G \vert \forall h \in G, h^g = h}$
+
+\subsection{Commutateur}
+
+%% Je me suis pas trompé ici ?
+
+Soit $h, g \in G$ on note $ghg^{-1} h^{-1}$ par $[g,h]$ et on appelle cet élément de $G$ le commutateur de $g$ et $h$
+
+Remarque : $[h,g] = hgh^{-1}g^{-1} = [g,h]^{-1}$
+
+Remarque : $[g,h] = 1 \ioi h^g = h$
+
+Remarque : $\mathcal{Z}(G) = \tset{g \in G \vert \forall h \in G, [g,h] = 1}$
+
+\subsection{Lemme}
+
+On a $H \normal G \ioi \forall g \in G, \forall h \in H, ghg^{-1} \in H$ càd les conjugués d'éléments de $H$ sont dans $H$
+
+On note $[G,H] = \tset{ghg^{-1}h^{-1} \vert g \in G, h \in H}$
+
+\subsection{Lemme}
+
+La relation $R$ définie par $hRh' \ioi \exists g \in G, h' = ghg^{-1}$ est une relation d'équivalence
+
+\subsection{Lemme}
+
+Si $\card{X} = \card{Y}$ alors $S_X \cong S_Y$
+
+Donc on a $S_X \cong S_n$ avec $\card{X} = n$ 
+
+Avec comme isomophisme $\sigma : S_X \ap S_n : p \mapsto f \circ p \circ f^{-1}$
+
+Où $f : X \ap \N : x_i \mapsto i$
+
+\subsection{Notation du graphe de $p$}
+
+On note la permutation $p \in S_n$ 
+
+$$
+p \equiv \begin{pmatrix}
+1 & 2 & \dots & n \\
+p(1) & p(2) & \dots & p(n)
+\end{pmatrix} 
+$$
+
+\subsubsection{Exemple de notation}
+
+Prenons par exemple la permuation $p \in S_3$ tq $p = \begin{pmatrix} 1 & 2 & 3 \\ 2 & 3 & 1 \end{pmatrix}$
+
+On note aussi $p \equiv 1 \ap 2 \ap 3 \ap 1$ dans le cas d'un cycle (voir plus loin)
+
+Ce qu'on note aussi $p \equiv (2~3~1)$ qui est la notation classique d'un cycle (voir plus loin)
+
+\subsection{Domaine de la permutation}
+
+%% FIXME: Est-ce que ça s'appelle bien comme ça ?
+
+Soit $p \in S_n$
+
+On note $\dom p = \tset{1, 2, \dots, n} = E_n$
+
+\subsection{Point fixe}
+
+Soit $p \in S_n$
+
+On dit que $i \in E_n$ est un point fixe de $p$ ssi $p(i) = i$
+
+%% TODO: rajouter la notation avec la boucle
+
+\subsection{Ensemble des points fixes}
+
+Soit $p \in S_n$ 
+
+On note l'ensemble des points fixes de $p$ par 
+
+$\Fix p = \tset{i \in E_n \vert p(i) = i}$
+
+\subsection{Support}
+
+Soit $p \in S_n$
+
+On note le support de $p$ par 
+
+$\Supp p = E_n \but \Fix p$
+
+\subsection{Cycle}
+
+Soit $p \in S_n$ 
+
+On dit que $p$ est un cycle de longeur $k \leq n$ s'il existe $j_1, \dots, j_n \in E_n$ tq $\Supp (p) = \tset{j_1, \dots , j_k}$ 
+
+Avec $p \equiv j_1 \ap j_2 \ap \dots \ap j_k \ap j_1 = (j_1~j_2~\dots~j_k)$
+
+Càd $\forall l \in \tset{1, \dots, k}$ on a $p(j_l) = j_{l+1}$ si $l < k$ et $p(j_l) = j_1$ sinon
+
+\subsection{Ordre d'un cycle}
+
+%%FIXME: je suis pas certain que ce soit k l'ordre
+
+L'ordre d'un cycle de longueur $k$ est $k$ càd $p^k = 1$
+
+\subsection{Permutations à supports disjoints}
+
+Soit $p,q \in S_n$ deux permutations
+
+On dit qu'elles sont à support disjoints si $\Supp(p) \cap \Supp(q) = \emptyset$
+
+\subsection{Lemme}
+
+Soit $p \in S_n$ et $i \in \Supp(p)$ alors $p(i) \in \Supp(p)$
+
+\subsection{Lemme}
+
+Si $p,q$ sont à supports disjoints alors $pq = qp$
+
+\subsection{Corollaire}
+
+Si $c_1$ et $c_2$ sont deux cycles à supports disjoints alors :
+
+$\ordre(c_1, c_2) = \PPCM( \ordre(c_1) , \ordre(c_2) )$
+
+\subsection{Lemme}
+
+Toute permutation $p \in S_n$ est un produit (composition) de cycles à supports disjoints
+
+\subsubsection{Exemple et notation}
+
+Prenons par exemple la permutation $p \in S_7$ tq $
+p \equiv \begin{pmatrix}
+1 & 2 & 3 & 4 & 5 & 6 & 7 \\
+1 & 2 & 5 & 6 & 4 & 3 & 7
+\end{pmatrix}$
+
+On peut noter $p \equiv 3 \ap 5 \ap 4 \ap 6 \ap 3 \equiv (3~5~4~6)$ en laissant les points fixes
+
+Prenons par exemple la permutation $p \in S_{10}$ tq $
+p \equiv \begin{pmatrix} 
+1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 \\
+3 & 6 & 5 & 2 & 1 & 7 & 4 & 8 & 10 & 9
+\end{pmatrix}$
+
+On peut noter $p \equiv (1~3~5).(2~6~7~4).(8).(9~10)$ càd un produit de cycles disjoints (car les cycles disjoints commutent)
+
+On enlève généralement les points fixes on a donc $p \equiv (1~3~5).(2~6~7~4).(9~10)$
+
+\subsection{Lemme}
+
+On a $\Supp(p^l) \subset \Supp(p)$
+
+% FIXME : Sure that f:G->H ???
+\subsection{Pigeon Hole Principle}
+
+Soit $f : G \ap H$ tq $\card{ G } = \card{ H } < \infty$
+
+Alors on a les équivalences suivantes :
+
+\begin{itemize}
+	\item{$f$ est injective}
+	\item{$f$ est surjective}
+	\item{$f$ est bijective}	
+\end{itemize}
+
+\subsection{Transposition}
+
+Un cycle de longueur $2$ est appelé une transposition qu'on note avec la notation de cycle par $(i~j)$ avec $i \neq j$
+
+\subsection{Involution}
+
+Une involution est est une opération qui est son propre inverse.
+
+Dans le cas de permutations, il s'agit des permutations d'ordre 2.
+
+\subsection{Théorème}
+
+\begin{itemize}
+	\item{Toute permutation est un produit de transposition}
+	\item{$\forall p \in S_n$ la parité $\epsilon(p)$ du nombre de transposition pour écrire $p$ est fixe càd indépendante de la décomposition}
+	\item{L'application $\epsilon : S_n \ap \grp{\Z / 2 \Z, + , 0} : p \mapsto \epsilon(p)$ est un épimorphisme}
+\end{itemize}
+
+\subsection{Théorème}
+
+Toute permutation $p \in S_n$ est un produit de transpositions
+
+\subsection{Proposition}
+
+Il y a un seul groupe d'ordre 2 à isomorphisme près
+
+\subsection{Proposition}
+
+Il y a seulement 2 groupes d'ordre 4 différents à isomorphisme près
+
+\subsection{Signature}
+
+On note le signe ou la signature d'une permutation $p$ par $\Sgn(p) = (-1)^{\epsilon(p)}$
+
+On a $\Sgn(p) \in \tset{-1,1}$
+
+\subsection{Groupe alterné}
+
+On appelle $\Ker \epsilon = \tset{ p \in S_n \vert \epsilon(p)=0}$ le groupe alterné d'ordre $n$ noté $A_n$
+
+On a donc $\grp{A_n,\circ,Id}$ est un groupe
+
+\subsubsection{Permutation paire}
+
+Une permutation \textit{appartenant} à $A_n$ est une permutation paire
+
+\subsubsection{Permutation impaire}
+
+Une permutation n'appartenant \textit{pas} à $A_n$ est une permutation impaire
+
+\subsubsection{Remarque}
+
+On a $A_n \normal S_n$ clos par conjugaison
+
+\subsection{Remarque}
+
+Soit $H < G$ et $(G:H)=2$ (l'indice de $H$ dans $G$ est $2$ càd il existe seulement deux classes latérales (à gauche ou à droite dans $G$)
+
+Autrement dit $\vert G \vert = 2 \vert H \vert$ alors $H \normal G$
+
+Ce qui est faux pour l'indice 3
+
+\subsection{Groupe simple ou premier}
+
+Soit $G$ un groupe, on dit que $<G,.,1>$ est simple ou premier si $G$ n'a pas de sous groupes normal autre que $G$ et $\tset{1}$
+
+\subsubsection{Théorème}
+
+On a $A_n$ est simple si $n \geq 5$
+
+\subsubsection{Proposition}
+
+On a que si $G$ est simple et $G$ est cyclique fini alors $\vert G \vert$ est premier
+
+On a donc qu'un tel $G$ est un $\grp{\Z/p \Z, + ,0}$ avec $p$ premier
+
+Et donc par Lagrange que ses sous-groupes sont d'ordre $1$ ou $p$ càd les seuls sous-groupes sont $\tset{0}$ et $\Z / p \Z$
+
+Donc les $\Z / p \Z$ sont simples
+
+\subsection{Groupe dérivé}
+
+Soit $G$ un groupe, on appelle le groupe dérivé $G' = \grp{\tset{[a,b] \vert a,b \in G}}$ càd le sous-groupe engendré par l'ensemble des commutateurs
+
+\end{document}

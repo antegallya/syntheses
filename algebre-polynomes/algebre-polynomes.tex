@@ -1,0 +1,368 @@
+\documentclass[a4paper,10pt]{article}
+
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage[utf8]{inputenc}
+\usepackage[francais,french,frenchb]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{fullpage}
+\usepackage{graphicx}
+\usepackage[perpage]{footmisc}
+\usepackage{srctex}
+\usepackage{verbatim}
+
+\author{Pierre Hauweele}
+\title{Synthèse Algèbre I - Polynômes - 2007-2008}
+\date{}
+
+\newcommand{\ap}{ \rightarrow} % Application
+\newcommand{\mt}[1]{\widetilde{ #1 }} % Wide tilde in math mode
+\newcommand{\grp}[1]{\left\langle #1 \right\rangle} % Group
+\newcommand{\set}[1]{\left\lbrace #1 \right\rbrace } % Set
+\newcommand{\im}{\mathrm{Im}\:} % Im(age)
+% Underbrace with argument
+\newcommand{\underb}[2]{\underset{ #1 }{\underbrace{ #2 }}}
+\newcommand{\st}[1]{#1^{\star}} % .^star
+\newcommand{\so}{\Rightarrow} % so/implies
+\newcommand{\ioi}{\Leftrightarrow} % If and Only If
+\newcommand{\ZZ}{\mathbb{Z}} % Integer set
+\newcommand{\RR}{\mathbb{R}} % Real set
+\newcommand{\NN}{\mathbb{N}} % Natural set
+\newcommand{\QQ}{\mathbb{Q}} % Rational set
+\newcommand{\CC}{\mathbb{C}} % Complex set
+\newcommand{\pgcd}{\mathrm{pgcd}} % french g.c.d=p.g.c.d
+\newcommand{\ppcm}{\mathrm{ppcm}}
+\newcommand{\id}{\mathrm{Id}} % Identity
+\newcommand{\rstrct}[2]{{ #1 }_{\upharpoonright_{ #2 }}} % Operator restriction
+\newcommand{\transposee}[1]{{\vphantom{#1}}^{\mathit t}{#1}} % Transposée
+\newcommand{\abs}[1]{\left\vert #1 \right\vert} % Absolute
+\newcommand{\mfootnote}[1]{\up{(}\footnote{#1}\up{)}}
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+\section{Anneaux, divers}
+ \subsection{L'ensemble des inversibles $A^\star$\label{ensinv} (est un groupe)}
+  L'ensemble des inversibles d'un anneau $\grp{A,+,.,0,1}$ est appelé $A^\star$. C'est-à-dire :
+  $$A^\star=\set{a\in A | \exists a' \in A, a . a' = 1}$$
+
+  $\grp{A^\star,.,1}$ est un groupe.
+
+ \subsection{Théorème de Wedderburn}
+  Un corps fini est nécéssairement commutatif.
+
+ \subsection{Ensemble des matrices sur un anneau\label{matsuranneau}}
+  Si $\grp{A,+,.,0,1}$ est un anneau, alors $\grp{M_k(A),+,.,0,\id}$ est un anneau.
+
+ \subsection{Fonction déterminant de matrice en tant que morphisme\label{detmorphisme}}
+  La fonction $\det(.)$ est un morphisme de groupes multiplicatifs\mfootnote{Ca n'est pas le cas pour les groupes additifs}
+ 
+ \subsection{Ensemble des matrices de déterminant $1$ en valeur absolue : ${SL}_k(B)$}
+  On note l'ensemble des matrices avec coefficients dans $B$ dont le déterminant vaut $1$ ou $-1$ :
+  $${SL}_k(A)=\set{A \in B ~| \det A|=1}$$
+
+ \subsection{Ensemble des matrices sur les entiers et déterminants}
+  $\grp{M_k(\ZZ)^\star,+,.,0,\id}$ est un anneau et de plus :
+  $$\grp{M_k(\ZZ)^\star,.,\id} \overset{\det}{\ap}\grp{\set{-1,1},.,1}$$
+  En effet, $\grp{\ZZ,+,.,0,1}$ est un anneau donc $\grp{M_k(\ZZ),+,.,0,\id}$ est un anneau (\ref{matsuranneau}). On a que $\grp{M_k(\ZZ)^\star,.,\id}$ est un groupe (\ref{ensinv}).
+  Soit $A \in \grp{M_k(\ZZ)^\star,.,\id}$
+  \begin{eqnarray*}
+   \det(A.A^{-1})=\det(\id) &=& 1\\
+   \det(A).\det(A^{-1})&=&1 ~~~~~~\mbox{(Car $\det(.)$ morphisme de groupes)}
+  \end{eqnarray*}
+  Ce qui implique que $\det(A)$ et $\det(A^{-1})$ sont inverses dans $\ZZ$. Et les seuls inversibles dans $\ZZ$ sont $1$ et $-1$. Donc $\det(A) \in \set{1,-1}$ qui est un groupe multiplicatif.
+
+  \paragraph{Remarque}
+  $$M_k(\ZZ)^\star = {SL}_k(\ZZ) = \set{A \in M_k(\ZZ) ~| \abs{\det A} = 1}$$
+
+ \subsection{Morphismes d'anneau}
+  Soient $\grp{A,+,.,0,1}$ et $\grp{B,+,.,0,1}$ deux anneaux.
+  Une application $\sigma: A \ap B$ est un morphisme d'anneaux ssi :
+  \begin{enumerate}
+   \item $\sigma$ est un morphisme de groupes de $\grp{A,+,0}\ap\grp{B,+,0}$\\
+         c'est-à-dire : $\forall u,v \in A, \sigma(u+v) = \sigma(u)+\sigma(v)$
+   \item $\sigma$ est un morphisme de monoïde avec neutre, c'est-à-dire :
+         \begin{enumerate}
+	  \item $\forall a,a' \in A, \sigma(a,a')= \sigma(a).\sigma(a')$
+	  \item $\sigma(1)=1$
+	 \end{enumerate}
+  \end{enumerate}
+
+ \subsection{Lemme: l'image d'un morphisme d'anneaux est un sous-anneau}
+  L'image d'un morphisme d'anneau $A \ap B$ est un sous-anneau de $B$.
+
+
+ \subsection{Propriétés sur le noyau d'un morphisme d'anneaux}
+  Soient $A$ et $B$ deux anneaux et $\sigma: A \ap B$ un morphisme d'anneaux.
+  \begin{itemize}
+   \item $\ker{\sigma}$ est un idéal bilataire de $A$.
+   \item $\ker{\sigma}$ est un sous-groupe additif de $A$\mfootnote{Et non pas un sous-anneau}.
+  \end{itemize}
+
+ \subsection{Sous-anneau}
+  Une partie $B$ de $\grp{A,+,.,0_A,1_A}$, un anneau,
+  est un sous-anneau de $A$ ssi : 
+  \begin{enumerate}
+   \item $\grp{B, +}$ est un sous-groupe de $\grp{A,+}$
+   \item $\forall x,y \in B, x.y \in B$
+   \item $1_A \in B$
+  \end{enumerate}
+
+
+  \paragraph{Remarque} Si $I$ est le noyau d'un morphisme d'anneaux, alors ce noyau est soit injectif, soit nilpotent d'ordre 1.
+
+ \subsection{Sélection d'éléments avec des matrices}
+  Soit $E_{ij}$ la matrice définie par 
+  $$E_{nm}=
+  \begin{cases}
+   1 \mbox{ si }(n=i) \land (m=j)\\
+   0 \mbox{ sinon}
+  \end{cases}$$
+  Alors, avec $M$ une matrice : $E_{ij}$ est la matrice composée de $0$ sauf sa $i^{ieme}$ ligne qui est composée de la $j^{ieme}$ ligne de $M$.
+
+  La multiplication à gauche par $E_{ij}$ aura le même effet, mais sur les colonnes, on aura la $j^{ieme}$ colonne de $M$ en $i^{ieme}$ colonne de la matrice résultat.
+
+  Ainsi, en combinant une multiplication à droite et à gauche, on peut sélectionner un unique élément.
+
+ \subsection{Permutations sur les matrices}
+  Soit $T_{ij}$ la matrice $\id$ dont on permuté la $i^{ieme}$ et la $j^{ieme}$ ligne. Alors $T_{ij}\cdot M$ est la matrice $M$ dont on a effectué la même permutation.
+
+  \paragraph{Remarque} $\det T_{ij} \in \set{-1,1}$ indique la parité de la permutation associée à $T_{ij}$
+
+  \subsection{Théorème fondamental pour les anneaux \label{thmfondamental}}
+  Soit $\grp{A,+,.,0,1}\overset{\sigma}{\ap}\grp{B,+,.,0,1}$. Alors
+  $$\grp{A,+,.,0,1}/\ker{\sigma} \cong \grp{\im \sigma,+,.,0,1}$$
+  L'isomorphisme associé est $\tau (a+\ker{\sigma})\overset{\Delta}{=} \sigma(a)$
+
+ \subsection{Anneau réduisible à un corps si ses inversibles avec le neutre est lui-même}
+  Soit $A$ un anneau, si $A^\star=A\setminus \set{0}$ alors $A$ est un corps.
+
+ \subsection{Idéaux}
+  \subsubsection{Idéal à gauche/droite/bilataire}
+    Une partie $I$ d'un anneau $A$ est un idéal à gauche ssi : 
+    \begin{enumerate}
+     \item $I$ est un sous-groupe additif de $A$
+     \item $\forall a\in A, \forall i \in I, a.i \in I$
+       \mfootnote{Pour un idéal à droite on demandera $i.a \in I$}
+    \end{enumerate}
+
+    On parle d'idéal bilataire quand il l'est à gauche et à droite.
+
+  \subsubsection{Idéal bilataire de matrices sur les réels}
+   Un idéal bilataire $I$ de $M_k(\RR)$ est soit $\set{0}$, soit $M_k(\RR)$.
+
+  \subsubsection{Idéal de $A$ inter ses inversibles ou, l'idéal est l'anneau}
+   Soit $I$ idéal de $A$, on a alors : 
+   $$I \cap A^\star \neq \emptyset \ioi I=A$$
+
+  \subsubsection{Idéal propre}
+   $I$ est un idéal propre de $A$ si et seulement si $I\neq A$
+
+  \subsubsection{Idéal propre maximal}
+   \paragraph{1\up{ière} version} $I$ est un idéal propre \underline{maximal} de $A$ si et seulement si $I$ est un idéal propre de $A$ et si $J$ idéal propre de $A$ et $I \subseteq J$, alors $J=I$
+
+    Ou encore, si $J$ idéal de $A$ et $I \subsetneq J$, alors $J=A$
+
+   \paragraph{2\up{ième} version} $A$ anneau commutatif et $I$ idéal propre de $A$, alors $I\neq A$ est un idéal maximal dans $A$ si et seulement si 
+   $$\forall a' \in A\setminus I, I+a'A=A$$
+
+  \subsubsection{Idéal maximal et corps}
+   Soit $I$ idéal de $A$, on a :
+   $$A/I \mbox{ est un corps} \ioi I \mbox{ est maximal}$$
+
+  \subsubsection{Idéal premier}
+   $I$ est un idéal premier de $A$ si et seulement si :
+    $$\forall a,b \in A, ab\in I \so (a\in I \mbox{ ou } b\in I)$$
+  
+  \subsubsection{Idéal principal}
+   On dit que $I$ est un idéal principal de $K$ anneau si il est généré par un
+   seul élément. C'est-à-dire que $I=a.K$ avec $a \in K$\mfootnote{Dans le cours
+   on ne parle que d'idéal principal pour les polynômes, c'est-à-dire qu'ils
+   sont de la forme $I=gK[X]$.}.
+
+   \paragraph{Remarque} Le notation adoptée ci haut est utilisée dans le cas où
+   la multiplication est commutative; quand elle ne l'est pas on parle d'idéal
+   principal à droite ou à gauche.
+
+ \subsection{Anneau principal}
+  Un anneau est dit principal si il est commutatif et si tous ses sous anneaux
+  sont principaux.
+  \paragraph{Exemples}
+  \begin{enumerate}
+    \item Les $K[X]$ avec $K$ corps commutatif.
+    \item Les $\ZZ$ car ses idéaux sont de la forme $n\ZZ$.
+    \item $K$ un corps commutatif, car $K$ et $\set{0}$ sont les seuls idéaux
+      d'un corps. 
+  \end{enumerate}
+
+ \subsection{Diviseur de zero}
+  \subsubsection{Définition}
+   Soit $A$ un anneau, $a \in A$ est dit diviseur de zero à gauche si :
+    $$a\neq 0, \exists b\neq 0\in A, ab=0$$
+  \subsubsection{Propriétés inversibles}
+   Si $a\in A^\star$, alors $a$ n'est pas diviseur de zero.
+
+ \subsection{Anneau intègre}
+  Un anneau est dit intègre si il n'a pas de diviseurs de zero et est commutatif.
+
+  \paragraph{Remarque} Un anneau intègre fini est un corps.
+
+ \subsection{Anneau unitaire}
+  $A$ un anneau est dit unitaire si et seulement si la loi $\cdot$ possède un neutre $1$.
+
+  \subsection{Quotient d'anneau et d'idéal, intègre, idéal premier
+  \label{qoaiiip}}
+  Soit $A$ un anneau commutatif, $I$ idéal de $A$, on a :
+   $$A/I \mbox{ intègre} \ioi I \mbox{ idéal premier de } A$$
+
+ \subsection{Relation anneaux, idéaux maximal/premier, quotient corps/intègre}
+   $$A/I \mbox{ corps} \ioi I \mbox{ maximal} 
+   \so I \mbox{ premier} \ioi A/I \mbox{ intègre}$$
+  Rappel : si $A/I$ est intègre et fini alors $A/I$ est un corps
+
+
+\section{Polynômes}
+ \subsection{Polynômes : degré et multiplication}
+  On définit le degré du polynôme nul : 
+   $$\deg 0 = -\infty$$
+  On remarque les règles suivantes sur les degrés de polynômes :
+   \begin{itemize}
+    \item $\deg(p+q) \leq \max\set{\deg p, \deg q}$
+    \item $\deg(p\cdot q) = \deg p + \deg q$
+   \end{itemize}
+
+  La multiplication de deux polynômes donne ce qu'on appelle la multiplication de Cauchy : 
+  $$(p\cdot q)_m = \sum_{i+j=m} p_i \cdot q_j$$
+
+ \subsection{Polynômes sur un anneau commutatif}
+  Si $A$ est un anneau commutatif, alors $A[X]$ est un anneau commutatif.
+ 
+ \subsection{Théorème central\label{thmcentral}}
+  Dans $K[X]$, $I$ idéal de $K[X]$ est nécéssairement de la forme $qK[X]$
+  avec $q \in K[X]$ (et ils sont donc aussi des idéaux principaux). On a alors
+  l'équivalence entre les propriétés suivante :
+  \begin{itemize}
+   \item $qK[X]$ est premier
+   \item $qK[X]$ est maximal
+   \item $q$ est irréductible dans $K[X]$
+  \end{itemize}
+
+ \subsection{Morphisme d'évaluation}
+  L'application $eval_a : K[X] \ap L \ni a : p \ap p(a)$ est un morphisme d'anneau.
+  
+  On a donc bien (ou en effet) : 
+  \begin{eqnarray*}
+   eval_a(p+q)=&eval_a(p)+eval_a(q)\\
+   eval_a(p\cdot q)=&eval_a(p)\cdot eval_a(q)
+   \end{eqnarray*}
+
+ \subsection{Pas de diviseurs de zero pour les polynômes}
+  $K[X]$ n'a pas de diviseurs de zero.
+
+ \subsection{Polynôme divisible par un complexe et son conjugué}
+   Si un complexe divise un polynôme, son conjugué le divise également.
+
+ \subsection{Propriétés des $n\ZZ$}
+  Les $n\ZZ$ sont toujours sous-groupe de $\grp{Z,+}$ et ce sont les seuls.
+  
+  Les idéaux de $\grp{\ZZ,+,0}$ sont les $\grp{n\ZZ,+,0}$.
+
+  $$\grp{n\ZZ,+} \mbox{ premier} \ioi n \mbox{ premier}$$
+
+  Si $p$ est premier, alors $p\ZZ$ est un idéal \underline{maximal}. 
+
+ \subsection{Polynômes associés}
+  On dit que $g$ et $\mt{g} \in K[X]$ sont associés si et seulement si :
+  $$\exists v\in (K[X])^\star = K^\star, \mt{g} = ug~ ~(\mbox{ou } g=u^{-1}g)$$
+
+  \paragraph{Relation d'équivalence}
+   $R(g,\mt{g}) \ioi g$ est associé à
+   $\mt{g}$ est une relation d'équivalence.
+ 
+ \subsection{Critères de (ir)réductibilité}
+  \mfootnote{Cette section ne comporte ne contient pas tous les éléments qui
+  pourraient servir de critère, par exemple, le théorème central peut servir de
+  critère d'irréductibilité mais n'est pas repris ici.}
+ 
+  \subsubsection{Irréductibilité en termes de diviseurs}
+   $g \in K[X]$ avec $\deg g \ge 1$ est irréductible dans $K[X]$ si et seulement
+   si les seuls diviseurs de $g$ sont les inversibles dans $K[X]$ et les
+   $\mt{g}$ associés à $g$. Ou :
+   $$\forall u,v \in K[X], (g=uv) \so (\deg u=0 \lor \deg v=0)$$
+
+  \subsubsection{Polynômes de degré 2 ou 3}
+   Un polynôme de degré 2 ou 3 est irréductible dans $K[X]$ si et seulement si
+   il n'a pas de racies dans $K$.
+  
+  \subsubsection{Par degrés de décomposition}
+   On peut obtenir des informations sur la réductibilité de polynômes en
+   regardant les possibilités de décomposition de ces polynômes. Par exemple,
+   pour un polynôme de degré 4, ses décompositions possiblies sont : 
+   \begin{enumerate}
+     \item 1 1 1 1
+     \item 1 2 1
+     \item 2 2
+     \item 3 1
+     \item 4 
+   \end{enumerate}
+   Si on demande sa réductibilité dans $\CC$ et que l'on sait qu'il n'a pas de
+   racines dans $\RR$ (par exemple parcequ'il est toujours positif), la
+   décomposition (3 1) devient impossible. En effet, si il existe une
+   décomposition en un polynôme de degré 1, alors il s'agit d'une racine
+   complexe, mais tout polynôme possédant un racine complexe possède également
+   comme racine le conjugué de ce complexe.
+
+  \subsubsection{Théorème de Gauss}
+   Soit $g \in \ZZ[X]$, il existe $g_1,g_2 \in \QQ[X]$ tels que $g=g_1\cdot g_2$
+   est équivalent à : il existe $\mt{g_1},\mt{g_2} \in \ZZ[X]$ tels que
+   $g = \mt{g_1} \cdot \mt{g_2}$
+   et $\deg \mt{g_1} = \deg g_1$ et $\deg \mt{g_2} = \deg g_2$
+   \paragraph{C'est-à-dire} un polynôme dans $\ZZ[X]$ est réductible dans
+   $\QQ[X]$ si et seulement si il est réductible dans $\ZZ[X]$.
+  
+  \subsubsection{Critère d'Eisenstein ($E_2$)}
+   % TODO: détails 14/05/08 p3
+   Soit $g=a_n X^n+a_{n-1}X^{n-1}+ \cdots + a_1 X + a_0$ avec les
+   $\set{a_0, \hdots, a_n} \in \ZZ$. Si il existe $p$ premier tel que :
+   \begin{itemize}
+     \item $p$ divise tous les $a_0, \hdots, a_{n-1}$.
+     \item $p$ ne divise pas $a_n$.
+     \item $p^2$ ne divise pas $a_0$.	
+   \end{itemize}
+   Alors $g$ est irréductible dans $\ZZ[X]$
+   \paragraph{Remarques} 
+   \begin{itemize}
+     \item Si $g \in \QQ[X]$, on peut appliquer le critère sur son polynôme
+       associé en le multipliant par $\alpha \in \ZZ$ assez grand pour éliminer
+       les dénominateurs. Le critère donne le même résultats pour les polynômes
+       associés.
+   \end{itemize}
+  \subsubsection{Critère des racines dans $\QQ$}
+   Soit $g \in \QQ[X]$ avec $g=g_n X^n + \cdots + g_1 X + g_0$. Soit 
+   $\alpha = \frac{a}{b} \in \QQ, a\in \ZZ, b \in \NN_0$ et $\pgcd (a,b)=1$.
+   Soit $g=\frac{a_n}{b_n} X^n + \cdots + \frac{a_0}{b_0}$. $\alpha$ est racine
+   de $g$ si et seulement si : \\
+   $\alpha$ racine de $a_n c_n X^n + \cdots + a_0 c_0 \in \ZZ[X]$ avec
+   $c_j=\frac{\ppcm (b_m, \hdots, b_0)}{b_j}$.
+  \subsubsection{Lemme : Critère des racines}
+   $\frac{a}{b} \in \QQ$ racine de $g=g_n X^n + \cdots + g_0$ si seulement si
+   $a/g_0$\mfootnote{``divise''} et $b/g_n$ dans $\ZZ$.
+   \paragraph{Exemple} $P=X^3-2X+7$ est-il réductible dans $\QQ[X]$ ? Si oui,
+    $\alpha=\frac{a}{b}$ et $\pgcd (a,b)=1$, le lemme nous dit : 
+    $$a/ 7 \land b/1$$
+    ce qui nous laisse comme possibilités pour $\alpha$ :
+    $$\alpha=\frac{1}{1},\frac{-1}{1},\frac{7}{1},\frac{-7}{1}=1,-1,7,-7$$
+    mais aucune de ces valeurs n'est racine de $P$, donc il ne possède pas de
+    racines dans $\QQ$ et comme il est de degré 3 et n'a pas de racines dans
+    $\QQ$, il est irréductible dans $\QQ[X]$.
+\section{Exemples de  raisonnements}
+  \paragraph{Soit $q$  irreductible dans $K[X]$ et $e$ racine de $q$
+  dans $L \supset K$} alors $eval_{e} : K[X] \ap L : p(x)\ap p(e)$
+  a un noyau $\ker eval_{e} = qK[X]$. Par (\ref{thmfondamental}) on a 
+  $\im eval_{e} \cong K[X]/\ker eval_{e}$ et par le théorème central
+  (\ref{thmcentral}), on a que $qK[X]$ est maximal et par (\ref{qoaiiip}) on a
+  que $K[X]/qK[X]$ est un corps.
+
+\end{document}

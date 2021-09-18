@@ -1,0 +1,1259 @@
+\documentclass[a4paper,10pt]{report}
+
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage[utf8]{inputenc}
+\usepackage[francais,french,frenchb]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{fullpage}
+\usepackage{graphicx}
+\usepackage[perpage]{footmisc}
+\usepackage{srctex}
+\usepackage{verbatim}
+\usepackage{epsfig}
+\usepackage[dvips]{color}
+
+\author{Pierre Hauweele}
+\title{Synthèse Algèbre II - 2008-2009}
+\date{}
+
+\newcommand{\mt}[1]{\widetilde{ #1 }} % Wide tilde in math mode
+\newcommand{\grp}[1]{\left\langle #1 \right\rangle} % Group
+\newcommand{\set}[1]{\left\lbrace #1 \right\rbrace } % Set
+\newcommand{\im}{\mathrm{Im}\:} % Im(age)
+% Underbrace with argument
+\newcommand{\underb}[2]{\underset{ #1 }{\underbrace{ #2 }}}
+\newcommand{\st}[1]{#1^{\star}} % .^star
+\newcommand{\IZ}{\mathbb{Z}} % Integer set
+\newcommand{\IR}{\mathbb{R}} % Real set
+\newcommand{\IN}{\mathbb{N}} % Natural set
+\newcommand{\IQ}{\mathbb{Q}} % Rational set
+\newcommand{\IC}{\mathbb{C}} % Complex set
+\newcommand{\so}{\Rightarrow}
+\newcommand{\inj}{\hookrightarrow}
+\newcommand{\surj}{\twoheadrightarrow}
+\newcommand{\bij}{\overset{\sim}{\to}} % Bijection
+\newcommand{\pgcd}{\mathrm{pgcd}} % french g.c.d=p.g.c.d
+\newcommand{\ppcm}{\mathrm{ppcm}}
+\newcommand{\id}{\mathrm{Id}} % Identity
+\newcommand{\rstrct}[2]{{ #1 }_{\upharpoonright_{ #2 }}} % Operator restriction
+\newcommand{\transposee}[1]{{\vphantom{#1}}^{\mathit t}{#1}} % Transposée
+\newcommand{\abs}[1]{\left\vert #1 \right\vert} % Absolute
+\newcommand{\adh}[1]{\mathrm{adh}\left( #1\right)}
+\newcommand{\overcircle}[1]{\stackrel{\ \circ}{#1}}
+\newcommand{\ord}{\mathrm{ord}} % order of an element
+\newcommand{\mfootnote}[1]{\up{(}\footnote{#1}\up{)}}
+\newcommand{\Homgrp}[1]{\text{Hom}_{\text{grp}}\left(#1\right)}
+\newcommand{\Autgrp}[1]{\text{Aut}_{\text{grp}}\left(#1\right)}
+\newcommand{\Autens}[1]{\text{Aut}_{\text{ens}}\left(#1\right)}
+\newcommand{\Aut}[1]{\text{Aut}\left(#1\right)}
+\newcommand{\Int}[1]{\text{Int}\left(#1\right)}
+\newcommand{\Endgrp}[1]{\text{End}_{\text{grp}}\left(#1\right)}
+\newcommand{\Orb}[2]{\text{Orb}_{#1}\left( #2 \right)}
+\newcommand{\Stab}[2]{\text{Stab}_{#1}\left( #2 \right)}
+\newcommand{\Card}[1]{\text{Card}\left( #1 \right)}
+\newcommand{\such}{\ \Big| \ }
+\newcommand{\Nmid}{\not\Big| \ }
+
+\setcounter{tocdepth}{3}
+\setcounter{secnumdepth}{3}
+
+\makeatletter
+\renewcommand*\@makechapterhead[1]{%
+  %\vspace*{50\p@}%
+  {\parindent \z@ \raggedright \normalfont
+    \ifnum \c@secnumdepth >\m@ne
+        \huge\bfseries \@chapapp\space \thechapter
+        \par\nobreak
+        \vskip 20\p@
+    \fi
+    \interlinepenalty\@M
+    \Huge \bfseries #1\par\nobreak
+    \vskip 40\p@
+  }}
+\renewcommand*\@makeschapterhead[1]{%
+  %\vspace*{50\p@}%
+  {\parindent \z@ \raggedright
+    \normalfont
+    \interlinepenalty\@M
+    \Huge \bfseries  #1\par\nobreak
+    \vskip 40\p@
+  }}
+\makeatother
+
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+\part{La catégorie des groupes}
+ \chapter{Groupes}
+  \section{Définition}
+   Un groupe est un ensemble $G$ muni d'une application 
+   $$
+   \begin{array}[t]{r@{\ }l}
+     G \times G &\to G\\
+     (x,y) &\mapsto x * y
+   \end{array}$$
+   telle que 
+   \begin{enumerate}
+     \item $\forall x,y,z \in F, x*(y*z)=(x*y)*z$
+     \item $\exists e \in G, \forall x \in G, x*e = e*x = x$
+     \item $\forall x \in G, \exists x' \in G, x*x'=x'*x=e$
+   \end{enumerate}
+
+   \paragraph{Remarques}
+   \begin{itemize}
+     \item $G\nobreakspace\ne \emptyset$ car il existe au moins le neutre.
+     \item L'associativé permet d'écrire : $x*y*z$ et
+       $\underb{n \ \mathrm{fois}}{x*\cdots*x}=x^n, n \ge 1, x^0=e$
+     \item L'élément neutre est unique. 
+     \item L'inverse de $x$ dans $G$ est unique,
+       ce qui permet de le noter $x^{-1}$
+   \end{itemize}
+
+  \section{Groupe Abélien}
+   Un groupe est dit ``abélien'' ou ``commutatif'' ssi
+   $$\forall x,y \in G, x \cdot y=y \cdot x$$
+   \paragraph{Remarque : } On a $(\forall x,y (x \cdot y)^{-1} = x^{-1} \cdot
+   y^{-1}) \iff G$ abélien\\
+   Sinon $(x \cdot y)^{-1}=y^{-1} \cdot x^{-1}$
+
+   \paragraph{Notations : } Soit $G$ groupe abélien
+   \begin{itemize}
+     \item $G \times G \to G  : (x,y) \mapsto x+y$
+     \item neutre : $0_G$
+     \item inverse de $x$ : $-x$
+     \item $\underb{n \  \mathrm{fois}}{x + \cdots + x} = nx$
+     \item $0x = 0_G$
+     \item $(-n)x=-(nx)$
+   \end{itemize}
+
+  \section{Ordre d'un groupe}
+   L'ordre d'un groupe est défini par son cardinal : $\mathrm{Card}(G)$ et est
+   noté $|G|$.  
+
+  \section{Groupes de transformations}
+   Soit $E \ne \emptyset$ ensemble.
+   On a $\Autens{E}=\set{\mathrm{bijections}\  E \to E}$.
+   Alors $(\Autens{E}, \circ)$ est un groupe :
+   \begin{itemize}
+     \item $\mathrm{Aut}(E) \times \mathrm{Aut}(E) \to 
+       \mathrm{Aut}(E) : (f,g) \mapsto f \circ g$ est une application interne.
+     \item $f \circ (g \circ h) = (f \circ g) \circ h$
+     \item Neutre : $\id_E$
+     \item Inverse de $f$ : app. réciproque de $f$.
+   \end{itemize} 
+   \paragraph{Remarque : } $\Autens{E}$ non abélien dès que $|E| \ge 3$
+
+   \subsection{Génération de groupes}
+    \begin{enumerate}
+      \item $(G,\cdot)$ groupe, $E$ ensemble non vide.
+	$\mathcal{A}(E,G)=\set{\mathrm{applications} \  E \to G}$.\\
+        Soient $f,g: E \to G$, on pose
+	$f \cdot g : E \to G, x \mapsto f(x) \cdot g(x)$\\
+        Alors $(\mathcal{A}(E,G), \cdot)$ est un groupe.
+      \item Produit : $(G, \cdot)$ et $(H, \cdot)$ groupes. 
+	$G \times H$ est muni d'une structure de groupe par :
+        $$
+        \begin{cases}
+          (G \times H) \times (G \times H) \to G \times H\\
+          ((x_1,y_1),(x_2,y_2)) \mapsto (x_1 \cdot x_2, y_1 \cdot y_2)
+        \end{cases}$$
+    \end{enumerate}
+
+  \section{Groupe alterné}
+   Le groupe alterné d'ordre n :
+   $$A_n=\set{\sigma \in \mathcal{S}_n \such \varepsilon(\sigma)=0}$$
+   avec $\varepsilon(\sigma)=0$ quand le nombre de transpositions dans la
+   décomposition de $\sigma$ est pair et $1$ sinon.
+  \section{Groupe cyclique}
+   Un groupe est cyclique ssi $\exists x \in G, G= \grp{x}$
+
+  \section{Ordre d'un élément}
+   $x \in G; \ord(x) = |\grp{x}|$
+ \chapter{Sous-groupes}
+  \section{Définition}
+   Soit $(G, \cdot)$ un groupe et $H \subseteq G$, on dit que $H$ est
+   sous-groupe de $G$ ssi
+   \begin{enumerate}
+     \item $\forall x,y \in H, x \cdot y \in H$
+     \item $1_G \in H$
+     \item $\forall x \in H, x^{-1} \in H$
+   \end{enumerate}
+   On le note $H < G$
+
+   \paragraph{Remarques}
+   \begin{itemize}
+     \item $H$ ss-groupe de $G \iff H \ne \emptyset, \forall x,y \in H,
+       x \cdot y^{-1} \in H$
+     \item Si $H < H$, alors $(H, \cdot_G)$ est un groupe.
+     \item $\set{1_G}$ et $G$ sont des ss-groupes de $G$
+       et on les appelle les ss-goupes triviaux.
+     \item $H < K < G \so H < G$
+   \end{itemize}
+
+  \section{Lemme: sous-groupes de $\IZ$}
+   Les sous groupes de $\IZ$ sont les $n\IZ, n \in \IZ$
+   \paragraph{Remarques :}
+   \begin{itemize}
+     \item $n\IZ = (-n)\IZ$
+     \item $0\IZ = \set{0}$
+     \item $1\IZ = \IZ$
+   \end{itemize}
+   \begin{comment}
+     \paragraph{Preuve :} voir CM 19/09/08 p3 recto haut de page.
+    \end{comment}
+ 
+  \section{Sous-groupes d'automorphismes}
+   Soit $E$ un ensemble non vide. $G=(\mathrm{Aut}(E), \circ)$ groupe. Soit
+   $S \subseteq E$ sous ensemble. Alors 
+   $$H=\set{f \in \mathrm{Aut}(E) \such f(S)=S}$$
+   est un sous-groupe de $G$.
+   \begin{comment}
+     \paragraph{Preuve :} voir CM 19/09/08 p3 verso bas de page
+   \end{comment}
+
+  \section{Sous groupes, $K$-espaces vectoriels}
+   Soit $E$ un $K$-espace vectoriel, $K$ corps. 
+   \begin{comment}
+     \footnote{voir 25/09/08 p1} 
+   \end{comment}
+   $$\mathrm{Aut}_{K\mathrm{-lin}}(E)=\set{f \in
+   \mathrm{Aut}_{\mathrm{ens}}(E) \such f \ K\mathrm{-lin}}$$
+   est un sous groupe de $\mathrm{Aut}_{\mathrm{ens}}(E)$
+   \paragraph{Remarque} Si $f$ est $K$-lin alors $f^{-1}$ est $K$-lin.
+   \paragraph{En particulier} $E=K^n=K \oplus \cdots \oplus K$ alors
+    $$\mathrm{Aut}_{K\mathrm{-lin}}(K^n)=\mathrm{GL}_n(K)$$
+   \subsection{Groupes linéaires}
+    Les sous groupes de $\mathrm{GL}_n(K)$ s'appellent les groupes linéaires.
+    \paragraph{Remarques}
+    \begin{itemize}
+      \item $K$ infini $\so$ les groupes linéaires sont infinis
+      \item $K$ fini $\so$ les groupes linéaires sont finis.	
+    \end{itemize}
+ 
+  \section{Sous groupes diédraux}
+   $E=\IC$ : $\IR$-espace vectoriel de dimension $2$. On définit $P_n$
+   l'ensemble des sommets d'un polygone régulier à $n$ côtés de la forme
+   $e^{ik2\pi/n}$. Et 
+   $$D_n=\set{f : \IC \to \IC \such f: \IR \mbox{-lin, bijective} 
+   \mbox{ et } f(P_n) = P_n}$$
+   \paragraph{Remarque} $D_n$ est un groupe fini d'ordre $2n$.
+   \begin{comment}
+     \mfootnote{Preuve 25/09/08 p2} 
+   \end{comment}
+   \paragraph{Définition en extension de $D_n$} Soit $\sigma$ la fonction de
+   conjugaison complexe et $\rho_n$ la fonction de rotation par l'angle
+   $2\pi/n$, c'est à dire la multiplication par $e^{i2\pi/n}$.
+   $$D_n=\set{\sigma^k {\rho_n}^l;0 \leq k \leq 1, 0 \leq l \leq n-1}$$
+   \begin{comment}
+     \mfootnote{Preuve 26/09/08 p2}
+   \end{comment}
+
+  \section{Génération de sous-groupes}
+   Soit $G$ groupe, $H,K$ sous groupes de $G$.
+   \begin{itemize}
+     \item $(I < G, H < G, I \subseteq H) \so I < H$.	
+     \item $H \cap K < G$, $H \cap K < H$ et $ H \cap K < K$. $H \cap K$ est le
+       plus grand sous groupe de $G$ contenu dans $H$ et dans $K$. 
+     \item Soit $P \subseteq G$, partie non vide de $G$.
+       $$\grp{P}_G = \bigcap_{P \subseteq H < G} H$$
+       $$\grp{P}_G = \set{x_1^{n_1} \cdots \cdot x_r^{n_r}; r \geq 0; n_i \in
+       \IZ, x_i \in P}$$
+       $\grp{P}_G$ est le plus petit sous groupe de $G$ contenant P. Et il est
+       le plus grand contenu dans tous les $H$.
+     \item $HK = \grp{H \cup K}_G$ est le plus petit sous groupe de $G$
+       contenant $H$ et $K$ (et donc $H \cup K$).
+   \end{itemize}
+   
+  \begin{comment}
+    \section{Quaternions}
+     Voir cours 16/09/08 p3.
+  \end{comment}
+
+ \chapter{Quotients}
+  \section{Classes selon un sous-groupe}
+   Soient $G$ groupe et $H$ sous groupe de $G$.
+   \paragraph{Classes à gauche}
+    $g\in G, gH = \set{g \cdot h ; h \in H}$ sous-ensemble de G.
+    $$G/H \overset{\Delta}{=} \set{gH;g \in G} \subseteq \mathcal{P}(G)$$
+   \paragraph{Classes à droite}
+    $g\in G, Hg = \set{h \cdot g ; h \in H}$ sous-ensemble de G.
+    $$H\backslash G 
+    \overset{\Delta}{=}\set{Hg;g \in G} \subseteq \mathcal{P}(G)$$
+
+   Par la suite, on ne regarde que la théorie des classes à gauche car la
+   théorie des classes à droite lui est symétrique.
+
+   \paragraph{Remarques} 
+    \begin{itemize}
+      \item $1_G\cdot H=H=H\cdot 1_G$
+      \item $G$ abélien $\so \forall \in G, gH=Hg \so G/H = H\backslash G$
+    \end{itemize}
+ 
+   \subsection{Classe/relation d'équivalence sur les quotients}
+    On définit
+    $$x \underset{H}{\sim} y \iff xH=yH \iff x^{-1} \cdot y \in H$$
+    qui est une relation d'équivalence sur H. On note aussi
+    $$G/\underset{H}{\sim} =G/H$$
+ 
+   \subsection{Théorème de Lagrange}
+    Soit $G$ un groupe fini, $H$ sous groupe de $G$ :
+    $$|H| \Big| |G|$$\mfootnote{$a \Big| b$ signifie $a$ divise $b$}
+ 
+   \subsection{Indice de $H$ dans $G$}
+    On appelle l'indice de $H$ dans $G$ : $\frac{|G|}{|H|}$ et est noté
+    $\#(G/H)$
+ 
+   \subsection{Corollaire du théorème de Lagrange}
+    Soit $G$ un groupe fini.
+    $$\forall x \in G, \ord(x) \Big| |G|$$
+    \begin{comment}
+      \mfootnote{Preuve: Appliquer le thm de Lagrange à $H=\grp{x}$,
+      02/10/08 p2}
+    \end{comment}
+
+   \subsection{Corollaire du théorème de Lagrange bis}
+    Soit $p$ premier alors tout groupe d'ordre $p$ est
+    cyclique\mfootnote{On a même prouvé que n'importe quel élément qui n'est pas
+    le neutre est générateur} ($\exists x \in G, G=\grp{x}$)
+ 
+   \subsection{Existence de sous groupe cyclique}
+    Soit $G=\grp{x}$ groupe cyclique d'ordre $n$ alors
+    $$\forall m \in \IN, m \geq 1, \left( m \Big| n \right) \so (\exists H <
+    \grp{x}, |H|=m)$$
+
+    \paragraph{Remarque} Attention, ce n'est pas vrai en général dans le cas de
+    groupes non cycliques. Pour $G$ groupe d'ordre $n$, $m \in \IN, m \geq 1$ :
+    $$\left( m \Big| n \right) \not\so (\exists H < G, |H|=m)$$
+
+  \section{Groupe quotient}
+   \subsection{Factorisation}
+    Soit $E$ un ensemble, $\sim$ une relation d'équivalence et $\pi : E \to E /
+    \sim$ la projection canonique.
+    Pour toute application $f : E \to F$ constante sur les classes
+    d'équivalence de $\sim$, il existe une unique application $f' : E/\sim \to
+    F$ telle que $f = f' \circ \pi$.
+
+    On dit alors que $f$ se factorise par la relation d'équivalence, et que $f'$
+    est la factorisation de $f$.
+
+    \paragraph{Remarque}
+     Une fonction $f:G \to F$ se factorisera par $\sim$ une relation
+     d'équivalence si et seulement si elle est constante sur les classes
+     d'équivalence.
+
+    \paragraph{Dans le contexte des groupes quotients} la relation
+     d'équivalence est ``appartenir à la même classe du quotient''. Donc une
+     application $f: G \to F$ (constante sur les classes de $H$) se 
+     factorisera par $H$ en donnant $f':G/H \to F$ avec $f = \pi_H \circ f'$,
+     avec $\pi_h:G \to G/H; g \mapsto gH$ la projection canonique.
+
+   \subsection{Normal}
+    $H < G$ est dit normal ssi $\forall h \in H, \forall g \in G, g\cdot h \cdot
+    g^{-1} \in H$(i.e : $gH=Hg$ ou $gHg^{-1}=H$). On note : $H \triangleleft G$
+
+   \subsection{Le groupe quotient}
+    Soit $G$ un groupe avec la loi de composition $\mu_G : G \times G \to G,
+    (x,y) \mapsto x\cdot y$, $H < G$ et $\pi_H: G \to G/H$ la projection
+    canonique. On définit $\pi_H \times \pi_H : G\times G \to G/H \times G/H,
+    (x,y) \mapsto (xH,yH)$.
+    \begin{figure}[htb]
+      \begin{center}
+	\input{quot.pstex_t}
+      \end{center}
+      \caption{Formation du groupe quotient}
+      \label{fig:quot}
+    \end{figure}
+
+    La loi $\mu_{G/H}:G/H \times G/H \to G/H$ induite de $\mu_G$ définit
+    une loi de groupe pour $G/H$ si et seulement si $H \triangleleft G$
+
+    \paragraph{Formulation} Soit $H < G$. La loi $\mu_G$ de $G$ induit
+    une loi de groupe $\mu_{G/H}$ sur l'ensemble $G/H$ si et seulement
+    si $H \triangleleft G$.
+    \begin{comment}
+      \mfootnote{Preuve : CM 09/10/08 p1 verso + p2 verso}
+    \end{comment}
+
+    Si $H \triangleleft G$, on appelle $(G/H, \mu_{G/H})$ le groupe quotient de
+    $(G,\mu_H)$ pour/sous $H$.
+
+  \section{Sous-groupes normaux}
+   \subsection{Lemme : Sous groupes normaux, intersection et engendré}
+    $\left.
+    \begin{array}{r}
+      H \triangleleft G\\
+      K \triangleleft G
+    \end{array}\right\}
+    \so
+    \begin{cases}
+      H \cap K \triangleleft G\\
+      HK \triangleleft G
+    \end{cases}$
+    \begin{comment}
+      \mfootnote{Preuve : CM 15/10/08 p1 recto}
+    \end{comment}
+
+   \subsection{Liens de sous-groupes (normaux)}
+   \begin{itemize}
+     \item $\left.
+       \begin{array}{r}
+	 H < K < G\\
+	 H \triangleleft G
+       \end{array}\right\} \so H \triangleleft K$
+     \item On n'a \underline{pas} :  $(H \triangleleft K \land K \triangleleft G)
+       \so (H \triangleleft G)$
+     \item $\left.
+       \begin{array}{r}
+	 H < G\\
+	 K < G
+       \end{array}\right\}
+       \so H < HK =KH
+       $
+     \item $\left.
+       \begin{array}{r}
+	 H \triangleleft G\\
+	 K < G
+       \end{array}\right\}
+       \so H \triangleleft KH
+       $
+   \end{itemize}
+
+   \subsection{Centre d'un groupe}
+    On définit $Z(G)$ le centre de $G$ par : 
+    $$Z(G)=\set{x \in G \such \forall y \in G, yxy^{-1}=x}=\set{x \in G \such
+    \forall y \in G, xyx^{-1}=y}=\set{x \in G \such \forall y \in G, yx=xy}$$
+    
+    \paragraph{Remarque} $G = Z(G) \iff G$ est abélien. 
+   
+   \subsection{Lemme : Le centre est sous-groupe normal} Soit $G$ groupe, on a :
+    $$Z(G) \triangleleft G$$ De ce fait on a également que $Z(G)$ est un groupe
+    abélien.
+
+    \paragraph{Vu au cours} On a vu
+    \begin{comment}
+      \mfootnote{Preuve : CM 15/10/08 p1 verso} 
+    \end{comment}
+    que pour $n \geq 3, Z(\mathcal{S}_n)=\set{\id}$
+
+   \subsection{Centralisateur dans un groupe}
+    Soient $G$ groupe et $\emptyset \neq S \subseteq G$. On définit
+    $Z_G(S)$ le centralisateur dans $G$ par :
+    $$Z_G(S)=\set{x \in G \such \forall y \in S, xyx^{-1}=y}$$
+   
+    \paragraph{Remarques} On a les propriétés suivantes (les preuves n'ont pas
+    été faites en cours) : 
+    \begin{comment}
+      \mfootnote{Idées de preuve : 15/10/08 p2} 
+    \end{comment}
+    \begin{itemize}
+      \item $Z_G(S) < G$
+      \item $H \triangleleft G \so Z_G(H) \triangleleft G$
+    \end{itemize}
+
+   \subsection{Normalisateur} 
+    On appelle $N_G(S)$ le normalisateur de $S$ dans $G$ qui est définit par :
+    $$N_G(S)=\set{x\in G \such xSx^{-1}=S}$$
+    \paragraph{Remarques} 
+    \begin{itemize}
+      \item $Z_G(\set{x})=N_G(\set{x})$	
+      \item $Z_G(S) < N_G(S) < G$
+      \item En général, $N_G(S)$ n'est pas normal dans $G$.	
+      \item Si $H < G$, on a :
+	\begin{enumerate}
+	  \item $H \triangleleft N_G(H)$
+	  \item $\left.
+	    \begin{array}{r}
+	      H' < G\\
+	      H \triangleleft H'
+	    \end{array}\right\}
+	    \so N_G(H) < H'
+	    $. (i.e : $N_G(H)$ est le plus petit sous groupes de $G$ dans lequel
+	    $H$ est normal)
+	\end{enumerate}
+    \end{itemize}
+
+   \subsection{Commutateur}
+    Un élément d'un groupe $G$ est appelé commutateur si il est de la forme
+    $xyx^{-1}y^{-1}$ pour $x,y \in G$.
+
+    \paragraph{Remarque} $c$ commutateur $\iff c^{-1}$ commutateur.
+
+   \subsection{Groupe dérivé}
+    On appelle groupe dérivé de $G$ un groupe, le groupe généré
+    par tous les commutateurs de $G$ :
+    $$D(G)=\grp{xyx^{-1}y^{-1}; x,y \in G}$$
+
+    \paragraph{Remarque} $G$ abélien $\iff D(G)=\set{1_G}$ 
+
+   \subsection{Groupé dérivé normal et quotient abélien}
+    On a
+    \begin{comment}
+      \mfootnote{Preuve : 15/10/08 p2 verso} 
+    \end{comment}
+    : $$D(G) \triangleleft G$$
+    ainsi que : $$G/D(G) \text{ abélien}$$
+
+    \paragraph{Remarque} $D(G)$ est le plus petit sous groupe normal de $G$ dont
+    le quotient est abélien.\\
+    i.e : $G/D(G)$ est le plus grand quotient abélien de $G$.
+
+   \subsection{Lemme : quotient avec le centre cyclique implique groupe abélien}
+    $$G/Z(G) \text{ cyclique} \so G \text{ abélien}$$
+    \begin{comment}
+      \mfootnote{Preuve : CM 15/10/08 p2 verso}
+    \end{comment}
+
+ \chapter{Morphismes}
+  \section{Définitions et exemples}
+   \subsection{Définition Morphisme}
+    Soient $G, G'$ deux groupes. Un morphisme de $G$ dans $G'$ est une
+    application $f:G \to G'$ telle que
+    $$\forall x,y \in G, f(x\cdot_G y) = f(x) \cdot_{G'} f(y)$$
+
+   \subsection{Propriétés directes}
+    Soit $f:G \to G'$ morphisme de groupes.
+    \begin{itemize}
+      \item $f(1_G)=1_{G'}$
+      \item $\forall x \in G, f(x^{-1}) = f(x)^{-1}$
+      \item $\forall n \in \IZ, f(x^n)=f(x)^n$
+      \item $f$ morphisme bijectif $\so f^{-1}$ morphisme (bijectif).
+    \end{itemize}
+ 
+   \subsection{Terminologie}
+    \begin{itemize}
+      \item Morphisme $G \to G'$ : homomorphisme
+      \item Morphisme $G \bij G'$ : isomorphisme
+      \item Morphisme $G \to G$ : endomorphisme
+      \item Morphisme bijectif $G \bij G$ : automorphisme
+      \item Morphisme injectif $G \inj G'$ : monomorphisme
+      \item Morphisme surjectif $G \surj G'$ : épimorphisme
+    \end{itemize}
+
+   \subsection{Homomorphismes de groupes}
+    $$\text{Hom}_{\text{grp}}(G,G')=\text{Hom}(G,G')= \set{f: G \to G'; f
+    \text{ morphisme}}$$
+    \paragraph{Remarque}
+    $\text{Hom}(G,G') \neq \emptyset$ car il existe toujours le morphisme trivial
+    qui envoie tout sur $1_{G'}$.
+
+   \subsection{Groupes isomorphes}
+    On dit que deux groupes $G$ et $G'$ sont isomorphes si il existe un
+    isomorphisme $G \bij G'$ et on le note $$G \simeq G'$$
+
+    \paragraph{Transport de structure} Quand deux groupes sont isomorphes,
+    il y a transport de structure d'un groupe vers l'autre, par exemple si
+    $G \simeq G'$ et $G$ est abélien, alors $G'$ est abélien également.
+
+   \subsection{Exemples de morphismes}
+    \begin{itemize}
+     \item L'inclusion : $H < G, \iota_H : H \inj G; h \mapsto h$ est
+       un morphisme injectif.
+     \item La projection canonique $H \triangleleft G, \pi_H: G \surj G/H;
+       x \mapsto xH$ est un morphisme surjectif.
+     \item Projection de produit : $p_j : \displaystyle \prod_{i\in I}
+       G_i \surj G_j ; (x_i)_{i \in I} \mapsto x_j$ est un morphisme
+       surjectif pour tout $j \in I$.
+     \item La conjugaison par $x$, $x \in G, c_x : G \bij G ; y \mapsto
+       xyx^{-1}$ est un automorphisme.
+     \item $\mathcal{S}_3 \simeq D_3$.  \item L'application de translation
+       par $x \in G, \tau_x : G \to G; y \mapsto x\cdot y$ n'est
+       \underline{pas} un morphisme à moins que $x= 1_G$.
+    \end{itemize}
+
+  \section{Propriétés fondamentales des morphismes}
+   \subsection{Morphismes et générateurs}
+    Soient
+    \begin{itemize}
+      \item $G, G'$ groupes,
+      \item $S \subseteq G$ tel que $G=\grp{S}$,
+      \item $f: S \to G'$.
+    \end{itemize}
+    Si il existe un morphisme $\mt{f}:G \to G'$ tel que
+    $\rstrct{\mt{f}}{S}=f$ alors il est unique.\\
+    (i.e: deux morphismes $G \to G'$ qui coïncident sur un système de
+    générateurs\mfootnote{Système de générateurs $=$ ensemble de
+    générateurs.} sont égaux).
+    \begin{comment}
+      \mfootnote{Preuve : 22/10/08 p1}
+    \end{comment}
+
+    \paragraph{Remarque}
+     $G=\grp{x}$ cyclique, $G'$ groupe. Soit $f:G \to G'$ morphisme de
+     groupes.\\
+     Si $f(x)=x'$ alors $\forall n \in \IZ, f(x^n)=x'^n$ (c'est à dire que
+     l'image du générateur définit l'image des tous les éléments du groupe
+     engendré)
+
+    \paragraph{Résultat}
+     On peut en déduire que $\text{End}_{\text{grp}}(\IZ) = \set{\left(
+     \begin{matrix}
+       \IZ \to \IZ\\
+       1 \mapsto n\\
+       m \mapsto n\cdot m
+     \end{matrix} \right); n \in \IZ}$.
+
+   \subsection{Composition}
+    Soient $G,G'$ et $G''$ des groupes, $f:G \to G'$ et $g:G' \to G''$ des
+    morphismes.\\
+    Alors $g\circ f: G \to G''$ est un morphisme.
+
+    \paragraph{Remarque}
+     On a: 
+     \begin{itemize}
+       \item $f:G\to G'$ et $g:G'\to G''$ isomorphismes $\so g\circ f$
+         isomorphisme.
+       \item $\id_G$ automorphisme.
+       \item $f$ isomorphisme $\so f^{-1}$ isomorphisme.  
+     \end{itemize}
+     Donc $(\Autgrp{G},\circ)$ est un groupe et est un sous groupe
+     de $\Autens{G}$.
+
+    \paragraph{Remarque}
+     L'ensemble des morphismes de conjugaison $\set{c_x; x \in G}=\Int{G}
+     < \Autgrp{G}$\footnote{$\Int{G}$ s'appelle l'ensemble des automorphismes
+     intérieurs}
+     \begin{comment}
+       \mfootnote{$Preuve 19/11/08 p2, bas$}
+     \end{comment}
+
+   \subsection{Restriction}
+    Soit $f:G \to G'$ morphisme de groupe, et $H < G$. Alors
+    $\rstrct{f}{H} : H \to G'$ est un morphisme de groupe.
+
+   \subsection{Produit}
+    Soit $G$ un groupe, $\displaystyle G'=\prod_{i \in I} G'_i, I$ ensemble et
+    $G'_i$ groupes. Soient pour tout $i\in I, f_i: G \to G'_i$ morphisme. Alors
+    il existe un unique morphisme 
+    $$f:G \to G' \text{ tel que } \forall x, \forall i \in I, p_i(f(x))=f_i(x)$$
+    avec $p_i : G' \to G'_i$ la projection.
+
+    \paragraph{Remarque} 
+     On en déduit que $\Endgrp{\IZ \times \IZ} \simeq M_2(\IZ)$ et
+     $\Autgrp{\IZ \times \IZ} \simeq GL_2(\IZ)$.
+
+   \subsection{Quotient}
+    Soit $f: G \to G'$ un morphisme de groupes.
+    \begin{itemize}
+      \item Soit $H' \triangleleft G'$, alors $\pi_{H'} : H' \surj G'/H'; x' \mapsto
+	xH'$ morphisme. Alors $\pi_{H'} \circ f$ morphisme.
+      \item Soit $H \triangleleft G; \pi_H: G \to G/H; x \mapsto xH$ morphisme.
+	Si $H \subseteq \ker f$, alors $\exists \overline{f}: G/H \to G'$ telle
+	que $\overline{f}$ morphisme et $f=\overline{f} \circ \pi_H$.
+    \end{itemize}
+
+   \subsection{Injectivité/surjectivité et image/noyau}
+    Soit $f: G \to G'$ morphisme de groupes. On a :
+    \begin{enumerate}
+      \item $\im f < G'$	
+      \item $f$ surjective $\iff \im f=G'$.
+      \item $\ker f \triangleleft G$
+      \item $f$ injective $\iff \ker f=\set{1_G}$
+    \end{enumerate}
+
+  \section{Propriété de quotient}
+   Soit $H \triangleleft G$ et $f:G \to G'$ morphisme.
+   \begin{enumerate}
+     \item Il existe $\overline{f}:G/H \to G'$ morphisme tel que
+       $f=\overline{f} \circ \pi_H \iff H \subseteq \ker f$
+     \item Si $H \subseteq \ker f$. Alors le morphisme $\overline{f}:G/H \to G'$
+       est unique. Il est donné par : $xH \mapsto f(x)$, et $\im
+       \overline{f}=\im f, \ker \overline{f} = \ker f/H$
+   \end{enumerate}
+  \section{Propriété, sous groupes normaux et quotients}
+   $\left.
+   \begin{array}{r}
+     H \triangleleft G\\
+     K \triangleleft G\\
+     H < K
+   \end{array}
+   \right\}
+   \so
+   \begin{cases}
+     H \triangleleft K\\
+     K/H \triangleleft G/H
+   \end{cases}$
+   
+
+  \section{Théorème d'isomorphisme}
+   Ce théorème est un cas particulier de la propriété de quotient,
+   quand $H=\ker f$;\\
+   On a $\overline{f}:G/\ker f \inj G'$ morphisme injectif et $\im \overline{f}
+   = \im f$.
+
+   D'où le théorème :
+   $$\left.
+   \begin{array}{r@{\ }l}
+     \overline{f} : G/\ker f & \bij \im f\\
+     x(\ker f) & \mapsto f(x)
+   \end{array}
+   \right\} \text{ Isomorphisme de groupe}$$
+
+  \section{Exemples de morphismes}
+   \begin{itemize}
+     \item $\varepsilon : \mathcal{S}_n \to \set{\pm 1}$ morphisme
+       de signature. On a : $\im \varepsilon = \set{\pm 1}$ et
+       $\ker \varepsilon = \mathcal{A}_n$ : sous-groupe alterné.
+     \item $\det (\cdot) : GL_n(K) \surj K^\star$ ($K$ corps) morphisme. On a :
+       $\im(\det)=K^\star$ et $\ker(\det)=SL_n(K)$ (le groupe spécial linéaire).
+   \end{itemize}
+
+  \section{Lemme : groupe abélien, groupe dérivé et factorisation}
+   Soit $G$ groupe, $A$ groupe abélien, $f: G \to A$ morphisme de groupe.\\
+   Alors
+   \begin{comment}
+     \mfootnote{Preuve: 29/10/08 p2} 
+   \end{comment}
+   $D(G) \subseteq \ker f$ et $f$ se factorise pour 
+   $$\begin{array}[t]{r@{\ }l}
+     \overline{f} : G/D(G) & \to A\\
+     xD(G) & \mapsto f(x)
+   \end{array}$$
+
+  \section{Quelques corollaires de la propriété de factorisation}
+   \begin{enumerate}
+     \item 
+       \begin{comment}
+	 (Preuve 29/10/08 p2) 
+       \end{comment}
+       Soient $K < H < G$ sous groupes tels que $K \triangleleft G$ et
+       $H \triangleleft G$.\\
+       Le morphisme $\pi_H: G \to G/H$ induit un isomorphisme :
+       $$
+       \begin{array}[t]{r@{\ }l}
+	 (G/K)/(H/K) &\bij G/H\\
+	 (xK)(H/K) & \mapsto xH
+       \end{array}
+       $$
+
+     \item Le morphisme $\psi : K \to KH/H; k \mapsto kH$ induit
+       \begin{comment}
+	 \mfootnote{Exemple montrant $n\IZ/\ppcm(n,m) \IZ \bij \pgcd(n,m) \IZ
+	 /m\IZ$ : 05/11/08 p1} 
+       \end{comment}
+       un isomorphisme :
+       $$
+       \begin{array}[t]{r@{\ }l}
+	 K/(K \cap H) & \bij KH/H \\
+	 k(K \cap H) & \mapsto kH
+       \end{array}$$
+
+     \item 
+       \begin{comment}
+	 (Preuve : 29/10/08 p3, verso) 
+       \end{comment}
+       Soient $G, G'$ groupes, $f : G \to G'$ morphisme. Soit $H' 
+       \triangleleft G'$.\\
+       Soit $H = f^{-1}(H')=\set{x \in G \such f(x) \in H'}$\\
+       Alors $H\triangleleft G$ et $f$ induit un morphisme injectif : 
+       $$
+       \begin{array}[t]{r@{\ }l}
+	 G/H & \inj G'/H'\\
+	 xH & \mapsto f(x)\cdot H'
+       \end{array}
+       $$
+   \end{enumerate}
+
+ \chapter{But de la théorie des groupes/épilogue}
+  Le but de la théorie des groupes est d'étudier les groupes à isomorphisme
+  près.
+
+  \paragraph{Remarque} $G \simeq G'$ est une relation
+  d'équivalence\mfootnote{On a la réflexivité, la symétrie et la
+  transitivité} sur la collection de tous les groupes.
+
+  Et étudier les groupes à isomorphisme près, c'est étudier les classes
+  d'équivalence sous $\simeq$.
+
+  \section{Exemples de résultats de structure}
+   \begin{itemize}
+     \item Tous les groupes d'ordre 1 sont isomorphes.
+     \item Soit $p$ premier. Alors tous les groupes d'ordre $p$ sont isomorphes
+       (et cycliques).
+     \item 
+       \begin{comment}
+	 (Preuve 05/11/08 p2, verso) 
+       \end{comment}
+       Soient $G$ groupe, $H, K$ sous-groupes de $G$ tels que :
+       \begin{enumerate}
+	 \item $\forall h \in H, \forall k \in K, h \cdot k = k \cdot h$
+	 \item $H \cap K = \set{1_G}$
+	 \item $HK = G$ 
+       \end{enumerate}
+       Alors l'application $
+       \begin{array}[t]{r@{\ }l}
+	 \varphi : H \times K & \to G\\
+	 (h,k) & \mapsto h\cdot k
+       \end{array}$ est un isomorphisme.\\
+       En particulier : $G \simeq H \times K$
+   \end{itemize}
+
+  \section{Groupe simple}
+   Soit $G$ un groupe, on dit que $G$ est simple ssi
+   $$\forall H <G,
+   (H \triangleleft G) \so \left( (H=\set{1_G}) \lor (H=G) \right)$$
+
+   \paragraph{Remarque} ($G \simeq G'$ et $G$ simple) $\so$ ($G'$ simple)
+
+  \section{Théorème chinois des restes}
+   Soient $n,m \in \IZ, n,m \geq 2$, premiers entre eux($\pgcd(n,m)=1$).\\
+   Alors $\IZ/nm\IZ \simeq Z/n\IZ \times \IZ/m\IZ$.
+
+\part{Actions de groupes}
+ \chapter{Action d'un groupe sur un ensemble}
+  \section{Définition d'action de groupe}
+   Soient $E$ un ensemble et $G$ un groupe.\\
+   Une action de $G$ sur $E$ est un morphisme de groupe :
+   $$\rho : G \to \Autens{E}$$
+
+   i.e : une application :$$
+   \begin{array}{r@{\ }l}
+     G & \to \Autens{E}\\
+     g & \mapsto
+     \begin{array}[t]{r@{\ }l}
+       \rho(g)=\rho_g : E & \bij E\\
+       x & \mapsto \rho_g(x)
+     \end{array}
+   \end{array}$$
+
+   \paragraph{Notation} Soit $g \in G, x \in E$, on note (quand il n'y a
+   pas de confusion possible)
+   $$\rho(g)(x)=\rho_g(x)=g\cdot x$$
+
+   Alors, $\rho$ morphisme $\iff \forall g,h \in G, \forall x \in E,
+   (gh) \cdot x = g \cdot (h \cdot x)$
+
+   \subsection{Définition alternative}
+    On a une définition équivalente
+    \begin{comment}
+      \mfootnote{Preuve de l'équivalence :26/11/08 p1, verso}
+    \end{comment}
+    \mfootnote{C'est cette deuxième définition qui est usuellement
+    utilisée} à $\rho : G \to \Autens{E}$ qui est :\\
+    on a une application
+    $\begin{array}[t]{r@{\ }l}
+      G \times E & \to E\\
+      (g, x) & \mapsto g \cdot x = \rho_g(x)
+    \end{array}$
+    telle que
+    \begin{enumerate}
+      \item $\forall g,h \in G, x \in E, (gh)\cdot x = g \cdot
+        (h \cdot x)$
+      \item $\forall x \in E, 1_G \cdot x = x$ 
+    \end{enumerate}
+
+   \subsection{Définition d'une relation d'équivalence par l'action}
+    Une action ($\rho: G \to \Autens{E}$) de $G$ sur $E$ définit une relation
+    d'équivalence sur E : 
+    $$x,y \in E, \left(x \underset{\rho}{\sim} y \right) \iff
+    \left( \exists g \in G, y=\rho_g(x)\right)$$
+
+    \paragraph{Remarque} On a : ($\underset{\rho}{\sim}$ relation d'équivalence)
+    $\iff (\rho$ morphisme)
+
+  \section{Terminologie}
+   \subsection{Orbite}
+    Soit $x \in E$, on appelle l'orbite de $x$ sous l'action de $G$
+    (via $\rho$) l'ensemble :
+    $$\Orb{G}{x}=\set{\rho_g(x); g \in G} = \set{gx;g \in G} \subseteq E$$
+    On le note parfois également : $\Orb{G}{x}=G\cdot x$
+
+    \paragraph{Remarque}
+    $$\Orb{G}{x}=\set{y \in E \such x \underset{\rho}{\sim} y}$$
+    En particulier, pour $x, y \in E$ : $$\left( \Orb{G}{x}=\Orb{G}{y} \right)
+    \ \lor \ \left( \Orb{G}{x} \cap \Orb{G}{y}= \emptyset \right)$$
+    (cela vient du fait qu'on a partitionné l'ensemble avec les classes
+    d'équivalence)
+
+   \subsection{Stabilisateur}
+    Soit $x \in E$, on appelle le stabilisateur de $x$ l'ensemble :
+    $$\Stab{G}{x} = \set{g\in G \such \rho_g(x)= x} \subseteq E$$
+
+    \paragraph{Remarque}
+    \begin{comment}
+      \mfootnote{Preuve : 26/11/08 p2}
+    \end{comment}
+    $$\forall x \in E, \Stab{G}{x} < G$$
+
+   \subsection{Action transitive}
+    Une action est dite transitive si n'y a qu'une seule orbite.
+    $$\text{i.e: } \forall x, y \in E, \exists g \in G, y=g \cdot x$$
+    out encore : $\forall x,y \in E, x \underset{\rho}{\simeq} y$.
+    \paragraph{Remarque}
+    \begin{itemize}
+      \item $\forall x \in E,
+	\begin{array}[t]{r@{\ }l}
+          \rho:G & \to \Autens{\Orb{G}{x}}\\
+          g & \mapsto \rho_g
+        \end{array}$ est une action transitive.
+      \item Pour montrer qu'une action est transitive, on peut montrer que les
+        orbites de chacun des points de $E$ sont incluses dans une orbite
+        particulière. Par exemple, si on a déjà $\Orb{G}{x}$, l'action sera
+        transitive ssi :
+        $$\forall y \in E, \forall g \in G, g\cdot y \in \Orb{G}{x}$$
+        Puisqu'on a que toutes les orbites sont égales à celle de $x$ par le
+        partitionnement des orbites.
+    \end{itemize}
+ 
+   \subsection{Point fixe} 
+    $x \in E$ est un point fixe sous $G$ ssi $\Stab{G}{x}=G$.\\
+    i.e: $\forall g \in G, g\cdot x = x$
+ 
+    \paragraph{Remarque} $\Stab{G}{x}=G \iff \Orb{G}{x}=\set{x}$
+ 
+    \paragraph{Ensemble des points fixes :} On note l'ensemble des points fixes
+    $$E^G = \set{x \in E \such \forall g \in G, g\cdot x = x}$$
+     \subparagraph{Remarque} Si on fait agir $G$ sur $G$ par conjugaison, alors
+     $E^G=Z(G)$.
+   \subsection{Noyau de l'action est l'intersection des stabilisateurs}
+    On a :
+    $$\bigcap_{x \in E}\Stab{G}{x}=\ker \rho \triangleleft G$$
+ 
+   \subsection{Action fidèle}
+    Une action $\rho$ est dite fidèle si $\ker \rho = \set{1_G}$. C'est-à-dire
+    que $\rho$ est un morphisme injectif.
+ 
+    \paragraph{Remarque} Si $\rho$ est une action, on a que
+    $\overline{\rho} : G/\ker \rho \inj \Aut{E}$ est une action fidèle.
+
+  \section{Propriétés}
+   \subsection{Lemme \label{lemme:actioniso}}
+    Soit $\rho: G \to \Aut{E}$ une action. Soit $x\in E$. Alors :
+    $$
+    \begin{cases}
+      G/\Stab{G}{x} \to \Orb{G}{x}\\
+      g \cdot\Stab{G}{x} \mapsto g \cdot x
+    \end{cases}$$
+    est une application bijective\mfootnote{$G/\Stab{G}{x}$ n'est en général pas
+    un groupe quotient; il s'agit d'un ensemble quotient : l'ensemble des
+    classes à gauches sous $\Stab{G}{x}$}.
+    \begin{comment}
+      \mfootnote{Preuve : 03/12/08 p1 verso}
+    \end{comment}
+
+   \subsection{Corollaire : Cardinal de l'orbite\label{cor:cardinalorbite}}
+    $$\Card{\Orb{G}{x}} = \frac{\abs{G}}{\abs{\Stab{G}{x}}}$$
+
+   \subsection{Équation aux classes}
+    On choisit un système de représentants $x_i, i \in I$ de chaque classe
+    d'équivalence sous $\underset{\rho}{\sim}$. Alors :
+    $$E = \bigsqcup_{i\in I} \Orb{G}{x_i}$$
+    Et on a, par le corollaire \ref{cor:cardinalorbite} : 
+    $$\Card{E} = \sum_{i\in I}\frac{\abs{G}}{\abs{\Stab{G}{x_i}}}$$
+
+ \chapter{Exemples d'actions}
+  \begin{comment}
+    cours 03/12/08 p2
+  \end{comment}
+
+  \section{Géométrie}
+   \subsection{Translation des complexes}
+    $G=(\IR, +), E = \IC$.
+    $$\tau:
+    \begin{array}[t]{r@{\ }l}
+      \IR & \to \Aut{\IC}\\
+      x & \mapsto \tau_x : 
+      \begin{array}[t]{r@{\ }l}
+	\IC & \to \IC\\
+	z & \mapsto z +x
+      \end{array}
+    \end{array}$$
+    c'est une action, et $\forall z \in \IC, \Orb{G}{z}=\set{z+x; x \in \IR}$
+    c'est-à-dire une droite parallèle à l'axe des réels, passant par $z$ et
+    $\Stab{G}{z}=\set{0}$.
+
+    On a donc : $G/\Stab{G}{z}=\IR/\set{0}=\IR \bij \Orb{G}{z}$
+
+   \subsection{Rotation complexe}
+    $G=(\IR,+), E = \IC$
+    $$\rho :
+    \begin{array}[t]{r@{\ }l}
+      \IR & \to \Aut{\IC}\\
+      x & \mapsto \rho_x : 
+      \begin{array}[t]{r@{\ }l}
+	\IC & \to \IC\\
+	z & \mapsto e^{i2\pi x}\cdot z
+      \end{array}
+    \end{array}$$
+    c'est une action (et on a même que les images par l'action sont des
+    morphismes) et si $z\neq 0, \Orb{G}{z}=\set{z' \in \IC \such |z|=|z'|}$ c'est à
+    dire un cercle de rayon $|z|$. Et :
+    $$\Stab{G}{z}=\set{x \in \IR \such e^{i2 \pi x} \cdot z = z} = 
+    \set{x \in \IR \such e^{i2 \pi x} = 1} = \IZ$$
+    
+    On a donc, par (\ref{lemme:actioniso}):  $\IR/\IZ \bij \Orb{G}{z}=$ un
+    cercle de rayon $|z|$ centré en $0$. 
+
+  \section{Théorie des groupes}
+   \subsection{$G$ agit sur $G$ par translation}
+    Soit $G$ un groupe,
+    $$\tau : 
+    \begin{array}[t]{r@{\ }l}
+      G & \to \Autens{G}\\
+      x & \mapsto
+      \begin{array}[t]{r@{\ }l}
+	\tau_x : G & \to G\\
+	y & \mapsto xy
+      \end{array}
+    \end{array}$$
+
+    On a $\forall y \in G, \Orb{G}{y} = G$ et $\Stab{G}{y} = \set{1_G}$. Donc
+    c'est une action fidèle. Et on a une bijection :
+    $$\begin{array}[t]{r@{\ }l}
+      G/\Stab{G}{y}=G &\bij \Orb{G}{y} = G \\
+      x &\mapsto x y
+    \end{array}$$
+
+   \subsubsection{Théorème de Cayley}
+    Tout groupe fini $G$ d'ordre $n$ est isomorphe à un sous groupe de
+    $\mathcal{S}_n$ (i.e : $G \inj \mathcal{S}_n$).
+
+   \subsection{$G$ agit sur $G$ par conjugaison}
+    Soit $G$ groupe, 
+    $$\begin{array}[t]{r@{\ }l}
+      c : G &\to \Autgrp{G}\\
+      x &\mapsto 
+      \begin{array}[t]{r@{\ }l}
+	c_x : G &\to G\\
+	y &\mapsto xyx^{-1}
+      \end{array}
+    \end{array}$$
+
+    On a : $\forall y \in G$, 
+    \begin{itemize}
+      \item $\Orb{G}{y} = \set{xyx^{-1}, x \in G}$ : la classe de conjugaison de
+	$y$ dans $G$.
+      \item $\Stab{G}{y} = \set{x \in G \such xyx^{-1} = y} =
+	Z_G(\set{y})=Z_G(y)$
+      \item $
+	\begin{array}[t]{r@{\ }l}
+	  G/Z_G(y) &\bij \Orb{G}{y}\\
+	  x \cdot Z_G(y) &\mapsto xyx^{-1}
+	\end{array}$	
+    \end{itemize}
+
+    \subsubsection{Définition de $p$-groupe}
+     Soit $p$ premier, un $p$-groupe est un groupe d'ordre $p^n$ avec
+     $n \in \IN$.
+
+     \paragraph{Exemples}
+     \begin{itemize}
+       \item pour $p=2, n=3$ : $\IZ/8\IZ, \IZ/2\IZ \times \IZ/4\IZ, D_4,
+ 	\mathbb{H}$ (remarque : ces groupes sont 2 à 2 non isomorphes).
+       \item $\forall n \geq 3, \forall p$ premier, $\mathcal{S}_n$ n'est pas
+	 un $p$-groupe.
+       \item Tout sous-groupe d'un $p$-groupe est un $p$-groupe.
+       \item Tout quotient de $p$-groupe est un $p$-groupe.	
+     \end{itemize}
+
+    \subsubsection{Lemme : $p$ divise la différence des cardinaux de $E$ et
+    $E^G$}
+     Soit $G$ un $p$-groupe qui agit sur un ensemble $E \neq \emptyset$, fini. Soit
+     $E^G=\set{x\in E \such \forall g \in G, g\cdot x =x}$ : l'ensemble des
+     points fixes de $E$ sous l'action de $G$. Alors
+     $$p \ \Big|  \left(\Card{E} - \Card{E^G} \right)$$
+
+    \subsubsection{Corollaire : le centre d'un $p$-groupe non trivial n'est pas
+    trivial}
+     Soit $G$ un $p$-groupe non trivial (i.e : $|G|=p^n, n \geq 1$).\\
+     Alors $Z(G)\neq \set{1_G}$
+ 
+    \subsubsection{Lemme : cardinal du centre d'un $p$-groupe}
+     Soit $G$ un $p$-groupe non trivial, $|G|=p^n$. Alors $|Z(G)| = p^m$ avec
+     $1 \leq m \leq n$.
+
+    \subsubsection{Corollaire : existence de $p$-sous-groupes}
+     Soit $G$ un $p$-groupe d'ordre $p^n$. On a $\forall 0 \leq k \leq n$ il
+     existe un sous-groupe de $G$ d'ordre $p^k$.
+
+   \subsection{$G$ agit sur $G/H$ par translations}
+    Soient $G$ groupe et $H < G$, $E=G/H$ (ensemble quotient). On fait agir $G$
+    sur $G/H$ par translations :
+    $$
+    \begin{array}[t]{r@{\ }l}
+      \theta : G &\to \Aut{G/H}\\
+      x &\mapsto 
+      \begin{array}[t]{r@{\ }l}
+	\theta_x : G/H &\bij G/H\\
+	yH &\mapsto x(yH)=(xy)H
+      \end{array}
+    \end{array}$$
+
+    On a , $\forall y \in G, yH \in G/H$ :
+    \begin{itemize}
+      \item $\Orb{G}{yH}=G/H \so $ l'application est transitive.
+      \item $\Stab{G}{yH}=yHy^{-1}$
+      \item $
+	\begin{array}[t]{r@{\ }l}
+	  G/yHy^{-1} &\bij \Orb{G}{yH}=G/H\\
+	  x(yHy^{-1}) &\mapsto (xy)H
+	\end{array}$	
+    \end{itemize}
+
+    \subsubsection{Lemme : $G$ infini et $G/H$ fini alors $G$ pas simple}
+     Soit $G$ un groupe infini et $H < G$ avec $H \neq G$ et tel que
+     $\Card{G/H}$ est fini.\\
+     Alors $G$ n'est pas simple.
+
+   \subsection{$G$ agit sur $S(G)$ par conjugaison}
+    Soit $S(G)$ l'ensemble des sous groupes de $G$. On fait agir $G$ sur $S(G)$
+    par conjugaison :
+    $$
+    \begin{array}[t]{r@{\ }l}
+      \gamma : G &\to \Aut{S(G)}\\
+      x &\mapsto 
+      \begin{array}[t]{r@{\ }l}
+	\gamma_x : S(G) &\bij S(G) \\
+	H &\mapsto xHx^{-1}
+      \end{array}
+    \end{array}$$
+    c'est une action et on a $\forall H \in S(G)$:
+    \begin{itemize}
+      \item $\Orb{G}{H}=\set{xHx^{-1} \such x \in G}$
+      \item $\Stab{G}{H}=\set{x\in G \such xHx^{-1}=H}=N_G(H)$
+      \item $
+	\begin{array}[t]{r@{\ }l}
+	  G/N_G(H) &\bij \Orb{G}{H} \\
+	  x \cdot N_G(H) &\mapsto xHx^{-1}
+	\end{array}$
+    \end{itemize}
+
+    \subsubsection{Lemme : Un sous groupe d'indice 2 est normal}
+     Soit $H < G$, on a :
+     $$\Card{G/H}=2 \so H \triangleleft G$$
+
+ \chapter{Les théorèmes de Sylow}
+  \section{Définition de $p$-Sylow}
+   Soit $G$ un groupe, un $p$-Sylow de $G$ est un sous groupe de $G$ d'ordre
+   $p^n \Big| |G|$ avec $p^{n+1} \Nmid |G|$, avec $p$ premier.
+
+   i.e : Un $p$-Sylow est un $p$-groupe d'ordre maximal dans $G$.
+
+   \paragraph{Remarques}
+   \begin{itemize}
+     \item  $P < G$ est un $p$-Sylow ssi $\Card{G/P}=\frac{|G|}{|P|}$ n'est pas
+       divisible par $p$.
+     \item Si $G$ est un $p$-groupe, alors l'unique $p$-Sylow de $G$ est $G$.
+     \item Si $P$ est un $p$-Sylow de $G$, $x \in G \so xPx^{-1}$ est un
+       $p$-Sylow.
+     \begin{comment}
+     \item voir cours 09/12/08 p1 verso : $p$-Sylow de $GL_n(\mathbb{F}_p)$,
+       avec $\mathbb{F}_p=\IZ/p\IZ$
+     \end{comment}
+   \end{itemize}
+
+  \section{Théorème 1: il existe un $p$-Sylow dans $G$}
+   \begin{comment}
+     Preuve : 09/12/08 p2. 
+   \end{comment}
+   Soit $G$ groupe fini. Soit $p$ premier. Alors il existe un $p$-Sylow dans
+   $G$.
+
+  \section{Lemme technique}
+   Soit $G$ groupe fini. Soient $P$ un $p$-Sylow de $G, H < G$.\\
+   Alors $\exists x \in G, xPx^{-1} \cap H$ est un $p$-Sylow de $H$.
+
+  \section{Théorème 2}
+   \begin{comment}
+     Preuve : 10/12/08 p1. 
+   \end{comment}
+   Soit $G$ un groupe avec $|G|=p^n \cdot m, n \in \IN, m \geq 1, p \Nmid m$.
+   Alors on a :
+   \begin{enumerate}
+     \item Tout $p$-sous-groupe de $G$ est contenu dans un $p$-Sylow de $G$.
+     \item Tous les $p$-Sylow de $G$ sont conjugués (i.e : il s'écrivent sous la
+       forme d'un conjugué de $p$-Sylow)
+     \item Soit $s_p$ le nombre de $p$-Sylow dans $G$.\\
+       Alors $s_p \Big| m$ et $s_p \equiv 1 \mod p\IZ$ 
+   \end{enumerate}
+
+  \section{Corollaire du Thm 2 : un $p$-Sylow unique est normal}
+   Soit $P$ un $p$-Sylow de $G$, alors $P \triangleleft G \iff s_p=1$
+
+\part{Rappels, remarques, autres}
+ \chapter{Rappels, remarques, autres}
+  \section{Équivalences entre applications inj./surj./bij.}
+   Si on a un des deux cas suivants:
+   \begin{itemize}
+     \item Soit $f : S \to S$
+       avec $S$ fini.
+     \item Soit $S$ un espace vectoriel de dimension finie et
+       $f : S \to S$ une application linéaire.
+   \end{itemize}
+   Alors on a l'équivalence entre les propositions suivantes : 
+   \begin{enumerate}
+     \item $f$ est injective.
+     \item $f$ est surjective.
+     \item $f$ est bijective.
+   \end{enumerate}
+ 
+  \section{Bézout} $$\exists a,b \in \IZ, an+bm=\pgcd(n,m)$$
+
+  \section{Application}
+   $f:E \to F$ est une application est donnée par $S \subseteq E \times F$
+   tel\mfootnote{$S$ est vu comme le graphe de $f$} que
+   \begin{itemize}
+     \item
+       $\forall(x,y),(x',y') \in S, (x=x' \so y=y')$ 
+     \item $\forall x \in E,
+       \exists y \in F, (x,y) \in S$
+   \end{itemize}
+
+  \section{Monoïde des endomorphismes}
+   L'ensemble des endomorphismes d'un groupe $G$ se note
+   $\text{End}_{\text{grp}}(G)=\text{Hom}_{\text{grp}}(G,G)$ et forme un monoïde
+   avec neutre.
+
+  \section{$GL_n$ : Groupe linéaire}
+   Soit $E$ un corps, on appelle le groupe linéaire d'ordre $n$, noté $GL_n(E)$
+   le groupe constitué de l'ensemble des matrices $n \times n$ inversibles à
+   coefficients dans $E$, muni de la multiplication matricielle.
+
+   \paragraph{Remarque} On a, avec $|E|=m$ : 
+   $$\Card{GL_n(E)}=m^{\frac{n(n-1)}{2}}
+   \cdot \prod_{1 \leq k \leq n} (m^k-1)$$
+
+  \section{$SL_n$ : Groupe spécial linéaire}
+   Le groupe spécial linéaire est constitué des matrices $n \times n$ de
+   déterminant 1.
+
+  \section{Résultats vus en exercices}
+   \subsection{Les sous groupes de $\IR$ sont soit dense soit de la forme
+   $\alpha \IZ$}
+    Soit $G$ sous groupe de $(\IR, +)$. Alors on a
+    \begin{itemize}
+      \item Soit : $\overline{G} = \IR$ c'est-à-dire $G$ est dense dans $\IR$.
+      \item Soit : $\exists \alpha \in \IR$ tel que $G=\grp{\alpha}:= \alpha
+        \IZ=\set{n\alpha; n\in \IZ} \so \overline{G}=G(\neq \IR)$. 
+    \end{itemize}
+    \begin{comment}
+      Preuve : 10/12/08 p 3
+    \end{comment}
+
+   \subsection{Il y a deux classes de groupes d'ordre 6}
+    Soit $G$ un groupe d'ordre 6. On a :
+    \begin{itemize}
+      \item Soit : $G$ est abélien et $G \simeq \IZ/6\IZ$
+      \item Soit : $G$ n'est pas abélien et $G \simeq \mathcal{S}_3$
+    \end{itemize}
+
+   \subsection{$G$ un groupe d'ordre $p^2$}
+    Soient $p$ premier et $G$ un groupe d'ordre $p^2$ alors $G$ est abélien et 
+    \begin{itemize}
+      \item Soit : $G\simeq \IZ/p^2\IZ$
+      \item Soit : $G\simeq \IZ/p\IZ \times \IZ/p\IZ$	
+    \end{itemize}
+    \begin{comment}
+      Preuve : 17/12/08 p1
+    \end{comment}
+
+   \subsection{$\Aut{E} \simeq \mathcal{S}_n$}
+    Soit $E$ un ensemble avec $|E|=n$ alors $\Autens{E}\simeq \mathcal{S}_n$.
+    \begin{comment}
+      Preuve : 17/12/08 p2
+    \end{comment}
+
+\end{document}

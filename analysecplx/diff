@@ -1,0 +1,344 @@
+Index: analysecplx.tex
+===================================================================
+--- analysecplx.tex	(revision 159)
++++ analysecplx.tex	(working copy)
+@@ -143,7 +143,8 @@
+ 
+ \subsection{Fonction complexe}
+ 
+-Soit $D \subseteq \C$ un ouvert. Une fonction complexe $f : D \ap \C : z \mapsto f(z)$ est une loi qui a tout nombre complexe $z \in D$ associe (au plus) un nombre complexe $f(z)$
++Soit $D \subseteq \C$ un ouvert. Une fonction complexe $f : D \ap \C : z
++\mapsto f(z)$ est une loi qui à tout nombre complexe $z \in D$ associe (au plus) un nombre complexe $f(z)$
+ 
+ Le graphe de cette fonction se trouve dans $\C^2 \simeq \R^4$
+ 
+@@ -163,7 +164,7 @@
+ 
+ $f(x + i.y) = u(x,y) + i.v(x,y)$
+ 
+-Càd\footnote{Un sous-ensemble de $\C$ d'un point de vue topologique peut être vue comme un sous-ensemble de $\R^2$} la donnée d'une fonction $f: \C \ap \C$ est équivalente à la donnée de deux fonctions $\R^2 \ap \R$.
++Càd\footnote{Un sous-ensemble de $\C$ d'un point de vue topologique peut être vu comme un sous-ensemble de $\R^2$} la donnée d'une fonction $f: \C \ap \C$ est équivalente à la donnée de deux fonctions $\R^2 \ap \R$.
+ 
+ %%TODO: ça, qqes fonctions élémentarires, rotation, homotétie, translation
+ %%\subsection{Transformation dans le plan de Gauss}
+@@ -245,8 +246,8 @@
+ On a $\forall z = x + i.y$ avec $y_0 \leq y \leq y_0 + 2\pi$ et $z \in A_{y_0}$
+ 
+ \begin{itemize}
+-\item{$e^{ln z} = z$}
+-\item{$ln(e^z) = z$}
++\item{$e^{\ln z} = z$}
++\item{$\ln(e^z) = z$}
+ \end{itemize}
+ 
+ %%2009-02-11 Fonctions holomorphes
+@@ -254,23 +255,31 @@
+ 
+ \section{Fonctions holomorphes}
+ 
+-Soit $f: A \ap \C$ où $A \subseteq \C$ est ouvert on dit que $f$ est dérivable ou holomorphe au sens complexe en $z_0 \in A$ ssi :
++Soit $f: A \ap \C$ où $A \subseteq \C$ est ouvert on dit que $f$ est
++dérivable ou holomorphe au sens complexe en $z_0 \in A$ ssi :
+ 
+ \[ \clim{z \ap z_0} \frac{f(z) - f(z_0)}{z-z_0} \mbox{ existe}\]
+ 
+ Dans ce cas on la note $f'(z_0)$ ou $\frac{df}{dz}(z_0)$
+ 
+-On dit que $f$ est holomorphe sur $A$ ssi $\forall z \in A, f$ est holomorphe en $z$
++On dit que $f$ est holomorphe sur $A$ ssi $\forall z \in A, f$ est holomorphe
++en $z$
+ 
+ \subsection{Remarque}
+ 
+-Dans $\R$ on a pour $f: A \ap \R$ que $\clim{x \ap x_0} \frac{f(x) - f(x_0)}{x - x_0}$ existe et vaut $f'(x_0)$ ssi :
++Dans $\R$ on a pour $f: A \ap \R$ que $\clim{x \ap x_0} \frac{f(x) - f(x_0)}{x
++- x_0}$ existe et vaut $f'(x_0)$ ssi :
+ 
+-\[ \forall \varepsilon > 0, \exists \delta >0 , \forall x \in A \subseteq \R, \abs{x - x_0} < \delta \so \abs{\frac{f(x)-f(x_0)}{x-x_0} - f'(x_0)} < \varepsilon \]
++\[ \forall \varepsilon > 0, \exists \delta >0 , \forall x \in A \subseteq
++\R, \abs{x - x_0} < \delta \so \abs{\frac{f(x)-f(x_0)}{x-x_0} - f'(x_0)} <
++\varepsilon \]
+ 
+-Dans $\C$ on a pour $f: B \ap \C$ que $\clim{z \ap z_0} \frac{f(z) - f(z_0)}{z - z_0}$ existe et fvaut $f'(z_0)$ ssi :
++Dans $\C$ on a pour $f: B \ap \C$ que $\clim{z \ap z_0} \frac{f(z) - f(z_0)}{z
++- z_0}$ existe et vaut $f'(z_0)$ ssi :
+ 
+-\[ \forall \varepsilon > 0, \exists \delta >0 , \forall z \in B \subseteq \C, \abs{z - z_0} < \delta \so \abs{\frac{f(z)-f(z_0)}{z-z_0} - f'(z_0)} < \varepsilon \]
++\[ \forall \varepsilon > 0, \exists \delta >0 , \forall z \in B \subseteq
++\C, \abs{z - z_0} < \delta \so \abs{\frac{f(z)-f(z_0)}{z-z_0} - f'(z_0)} <
++\varepsilon \]
+ 
+ \subsection{Propriétés}
+ 
+@@ -290,15 +299,20 @@
+ 
+ %sic
+ 
+-Une fonction $f:A \subseteq \C \ap \C$ est dite conforme en $z_0$ s'il existe $\theta \in [0, 2\pi ]$ et $r \in \R^{>0}$ tel que pour toute courbe $c(t)$ (ie  $c : \R \ap A$) dérivable en $\theta$ tel que $c(\theta) = z_0$ et $c'(\theta) = v \neq 0$ la courbe $d(t) = f(c(t))$ est dérivable en $\theta$
++Une fonction $f:A \subseteq \C \ap \C$ est dite conforme en $z_0$ s'il existe
++$\theta \in [0, 2\pi ]$ et $r \in \R^{>0}$ tel que pour toute courbe $c(t)$
++(ie $c : \R \ap A$) dérivable en $0$ tel que $c(0) = z_0$ et $c'(0)
++= v \neq 0$ la courbe $d(t) = f(c(t))$ est dérivable en $0$
+ 
+-En posant $u =d'(\theta)$ on a $\abs{u} = r.\abs{v}$ et $\arg(u) = \arg(v) + \theta \mod 2\pi$
++En posant $u =d'(0)$ on a $\abs{u} = r.\abs{v}$ et $\arg(u) = \arg(v)
+++ \theta \mod 2\pi$
+ 
+ Une application est conforme si elle préserve les angles
+ 
+ \subsubsection{Théorème}
+ 
+-Si $f : A \ap \C$ est holomorphe en $z_0$ et $f'(z_0) \neq 0$ alors $f$ est conforme en $z_0$
++Si $f : A \ap \C$ est holomorphe en $z_0$ et $f'(z_0) \neq 0$ alors $f$
++est conforme en $z_0$
+ 
+ \subsection{Troisième caractérisation de fonction holomorphe}
+ 
+@@ -574,7 +588,8 @@
+ 
+ \subsection{Théorème de Cauchy}
+ 
+-Soit $D \subseteq \C$ un ouvert simplement connexe et $f : D \ap \C$ une fonction holomorphe
++Soit $D \subseteq \C$ un ouvert simplement connexe et $f : D \ap \C$ une
++fonction holomorphe
+ 
+ Soit $\gamma$ un lacet dans $D$
+ 
+@@ -584,7 +599,9 @@
+ 
+ \subsubsection{Propriété}
+ 
+-Soit $f : D \ap \C$ une fonction holomorphe sur $D \setminus\tset{z_0}$ avec $D$ simplement connexte tq $f$ est bornée au voisinage de $z_0$ alors pour tout lacet $\gamma$ contenant $z_0$ on a :
++Soit $f : D \ap \C$ une fonction holomorphe sur $D \setminus\tset{z_0}$ avec
++$D$ simplement connexe tq $f$ est bornée au voisinage de $z_0$ alors pour tout
++lacet $\gamma$ ``contenant $z_0$'' on a :
+ 
+ \[ \int_\gamma f(z) dz = 0 \]
+ 
+@@ -592,15 +609,19 @@
+ 
+ \subsection{Théorème}
+ 
+-Soit $D \subseteq \C$ un ouvert simplement connexe et $f: D \ap \C$ une fonction holomorphe
++Soit $D \subseteq \C$ un ouvert simplement connexe et $f: D \ap \C$ une
++fonction holomorphe
+ 
+-Il existe $F : D \ap \C$ une fonction holomorphe tq $F' = f$ avec $F'$ qui est unique à addition près de constante
++Il existe $F : D \ap \C$ une fonction holomorphe tq $F' = f$ avec $F'$ qui est
++unique à addition de constante près.
+ 
+ \subsection{Théorème}
+ 
+-Une condition nécessaire et suffisante pour que si $f : D \ap \C$ (avec $D$ un ouvert connexe de $\C$) admette une primitive constante $\forall \gamma$ chemin de $D$ est que :
++Une condition nécessaire et suffisante pour que $f : D \ap \C$ (avec $D$ un
++ouvert connexe de $\C$) admette une primitive est que :
+ 
+-$\int_\gamma f(z) dz$ ne dépend que des extrémités de $\gamma$
++$\forall \gamma$ chemin de $D$, $\int_\gamma f(z) dz$ ne dépend que des
++extrémités de $\gamma$.
+ 
+ \subsection{Indice}
+ 
+@@ -620,11 +641,11 @@
+ 
+ Où
+ \begin{itemize}
+-\item{$g(t)>0 \forall t \in [0,1]$}
++\item{$g(t)>0, \forall t \in [0,1]$}
+ \item{$g(0) = g(1)$}
+ \item{$g $ est $\mathcal{C}^1$}
+ \item{$\theta$ est $\mathcal{C}^1$}
+-\item{$\theta(1) = \theta(0) + 2k\pi$ avec $k \in \N$}
++\item{$\theta(1) = \theta(0) + 2K\pi$ avec $K \in \N$}
+ \end{itemize}
+ 
+ Alors on a :
+@@ -659,6 +680,11 @@
+ 
+ \[f \mbox{ holomorphe } \so f^{(k)} \mbox{ existe } \forall k \geq 1 \]
+ 
++\section{Théorème Liouville}
++Soit $f$ une fonction holomorphe\footnote{Une fonction holomorphe sur tout
++$\C$ est appelé une fonction entière.} sur tout $\C$ et bornée. Alors $f$
++est constante.
++
+ \chapter{Représentation en série de fonction holomorphes}
+ 
+ \section{Rappels}
+@@ -671,7 +697,7 @@
+ 
+ \subsection{Convergence d'une série}
+ 
+-$\sum_{k=0}^{+\infty}$ converge ssi la suite des sommse partielles $\left( \sum_{k=0}^n z_k \right)_n$ converge
++$\sum_{k=0}^{+\infty} z_k$ converge ssi la suite des sommes partielles $\left( \sum_{k=0}^n z_k \right)_n$ converge
+ 
+ \subsection{Convergence absolue}
+ 
+@@ -718,7 +744,7 @@
+ 
+ Alors :
+ 
+-\[\sum_{n=0}^{+\infty} g_n(z) \mbox{ converge absolument}\]
++\[\sum_{n=0}^{+\infty} g_n(z) \mbox{ converge absolument (même uniformément)}\]
+ 
+ \section{Série de puissance et développement de Taylor}
+ 
+@@ -731,7 +757,8 @@
+ 
+ S'il existe $r > 0, M > 0$ tq $\abs{a_n} r^n \leq M$
+ 
+-Alors la série converge absolument sur tout disque fermé $\tset{z \mbox{ tq } \abs{z - z_0} \leq \rho \leq 1}$
++Alors la série converge absolument sur tout disque fermé $\tset{z \mbox{ tq }
++\abs{z - z_0} \leq \rho < 1}$
+ 
+ \subsection{Rayon de convergence}
+ 
+@@ -747,9 +774,10 @@
+ \subsubsection{Propriétés}
+ Soit $\sum a_n(z - z_0)^n$
+ \begin{itemize}
+-\item{si $R = 0$ on dit que le disque de convergence est vide}
+-\item{si $0 < R < +\infty$ alors le disque de convergence vaut $\tset{z \mbox{ tq } \abs{ z - z_0} < R}$}
+-\item{si $R = +\infty$ alors le disque de convergence vaut $\C$}
++  \item{si $R = 0$ on dit que le disque de convergence est vide}
++  \item{si $0 < R < +\infty$ alors le disque de convergence vaut $\tset{z
++    \mbox{ tq } \abs{ z - z_0} < R}$}
++  \item{si $R = +\infty$ alors le disque de convergence vaut $\C$}
+ \end{itemize}
+ 
+ \subsection{Théorème}
+@@ -789,25 +817,26 @@
+ 
+ \section{Développement de Laurent}
+ 
+-Soit $0 \leq r_1 \leq r_2$ 
+-Soit $z_0 \in \C$
+-Soit $A = \tset{z \in \C \vert r_1 < \abs{z - z_0} < r_2}$
++Soit $0 \leq r_1 \leq r_2$. Soit $z_0 \in \C$. Soit $A = \tset{z \in \C
++\vert r_1 < \abs{z - z_0} < r_2}$.
+ 
+ Si $f$ est analytique sur $A$
+ 
+ Alors on a l'expansion de Laurent de $f$ dans $A$
++\[f(z) = \sum_{n=0}^{+\infty} a_n(z - z_0)^n + \sum_{n=1}^{+\infty} b_n(z
++- z_0)^{-n}\]
+ 
+-$f(z) = \sum_{n=0}^{+\infty} a_n(z - z_0)^n + \sum_{n=0}^{+\infty} b_n(z - z_0)^n$
+-
+ On a que :
+ 
+ Les deux séries convergent absolument sur tout ensemble
+ 
+-\[B_{\rho_1,\rho_2} = \tset{z \mbox{ tq } \rho_1 \leq \abs{z - z_0} \leq \rho_2} \mbox{ où } r_1 < \rho_1 < \rho_2 < r_2\]
++\[B_{\rho_1,\rho_2} = \tset{z \mbox{ tq } \rho_1 \leq \abs{z - z_0} \leq
++\rho_2} \mbox{ où } r_1 < \rho_1 < \rho_2 < r_2\]
+ 
+ Si $\gamma$ est un cercle centré en $z_0$ de rayon $r_1 < r < r_2$
+ 
+-\[a_n = \frac{1}{2i\pi} \int_\gamma \frac{f(u)}{(u-z_0)^{n+1}} du \AND b_n= \int_\gamma f(u)(u-z_0)^{n+1} du \]
++\[a_n = \frac{1}{2i\pi} \int_\gamma \frac{f(u)}{(u-z_0)^{n+1}} du \AND b_n=
++\frac{1}{2i\pi} \int_\gamma f(u)(u-z_0)^{n-1} du \]
+ 
+ \section{Etude des singularités des fonctions complexes}
+ 
+@@ -821,10 +850,11 @@
+ 
+ \subsubsection{Remarque}
+ 
+-On a que $z_0$ est un zéro d'ordre $p$ poru $f : D \ap \C$ une fonction holomorphe ssi 
++On a que $z_0$ est un zéro d'ordre $p$ pour $f : D \ap \C$ une fonction
++holomorphe ssi
++\[f(z) = (z-z_0)^p g(z) \mbox{ où } g \mbox{ est holomorphe avec } g(z_0)
++\neq 0 \]
+ 
+-\[f(z) = (z-z_0)^p g(z) \mbox{ où } g \mbox{ est holomorphe avec } g(z_0) \neq 0 \]
+-
+ \subsection{Théorème}
+ 
+ Soit $D \subseteq \C$ un ouvert connexe et $z_0 \in D$
+@@ -849,18 +879,28 @@
+ \section{Classification des points singuliers isolés}
+ 
+ \begin{itemize}
+-\item{Si $E_s(z) \neq 0$ et il existe au moins un $b_n \neq 0$ alors $z_0$ est une singularité isolée}
+-\item{Si $E_s(z)$ est un développement limité et il existe $p \in \N_0$ tq $b_p \neq 0$ mais $b_q = 0 \forall p < q$ alors $z_0$ est un pôle d'ordre $p$}
+-\item{Si $E_s(z)$ est un développement illimité et $\forall p \exists q > p, b_q \neq 0$ alors $z_0$ est une singularité essentielle}
+-\item{Si $E_s(z) = 0$ alors $z_0$ est un point régulier}
++  \item{Si $E_s(z) \neq 0$ et il existe au moins un $b_n \neq 0$ alors $z_0$
++    est une singularité isolée}
++  \item{Si $E_s(z)$ est un développement limité et il existe $p \in \N_0$
++    tq $b_p \neq 0$ mais $b_q = 0 \forall p < q$ alors $z_0$ est un pôle
++    d'ordre $p$}
++  \item{Si $E_s(z)$ est un développement illimité et $\forall p \exists q >
++    p, b_q \neq 0$ alors $z_0$ est une singularité essentielle}
++  \item{Si $E_s(z) = 0$ alors $z_0$ est un point régulier}
+ \end{itemize}
+ 
+ \subsection{Propriétés des pôles}
+ 
+ \begin{itemize}
+-\item{$f : D\setminus{z_0} \ap \C$ une fonction holomorphe ; $z_0$ est un pôle d'ordre $p$ ssi il existe $g: D \ap \C$ une fonction holomorphe tq $\forall g \in D\setminus\tset{z_0}, f(z) = \frac{g(z)}{(z-z_0)^p}$ avec $g(z_0) \neq 0$}
+-\item{Si $z_0$ est un zéro d'ordre $p$ de $f: D \ap \C$ une fonction holomorphe alors $z_0$ est un pôle d'ordre $p$ de $\frac{1}{f}$}
+-\item{Si $z_0$ est un pôle d'ordre $p$ de $f: D \setminus\tset{z_0} \ap \C$ une fonction holomorphe alors $z_0$ est un zéro d'ordre $p$ de $\frac{1}{f}$}
++  \item{$f : D\setminus{z_0} \ap \C$ une fonction holomorphe ; $z_0$ est un
++    pôle d'ordre $p$ ssi il existe $g: D \ap \C$ une fonction holomorphe
++    tq $\forall z \in D\setminus\tset{z_0}, f(z) = \frac{g(z)}{(z-z_0)^p}$
++    avec $g(z_0) \neq 0$}
++  \item{Si $z_0$ est un zéro d'ordre $p$ de $f: D \ap \C$ une fonction
++    holomorphe alors $z_0$ est un pôle d'ordre $p$ de $\frac{1}{f}$}
++  \item{Si $z_0$ est un pôle d'ordre $p$ de $f: D \setminus\tset{z_0}
++    \ap \C$ une fonction holomorphe alors $z_0$ est un zéro d'ordre $p$
++    de $\frac{1}{f}$}
+ \end{itemize}
+ 
+ \chapter{Théorème des résidus}
+@@ -876,10 +916,6 @@
+ \[\Res_{z_0} (f) = \frac{1}{2i\pi} \int_\gamma f(u) du \mbox{ où } \gamma
+ \mbox{ est un cercle centré en } z_0 \mbox{ de rayon } r \mbox{ inclu à } D \]
+ 
+-\subsection{Théorème des résidus}
+-
+-\[\int_\gamma f(z) dz = 2i\pi \sum_{i=1}^n \Res_{z_i}(f).I(\gamma,z_i)\]
+-
+ \section{Point régulier}
+ 
+ Soient $g,h : D \ap \C$ deux fonctions holomorphes
+@@ -893,7 +929,7 @@
+ 
+ Soit $f(z) = \frac{g(z)}{h(z)}$ alors $z_0$ est un point régulier de $f$
+ 
+-\section{Pôles simplse ou pôles d'ordre 1}
++\section{Pôles simple ou pôles d'ordre 1}
+ 
+ Soient $g,h$ deux fonctions holomorphes en $z_0$ tq $g(z_0) \neq 0, h(z_0) = 0$ et $h'(z_0) \neq 0$
+ 
+@@ -921,17 +957,24 @@
+ 
+ \section{Calcul d'intégrales réelles}
+ 
+-Soit $f : \C \ap \C$ une fonction holomorphe sur $\C$ sauf en un nombre finis de points ne se trouvant pas sur l'axe réel
++Soit $f : \C \ap \C$ une fonction holomorphe sur $\C$ sauf en un nombre
++finis de points ne se trouvant pas sur l'axe réel
+ 
+-S'il existe $M,R \in \R^+$ tq $\abs{f(z)} \leq \frac{M}{\abs{z}^2}$ pour $\abs{z} \geq R$
++S'il existe $M,R \in \R^+$ tq $\abs{f(z)} \leq \frac{M}{\abs{z}^2}$ pour
++$\abs{z} \geq R$
+ 
+ Alors :
+ 
+-\[\int_\R f(x) dx = 2 i \pi \sum_{\Im(z_i) > 0} \Res_{z_i}(f) = - 2 i \pi \sum_{\Im(z_i) < 0} \Res_{z_i}(f) \]
++\[\int_\R f(x) dx = 2 i \pi \sum_{\Im(z_i) > 0} \Res_{z_i}(f) = - 2 i \pi
++\sum_{\Im(z_i) < 0} \Res_{z_i}(f) \]
+ 
+ \section{Théorème des zéros isolés}
+ 
+-Soit $f: D \ap \C$ une fonction holomorphe et non-identiquement nulle avec $D$ connexe
++Soit $f: D \ap \C$ une fonction holomorphe et non-identiquement nulle avec
++$D$ connexe
+ 
+-Tous les zéros de $f$ sont isolés (ie $f(z_0) = 0, \exists \varepsilon > 0, \forall z \neq z_0, \abs{z - z_0} < \varepsilon$ tq $f(z) \neq 0$)
++Tous les zéros de $f$ sont isolés (ie $f(z_0) = 0, \exists \varepsilon >
++0, \forall z \neq z_0, \abs{z - z_0} < \varepsilon \so f(z) \neq 0$)
++
++
+ \end{document}

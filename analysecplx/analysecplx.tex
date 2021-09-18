@@ -1,0 +1,980 @@
+\documentclass[a4paper,10pt]{report}
+
+\usepackage[utf8x]{inputenc}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage[french]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[dvips]{graphicx}
+\usepackage{epsfig}
+\usepackage{fullpage}
+
+\author{David Hauweele}
+\title{Synthèse Analyse complexe}
+\date{2009-03-16}
+
+%%\newcommand{\mod}{\mbox{ mod }}
+
+\newcommand{\rd}{\circ}
+\newcommand{\conj}[1]{\overline{#1}}
+%%\newcommand{\sin}{\mbox{sin }}
+%%\newcommand{\cos}{\mbox{cos }}
+%%\newcommand{\tan}{\mbox{tan }}
+%%\newcommand{\arcsin}{\mbox{arcsin }}
+%%\newcommand{\arctan}{\mbox{arctan }}
+\newcommand{\Adh}{\mbox{ Adh }}
+\newcommand{\Bd}{\mbox{ Bd }}
+\newcommand{\Int}{\mbox{ Int }}
+\newcommand{\Maj}{\mbox{ Maj }}
+\newcommand{\ap}{\rightarrow}
+\newcommand{\nap}{ \longrightarrow {\kern-13,5pt{\backslash}}~~}
+\newcommand{\apw}[1]{\stackrel{#1}{\rightarrow}}
+\newcommand{\Dom}{\mathrm{Dom}\:}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\so}{\Rightarrow}
+\newcommand{\os}{\Leftarrow}
+\newcommand{\ioi}{\Leftrightarrow}
+\newcommand{\tset}[1]{\left\lbrace #1 \right\rbrace}
+\newcommand{\conv}[1]{\mathop{\longrightarrow}\limits_{#1}}
+\newcommand{\nconv}[1]{\mathop{\nap}\limits_{#1}}
+\newcommand{\abs}[1]{\left\vert #1 \right\vert}
+\newcommand{\ceil}[1]{\left\lceil #1 \right\rceil}
+\newcommand{\norme}[1]{\parallel #1 \parallel}
+\newcommand{\clim}[1]{\lim\limits_{#1}}
+\newcommand{\but}{\setminus}
+\newcommand{\Id}{\mbox{Id}}
+\newcommand{\cclass}[3]{\mathcal{C}^{#1} (#2;#3)}
+\newcommand{\Poly}{\mathbb{P}}
+\newcommand{\series}{\sum_{n=n_0}^{+\infty}}
+\newcommand{\Series}[1]{\sum_{n=#1}^{+\infty}}
+\newcommand{\eqdo}{EDO }
+\newcommand{\grp}[1]{\left\langle #1 \right\rangle}
+\newcommand{\AND}{\mbox{ et }}
+\newcommand{\Res}{\mbox{Res}}
+
+\begin{document}
+
+\maketitle
+%Last revision : \today
+
+%Document réalisé en \LaTeX
+
+%Document réalisé sous Vim
+
+%Figures réalisées sous XFig
+
+%Le tout sur Linux et FreeBSD
+\tableofcontents
+\newpage
+\chapter{Fonctions holomorphes}
+
+\section{Rappels sur les nombres complexes}
+
+\subsection{Les nombres complexes}
+
+L'ensemble des complexes est $\C = \tset{a + bi \vert a, b \in \R \AND i^2 = -1}$
+
+Un nombre complexe est un $z \in \C$ tq $z = a + bi$ avec $a,b \in \R$
+
+Avec $\Re [z] = a$ sa partie réelle.
+
+Avec $\Im [z] = b$ sa partie imaginaire.
+
+\subsection{Théorème}
+
+On a que $\grp{\C,+,\dot,0,1}$ est un corps commutatif. De plus il forme un corps algébriquement clos (tout polynôme à coefficient dans $\C$ a une racine dans $\C$).
+
+\subsection{Représentation trigonométrique et plan de Gauss}
+
+Soit $z = r.e^{i\theta}$ un nombre complexe. On a :
+
+\[ z = r.e^{i \theta} = r \left( \cos \theta + i \sin \theta \right) \]
+
+%TODO: représentation du plan de Gauss
+
+%\begin{figure}[htb]
+%  \begin{center}
+%    \input{gauss.pstex_t}
+%  \end{center}
+%  \caption{Plan de gauss}
+%  \label{fig:gauss}
+%\end{figure}
+
+Avec $r = \abs{z}$ le module.
+
+Avec $\theta = \arg (z)$ l'argument.
+
+En posant $z = a + bi$ on a $r(\cos \theta + i \sin \theta) = a + bi$ et donc :
+
+\[ \abs{z} = r = \sqrt{a^2+b^2} \]
+\[ \arg(z) = \theta = \arctan \left( \frac{b}{a} \right) \]
+
+\subsection{Opérations sur les complexes}
+
+Soit $z = a + bi$ , $z_1 = a_1+ b_1 i$ et $z_2 = a_2 + b_2 i$ :
+
+\begin{itemize}
+\item{Addition : $z_1 + z_2 = (a_1 + b_1 i) + (a_2 + b_2 i) = (a_1 + a_2) + (b_1 + b_2)i$}
+\item{Multiplication : $z_1 . z_2 = (a_1 + b_1i) . (a_2 + b_2 i) = (a_1a_2 - b_1b_2) + (a_1b_2 + a_2b_1)i$}
+\item{Conjugaison : $\conj{z} = \conj{a+bi} = a - bi$}
+\item{Inverse : $z^{-1} = \left(a+bi\right)^{-1} = \frac{a-bi}{a^2+b^2} = \frac{\conj{z}}{\abs{z}^2}$ avec $z \in \C\setminus \tset{0}$}
+\end{itemize}
+
+\subsection{Propriétés}
+
+Soit $z = r e^{i \theta}, z_1, z_2 \in \C$
+
+\begin{itemize}
+\item{$\abs{z_1.z_2} = \abs{z_1}.\abs{z_2}$}
+\item{$\arg(z_1.z_2) = \arg(z_1)+\arg(z_2)$}
+\item{De Moivre : $z^n = r^n e^{i (n \theta)}$}
+\item{Inégalité triangulaire : $\abs{z_1 + z_2} \leq \abs{z_1} + \abs{z_2}$}
+\item{$\conj{z_1 + z_2} = \conj{z_1} + \conj{z_2}$}
+\item{$\conj{z_1 . z_2} = \conj{z_1} . \conj{z_2}$}
+\item{$\conj{z}.z = \abs{z}^2$}
+\item{$z = \conj{z} \ioi z \in \R$}
+\end{itemize}
+
+\section{Fonctions complexes élémentaires}
+
+\subsection{Fonction complexe}
+
+Soit $D \subseteq \C$ un ouvert. Une fonction complexe $f : D \ap \C : z
+\mapsto f(z)$ est une loi qui à tout nombre complexe $z \in D$ associe (au plus) un nombre complexe $f(z)$
+
+Le graphe de cette fonction se trouve dans $\C^2 \simeq \R^4$
+
+%%TODO illustration du graphe
+
+\subsection{Remarque}
+
+Soit $f: \C \ap \C : (x + i.y) \mapsto f(x+i.y)$
+
+$\Re [f(x+i.y)] = u(x,y)$
+
+$\Im [f(x+i.y)] = v(x,y)$
+
+Avec $u,v : \R^2 \ap \R$
+
+On a donc :
+
+$f(x + i.y) = u(x,y) + i.v(x,y)$
+
+Càd\footnote{Un sous-ensemble de $\C$ d'un point de vue topologique peut être vu comme un sous-ensemble de $\R^2$} la donnée d'une fonction $f: \C \ap \C$ est équivalente à la donnée de deux fonctions $\R^2 \ap \R$.
+
+%%TODO: ça, qqes fonctions élémentarires, rotation, homotétie, translation
+%%\subsection{Transformation dans le plan de Gauss}
+%% ou
+%%\subsection{Fonction élémentaires}
+
+\subsection{Exponentielle complexe}
+
+Soit $z = a+bi \in \C$ on a $e^z = e^{a+bi} = e^a(\cos b + i \sin b)$
+
+\subsection{Fonction périodique}
+
+Soit $f:\C \ap \C$ on dit que $f$ est périodique si :
+
+\[\exists w \in \C , \forall z \in \C : f(z+w) = f(z)\]
+
+\subsection{Propriétés}
+
+Soit $z_1,z_2 \in \C$
+
+\begin{itemize}
+\item{$e^{z_1+z_2} = e^{z_1} . e^{z_2}$}
+\item{$e^z \neq 0$ (voir\footnote{On a pas $e^z > 0$ car il n'y a pas de relation d'ordre dans $\C$})}
+\item{$\abs{e^{a+bi}} = \abs{e^a} = e^a$}
+\item{$e^{z+2ik\pi} = e^z$ avec $k \in \Z$ càd $e^z$ est périodique de période $2ik\pi$}
+\item{$e^z = 1 \ioi z= 2ik\pi$ avec $k \in \Z$}
+\end{itemize}
+
+%%TODO: à faire
+%%\subsection{Remarque sur la représentation graphique de $e^z$}
+
+\subsection{Fonctions trigonométriques}
+
+Soit $z \in \C$ on définit $\sin z = \frac{e^{iz} - e^{-iz}}{2i}$
+
+Soit $z \in \C$ on définit $\cos z = \frac{e^{iz} + e^{-iz}}{2}$
+
+Soit $z \in \C$ on définit $\sinh z = \frac{e^z - e^{-z}}{2}$
+
+Soit $z \in \C$ on définit $\cosh z = \frac{e^z + e^{-z}}{2}$
+
+\subsubsection{Propriétés}
+
+Soit $z \in \C$
+
+\begin{itemize}
+\item{$\cos^2 z + \sin^2 z = 1$}
+\item{$\cosh (iz) = \cos z$}
+\item{$\sinh (iz) = i . \sin z$}
+\item{$\cosh^2 z - \sinh^2 z = 1$}
+\end{itemize}
+
+\subsection{Fonctions logarithmiques}
+
+\subsubsection{Domaine restreint}
+
+Soit $y_0 \in \R$ on définit $A_{y_0}= \tset{x +i.y \in \C \vert y_0 \leq y \leq y_0 + 2\pi}$.
+
+\subsubsection{Théorème}
+
+Soit $y_0$, on a que la fonction $e^z : A_{y_0} \ap \C \setminus \tset{0}$ est une bijection.
+
+\subsubsection{Logarithme}
+
+On définit la fonction logarithmique :
+
+\[\ln : \C\setminus\tset{0} \ap A_{y_0} \subset \C : z \mapsto \ln z = \ln \abs{z} + i \arg(z) \]
+
+Où $\ln \abs{z}$ est le $\ln$ réel et $\abs{z} \in \R$ le module de $z$
+
+Et $\arg(z) : \C \ap \left[ y_0 , y_0 + 2\pi \right[$.
+
+\subsubsection{Théorème}
+
+On a $\ln(z)$ est l'inverse de $e^z$ au sens suivant :
+
+Soit $y_0 \in \R$
+
+On a $\forall z = x + i.y$ avec $y_0 \leq y \leq y_0 + 2\pi$ et $z \in A_{y_0}$
+
+\begin{itemize}
+\item{$e^{\ln z} = z$}
+\item{$\ln(e^z) = z$}
+\end{itemize}
+
+%%2009-02-11 Fonctions holomorphes
+%%\subsection{Fonctions holomorphes}
+
+\section{Fonctions holomorphes}
+
+Soit $f: A \ap \C$ où $A \subseteq \C$ est ouvert on dit que $f$ est
+dérivable ou holomorphe au sens complexe en $z_0 \in A$ ssi :
+
+\[ \clim{z \ap z_0} \frac{f(z) - f(z_0)}{z-z_0} \mbox{ existe}\]
+
+Dans ce cas on la note $f'(z_0)$ ou $\frac{df}{dz}(z_0)$
+
+On dit que $f$ est holomorphe sur $A$ ssi $\forall z \in A, f$ est holomorphe
+en $z$
+
+\subsection{Remarque}
+
+Dans $\R$ on a pour $f: A \ap \R$ que $\clim{x \ap x_0} \frac{f(x) - f(x_0)}{x
+- x_0}$ existe et vaut $f'(x_0)$ ssi :
+
+\[ \forall \varepsilon > 0, \exists \delta >0 , \forall x \in A \subseteq
+\R, \abs{x - x_0} < \delta \so \abs{\frac{f(x)-f(x_0)}{x-x_0} - f'(x_0)} <
+\varepsilon \]
+
+Dans $\C$ on a pour $f: B \ap \C$ que $\clim{z \ap z_0} \frac{f(z) - f(z_0)}{z
+- z_0}$ existe et vaut $f'(z_0)$ ssi :
+
+\[ \forall \varepsilon > 0, \exists \delta >0 , \forall z \in B \subseteq
+\C, \abs{z - z_0} < \delta \so \abs{\frac{f(z)-f(z_0)}{z-z_0} - f'(z_0)} <
+\varepsilon \]
+
+\subsection{Propriétés}
+
+Soit $f : A \subseteq \C \ap \C$, $g : A \subseteq \C \ap \C$ et $a,b \in \C$
+
+\begin{itemize}
+\item{Si $f$ est holomorphe en $z_0$ alors $f$ est continue en $z_0$}
+\item{Si $f$ et $g$ sont holomorphes sur $A$ alors $af + bg$ est holomorphe sur $A$ : $(af + bg)' = af' + bg'$}
+\item{Si $f$ et $g$ sont holomorphes sur $A$ alors $f.g$ est holomorphe sur $A$ : $(f.g)' = f'.g + g'.f$}
+\item{Si $f$ et $g(z) \neq 0 \forall z \in A$ sont holomorphes sur $A$ alors $\frac{f}{g}$ est holomorphe sur $A$ : $\left(\frac{f}{g}\right)' = \frac{f'.g - g'.f}{g^2}$}
+\item{Tout polynôme sur $\C$ est holomorphe}
+\end{itemize}
+
+Si maintenant on a $f : A \subseteq \C \ap \C$ est holomorphe sur $A$ et $g : B \subseteq \C \ap \C$ est holomorphe sur $B$ avec $f(A) \subseteq B$ alors $f \rd g$ est holomorphe et $(f \rd g)'(z) = f'(g(z)).g'(z)$
+
+\subsection{Application conforme}
+
+%sic
+
+Une fonction $f:A \subseteq \C \ap \C$ est dite conforme en $z_0$ s'il existe
+$\theta \in [0, 2\pi ]$ et $r \in \R^{>0}$ tel que pour toute courbe $c(t)$
+(ie $c : \R \ap A$) dérivable en $0$ tel que $c(0) = z_0$ et $c'(0)
+= v \neq 0$ la courbe $d(t) = f(c(t))$ est dérivable en $0$
+
+En posant $u =d'(0)$ on a $\abs{u} = r.\abs{v}$ et $\arg(u) = \arg(v)
++ \theta \mod 2\pi$
+
+Une application est conforme si elle préserve les angles
+
+\subsubsection{Théorème}
+
+Si $f : A \ap \C$ est holomorphe en $z_0$ et $f'(z_0) \neq 0$ alors $f$
+est conforme en $z_0$
+
+\subsection{Troisième caractérisation de fonction holomorphe}
+
+Soit $f : \C \ap \C$
+
+On peut écrire $f(x + i.y) = u(x,y) + i. v(x,y)$
+
+Ce qu'on peut voir dans $\R^2$ comme $f(x,y) = (u(x,y),v(x,y))$
+
+\subsubsection{Rappel de $\R^n$}
+
+Soit $f : \R^n \ap \R^n$
+
+On a que $f$ est différentiable en $x_0 \in \R^n$ ssi
+
+$\exists L : \R^n \ap \R^m$ tq $\clim{x \ap x_0} \frac{\abs{f(x) - f(x_0) - L(x - x_0)}}{\abs{x-x_0}} = 0$
+
+Remarque : On a $L : \R^n$ est une application linéaire càd équivalente à la donnée d'une matrice $M_L$ à coéfficients réels $m \times n$
+
+\subsubsection{Théorème}
+
+Si $f : \R^n \ap \R^m : f(x_1, \cdots , x_n) \mapsto (f_1(x_1, \cdots, x_n), \cdots, f_m(x_1, \cdots, x_n))$ est différentiable en $x_0$
+
+Alors $L : \R^n \ap \R^m$ est donnée par la matrice jacobienne :
+
+
+$Df(x_0) = J_f = \left(
+\begin{array}{ccc}
+\frac{\partial f_1}{\partial x_1} & \cdots & \frac{\partial f_1}{\partial x_n} \\
+\vdots & \ddots & \vdots \\
+\frac{\partial f_m}{\partial x_1} & \cdots & \frac{\partial f_m}{\partial x_n}
+\end{array} \right)$
+
+\subsubsection{Lemme}
+
+Soit $\left( \begin{array}{cc}
+a & b \\
+c & d
+\end{array} \right)$ une matrice $2 \times 2$ à coefficents réels
+
+Soit $z = \alpha + \beta i$
+
+On a que $\left( \begin{array}{cc}
+a & b \\
+c & d
+\end{array} \right).\left( \begin{array}{c}
+x \\
+y
+\end{array} \right)$ peut se voir comme le produit complexe $z . (x + iy)$ ssi $\left\{ \begin{array}{c}
+\alpha = a = d \\
+\beta = -b = c
+\end{array} \right.$
+
+\subsubsection{Equations de Cauchy-Riemman}
+
+Soit $f(z) : \C \ap \C$ au sens complexe et $f(x,y) : \R^2 \ap \R^2$ au sens réel avec $z = x + iy$
+
+$f'(z_0)$ existe au sens complexe ssi :
+
+\[\forall \varepsilon > 0, \exists \delta > 0 \mbox{ tq } \forall z \in \C, \abs{z - z_0} < \delta \so \]
+
+\[\abs{f(z) - f(z_0) - f(z_0)(z-z_0)} < \varepsilon \abs{z - z_0} \]
+
+$f'(x_0,y_0)$ existe au sens réel ssi :
+
+\[\forall \varepsilon > 0, \exists \delta > 0 \mbox{ tq } \forall (x,y) \in \R^2, \abs{(x,y) - (x_0,y_0)} < \delta \so \]
+\[\abs{ f(x,y) - f(x_0,y_0) - Df(x_0,y_0).\left( \begin{array}{c} x - x_0 \\ y - y_0 \end{array} \right) } < \varepsilon \abs{(x,y) - (x_0,y_0)} \]
+
+Donc pour que $f : \C \ap \C$ soit holomorphe en $z_0$ il faut que $f: \R^2 \ap \R^2$ soit $\R^2$-différentiable et doit satisfaire les équations de Cauchy-Rieman :
+
+\[\left\{ \begin{array}{ccc}
+\frac{\partial u}{\partial x}(x_0,y_0) & = & \frac{\partial v}{\partial y} (x_0,y_0) \\
+\frac{\partial u}{\partial y}(x_0,y_0) & = & - \frac{\partial v}{\partial x} (x_0,y_0)
+\end{array} \right. \]
+
+\subsubsection{Théorème}
+
+Soit $f : A \ap \C$ avec $A$ un ouvert sur $\C$ et soit $z_0 \in A$
+
+$f'(z_0)$ existe ssi $f$ est différentiable au sens réel en $(x_0, y_0)$ et $f$ satisfait les équations de Cauchy-Riemman
+
+\[f(x,y) = (u(x,y),v(x,y))\]
+\[f'(z_0) = \left( \frac{\partial u}{\partial x} (x_0,y_0) + i \frac{\partial v}{\partial x} (x_0,y_0)\right) \]
+
+\subsubsection{Théorème}
+
+Soit $D \subseteq \C$ ouvert et connexe par arc, $f$ holomorphe sur $D$
+
+\[\forall z \in D, f'(z) = 0 \ioi f \mbox{ est constante} \]
+
+\chapter{Théorie de Cauchy}
+
+\section{Intégration le long d'un chemin}
+
+\subsection{Chemin}
+
+Un chemin $\gamma$ est une application continue et continuement dérivable par morceaux\footnote{C'est-à-dire qu'il peut y avoir des points anguleux} tq :
+
+\[\gamma : [a,b]\subseteq \R \ap \C\]
+
+Avec $\gamma(a)$ et $\gamma(b)$ les extrémités du chemin
+
+\subsection{Lacet}
+
+Si $\gamma(a) = \gamma(b)$ on dit que $\gamma$ est un lacet
+
+\subsection{Intégrale le long d'un chemin}
+
+Soit $D$ ouvert de $\C$ et soit $\gamma : [a,b] \ap D$ et $f : D \ap \C$ tq $f$ est continue sur $\gamma$ càd $f(\gamma(t))$ est continue)
+
+\[\int_\gamma f(z) dz \equiv \int_a^b f(\gamma(t)).\gamma'(t) dt\]
+
+\subsubsection{Remarque}
+
+Si $\gamma$ n'est pas dérivable sur $[a,b]$ mais seulement dérivable par morceaux
+
+$a = a_0 < a_1 < a_2 < \cdots < a_n = b$ tq $\gamma$ est dérivable sur $(a_i, a_{i+1})$ alors :
+
+\[ \int_\gamma f(z) dz = \sum_{k=0}^{n-1} \int_{a_k}^{a_{k+1}} f(\gamma(t)) \gamma'(t) dt \]
+
+\subsubsection{Remarque}
+
+Soit $g : \R \ap \C : t \mapsto \tilde u (t) + i \tilde v(t)$ avec $\tilde u, \tilde v : \R \ap \R$
+
+\[ \int_a^b g(t) dt = \int_a^b \tilde u(t) dt + i \int_a^b \tilde v dt \]
+
+\subsection{Equivalence de chemins}
+
+Soient $\gamma_1 : [a,b] \ap \C$ et $\gamma_2 : [c,d] \ap \C$
+
+On dit que $\gamma_1$ et $\gamma_2$ sont équivalens s'il existe $\phi : [c,d] \ap [a,b]$ tq :
+
+\begin{itemize}
+\item{$\varphi$ est $\mathcal{C}^1$ (continuement dérivable) sur $[c,d]$}
+\item{$\varphi$ est croissante et bijective (strictement croissante)}
+\item{$\forall t \in [c,d], \gamma_2(t) = \gamma_1(\varphi(t))$}
+\end{itemize}
+
+\subsubsection{Propriété}
+
+Soit $\gamma_1 : [a,b] \ap \C$ et $\gamma_2 : [c,d] \ap \C$ deux chemins équivalents
+
+Soit $f : \C \ap \C$ avec $f$ continue sur $\gamma_1$
+
+\[ \int_{\gamma_1} f(z) dz = \int_{\gamma_2} f(z) dz \]
+
+\subsection{Chemin opposé}
+
+Soit $\gamma : [a,b] \ap \C$ un chemin on note le chemin opposé :
+
+\[\gamma_- : [a,b] \ap \C : t \mapsto \gamma(a + b - t) \]
+
+\subsection{Juxtaposition de chemins}
+
+Soit $\gamma_1 : [a,b] \ap \C$ et $\gamma_2 : [b,c] \ap \C$ tq $\gamma_1(b) = \gamma_2(b)$ alors
+
+\[\gamma_1(t) + \gamma_2(t) = \left\{ \begin{array}{ccc}
+\gamma_1(t) & \mbox{ si } & t \leq b \\
+\gamma_2(t) & \mbox{ si } & t > b
+\end{array} \right. \]
+
+\subsection{Propriétés}
+
+\begin{itemize}
+\item{$\int_\gamma C_1f + C_2 g dz = C_1 \int_\gamma f dz + C_2 \int_\gamma g dz$}
+\item{$\int_{\gamma_-} f(z) dz = - \int_\gamma f(z) dz$}
+\item{$\int_{\gamma_1 + \gamma_2} f(z) dz = \int_{\gamma_1} f(z) dz + \int_{\gamma_2} f(z)dz$}
+\end{itemize}
+
+\subsection{Longueur du chemin}
+
+Soit $\gamma : [a,b] \ap \C$ la longueur du chemin $\gamma$ notée $\varphi(\gamma)$ vaut :
+
+\[\varphi(\gamma) = \int_a^b \abs{\gamma'(t)} dt \]
+
+\subsection{Théorème}
+
+Soit $f : A \ap \C$ continue sur $A$ et $\gamma$ un chemin
+
+S'il existe $M \geq 0$ tq $\abs{f(z)} \leq M$ alors
+
+\[ \abs{\int_\gamma f(z) dz} \leq M \varphi(\gamma) \]
+
+\subsection{Remarque}
+
+Soit $g : \R \ap \C$
+
+\[ \Re \left[\int_a^b g(t) dt \right] = \int_a^b \Re \left[ g(t) \right] dt \]
+
+\subsection{Théorème}
+Soit $f : D \ap \C$ avec $D$ un ouvert de $\C$ tq
+
+$f = F'$ où $F : D \ap \C$ est holomorphe
+
+Soit $\gamma$ un chemin joignant $z_1$ à $z_2$
+
+On a :
+
+\[ \int_\gamma f(z) dz = F(z_2) - F(z_1) \]
+
+\subsubsection{Remarque}
+
+Si $\gamma$ est un lacet alors on a :
+
+\[ \int_\gamma f(z) dz = F(z_2) - F(z_1) = 0 \]
+
+\section{Théorème de Cauchy}
+
+\subsection{Théorème de Cauchy sur un rectangle}
+
+Soit $A \subseteq \C$ un ouvert et $f : A \ap \C$ une fonction holomorphe
+
+Soit un rectangle $R = [a,b] \times [c,d] \subseteq A$
+
+Soit $\gamma$ le lacet qui parcout le périmètre de $R$
+
+On a :
+
+\[ \int_\gamma f(z) dz = 0 \]
+
+\subsection{Théorème de Cauchy local}
+
+Soit $A \subseteq \C$ un ouvert et $f : A \ap \C$ une fonction holomorphe
+
+Soit $R = ]a,b[ \times ]c,d[ \subseteq A$
+
+Alors la fonction $f$ admet une primitive sur $R$
+
+En particulier, pour tout lacet $\gamma$ de $R$ on a $\int_\gamma f(z) dz = 0$
+
+\subsection{Homotopie}
+
+Soit $\gamma_1 : [a,b] \ap D \subseteq \C$
+
+Soit $\gamma_2 : [a,b] \ap D \subseteq \C$
+
+On dit que $\gamma_1$ et $\gamma_2$ sont homotopes comme chemin dans $D$
+
+S'il existe $\psi : [0,1] \times [a,b] \ap D : (s,t) \mapsto \psi(s,t)$ tq :
+
+\begin{itemize}
+\item{$\psi$ est continue sur $[0,1] \times [a,b]$}
+\item{$\psi(0,t) = \gamma_1(t) \forall t \in [a,b]$}
+\item{$\psi(1,t) = \gamma_2(t) \forall t \in [a,b]$}
+\end{itemize}
+
+\subsubsection{Homotopie de lacets}
+
+Soit deux lacets $\gamma_1$ et $\gamma_2$. Ils sont homotopes comme lacets ssi :
+
+\begin{itemize}
+\item{Ils sont homotopes}
+\item{$\forall s, \psi(s,a) = \psi(s,b)$}
+\end{itemize}
+
+\subsection{Simplement connexe}
+
+Un ouvert $D \subseteq \C$ est dit simplement connexe si tout lacet de $D$ est homotope en tant que lacet à un point sur $D$ lacet constant
+
+\subsubsection{Remarque}
+
+Tout convexe est simplement connexe
+
+\subsection{Théorème des déformations}
+
+Soit $D \subseteq \C$ un ouvert et $f : D \ap \C$ une fonction holomorphe
+
+Soient $\gamma_1$ et $\gamma_2$ deux chemins homotopes dans $D$
+
+On a :
+
+\[ \int_{\gamma_1} f(z) dz = \int_{\gamma_2} f(z) dz \]
+
+\subsection{Théorème de Cauchy}
+
+Soit $D \subseteq \C$ un ouvert simplement connexe et $f : D \ap \C$ une
+fonction holomorphe
+
+Soit $\gamma$ un lacet dans $D$
+
+On a :
+
+\[ \int_\gamma f(z) dz = 0 \]
+
+\subsubsection{Propriété}
+
+Soit $f : D \ap \C$ une fonction holomorphe sur $D \setminus\tset{z_0}$ avec
+$D$ simplement connexe tq $f$ est bornée au voisinage de $z_0$ alors pour tout
+lacet $\gamma$ ``contenant $z_0$'' on a :
+
+\[ \int_\gamma f(z) dz = 0 \]
+
+\section{Conséquence du théorème de Cauchy}
+
+\subsection{Théorème}
+
+Soit $D \subseteq \C$ un ouvert simplement connexe et $f: D \ap \C$ une
+fonction holomorphe
+
+Il existe $F : D \ap \C$ une fonction holomorphe tq $F' = f$ avec $F'$ qui est
+unique à addition de constante près.
+
+\subsection{Théorème}
+
+Une condition nécessaire et suffisante pour que $f : D \ap \C$ (avec $D$ un
+ouvert connexe de $\C$) admette une primitive est que :
+
+$\forall \gamma$ chemin de $D$, $\int_\gamma f(z) dz$ ne dépend que des
+extrémités de $\gamma$.
+
+\subsection{Indice}
+
+Soit $\gamma$ un lacet de $\C$
+
+Soit $z_0 \in \C$ qui n'est pas sur $\gamma$
+
+On note $I(\gamma,z_0)$ l'indice de $\gamma$ par rapport à $z_0$ :
+
+\[I(\gamma,z_0) = \frac{1}{2i \pi} \int_\gamma \frac{1}{z-z_0} dz \]
+
+\subsubsection{Propriété}
+
+Soit $\gamma : [0, 1] \ap \C\setminus\tset{z_0}$
+
+Avec $\gamma(t) = z_0 + g(t).e^{i\theta(t)}$
+
+Où
+\begin{itemize}
+\item{$g(t)>0, \forall t \in [0,1]$}
+\item{$g(0) = g(1)$}
+\item{$g $ est $\mathcal{C}^1$}
+\item{$\theta$ est $\mathcal{C}^1$}
+\item{$\theta(1) = \theta(0) + 2K\pi$ avec $K \in \N$}
+\end{itemize}
+
+Alors on a :
+
+$I(\gamma,z_0) = K$
+
+\subsection{Formule de la moyenne}
+
+Soit $f: D \ap \C$ une fonction holomorphe
+
+Soit $\gamma$ un lacet homotope à un point en tant que lacet
+
+Soit $z_0 \in D$ qui n'est pas sur $\gamma$
+
+On a :
+
+\[f(z_0).I(\gamma,z_0) = \frac{1}{2i\pi} \int_\gamma \frac{f(z)}{z-z_0} dz \]
+
+\subsection{Formule de représentation de Cauchy pour $f^{(k)}$}
+
+Soit $f: D \ap \C$ une fonction holomorphe
+
+Soit $\gamma$ un lacet homotope à un point en tant que lacet
+
+Soit $z_0 \in D$ qui n'est pas sur $\gamma$
+
+On a :
+
+\[ f^{(k)}(z_0).I(\gamma,z_0) = \frac{k!}{2i\pi} \int_\gamma \frac{f(z)}{(z-z_0)^{k+1}} dz \]
+
+En particulier :
+
+\[f \mbox{ holomorphe } \so f^{(k)} \mbox{ existe } \forall k \geq 1 \]
+
+\section{Théorème Liouville}
+Soit $f$ une fonction holomorphe\footnote{Une fonction holomorphe sur tout
+$\C$ est appelé une fonction entière.} sur tout $\C$ et bornée. Alors $f$
+est constante.
+
+\chapter{Représentation en série de fonction holomorphes}
+
+\section{Rappels}
+
+\subsection{Convergence d'une suite}
+
+Soit $(z_n)$ une suite de nombre complexes, on dit que $(z_n)$ converge vers $z_0$ ssi
+
+\[ \forall \varepsilon > 0, \exists n_0, \forall n \geq n_0, \abs{z_n - z_0} < \varepsilon \]
+
+\subsection{Convergence d'une série}
+
+$\sum_{k=0}^{+\infty} z_k$ converge ssi la suite des sommes partielles $\left( \sum_{k=0}^n z_k \right)_n$ converge
+
+\subsection{Convergence absolue}
+
+$\sum z_k$ converge absolument ssi $\sum \abs{z_k}$ converge
+
+\subsection{Théorème}
+
+Soit $r \geq 0$ on a :
+
+\[ \sum_{k=0}^{+\infty} r^k \left\{ \begin{array}{ccc}
+\mbox{ converge } & \mbox{ si } & 0 \leq r < 1 \\
+\mbox{ diverge } & \mbox{ si } & r \geq 1
+\end{array} \right. \]
+
+\subsection{Test de comparaison}
+
+Supposons $0 \leq a_k \leq b_k$ alors on a :
+
+\begin{itemize}
+\item{Si $\sum b_k$ converge alors $\sum a_k$ converge}
+\item{Si $\sum a_k$ diverge alors $\sum b_k$ diverge}
+\end{itemize}
+
+\section{Convergence de suites (et séries) de fonctions}
+
+\subsection{Convergence simple ou ponctuelle}
+
+Soit $f_n : D \subseteq \C \ap \C$
+
+On dit que $f_n$ converge simplement (ou ponctuellement) vers $f : D \ap \C$ ssi :
+
+\[ \forall z \in D, \left(f_n(z)\right)_n \mbox{ converge vers } f(z) \]
+
+\subsection{Théorème de Weistrass}
+
+Soit $g_n : D \subseteq \C \ap \C$ 
+
+S'il existe une suite de nombres réels positifs $M_n \geq 0$ tq :
+
+\begin{itemize}
+\item{$\abs{g_n(z)} \leq M_n \forall z \in D$}
+\item{$\sum_{n=0}^{+\infty} M_n$ converge}
+\end{itemize}
+
+Alors :
+
+\[\sum_{n=0}^{+\infty} g_n(z) \mbox{ converge absolument (même uniformément)}\]
+
+\section{Série de puissance et développement de Taylor}
+
+\subsection{Série de puissance entière}
+On appelle série de puissance entière $\sum_{n=0}^{+\infty} a_n(z-z_0)^n$ où $z_0 \in \C$ et $(a_n)$ est une suite de nombres complexes
+
+\subsection{Lemme d'Abel}
+
+Soit $\sum_{n=0}^{+\infty} a_n(z-z_0)^n$
+
+S'il existe $r > 0, M > 0$ tq $\abs{a_n} r^n \leq M$
+
+Alors la série converge absolument sur tout disque fermé $\tset{z \mbox{ tq }
+\abs{z - z_0} \leq \rho < 1}$
+
+\subsection{Rayon de convergence}
+
+Soit $\sum a_n(z-z_0)^n$
+
+Il existe un nombre unique $R \in [0, +\infty] = \sup\tset{ \rho \mbox{ tq } \sum_{n=0}^{+\infty} a_n \rho^n \mbox{ converge}}$ appelé rayon de convergence de la série tq :
+
+\[\begin{array}{ccc}
+\abs{z - z_0} < R & \so & \mbox{ la série converge } \\
+\abs{z - z_0} > R & \so & \mbox{ la série diverge }
+\end{array}\]
+
+\subsubsection{Propriétés}
+Soit $\sum a_n(z - z_0)^n$
+\begin{itemize}
+  \item{si $R = 0$ on dit que le disque de convergence est vide}
+  \item{si $0 < R < +\infty$ alors le disque de convergence vaut $\tset{z
+    \mbox{ tq } \abs{ z - z_0} < R}$}
+  \item{si $R = +\infty$ alors le disque de convergence vaut $\C$}
+\end{itemize}
+
+\subsection{Théorème}
+
+Toute série de puissance entière est holomorphe sur son disque de convergence
+
+De plus $\left(\sum a_n z^n\right)' = \sum \left( a_n z^n \right)'$
+
+\subsection{Théorème}
+
+Soit $f: D \ap \C$ une fonction holomorphe et $z_0 \in D$
+
+Alors $\forall z \in B(z_0,r) \subseteq D$ on a :
+
+\[ f(z) = \sum_{n=0}^{+\infty} \frac{f^{(n)}(z_0)}{n!} (z-z_0)^n \]
+
+Autrement dit sur un certain domaine cette série converge simplement vers la fonction $f$
+
+\subsubsection{Remarque}
+
+Soit $f : \R \ap \R$
+
+Avec $f(x) = \left\{\begin{array}{ccc}
+e^{-1/x^2} & \mbox{ si } & x \neq 0 \\
+0 & \mbox{ si } & x = 0
+\end{array}\right.$
+
+On peut prouver que $f$ est $\mathcal{C}^\infty$ sur $\R$ et que la dérivée $f^{(n)}(0) = 0$
+
+Donc que le développement de Taylor de $f$ au voisinage de $0$ est $0$ (alors que par holomorphe on a que le développement de Taylor converge simplement vers la fonction)
+
+\subsection{Remarque}
+
+Le développement de Taylor ne permet pas de décrire le comportement de fonctions comme $\frac{1}{z}$ au voisinage de $0$
+
+On doit donc introduire un autre développement
+
+\section{Développement de Laurent}
+
+Soit $0 \leq r_1 \leq r_2$. Soit $z_0 \in \C$. Soit $A = \tset{z \in \C
+\vert r_1 < \abs{z - z_0} < r_2}$.
+
+Si $f$ est analytique sur $A$
+
+Alors on a l'expansion de Laurent de $f$ dans $A$
+\[f(z) = \sum_{n=0}^{+\infty} a_n(z - z_0)^n + \sum_{n=1}^{+\infty} b_n(z
+- z_0)^{-n}\]
+
+On a que :
+
+Les deux séries convergent absolument sur tout ensemble
+
+\[B_{\rho_1,\rho_2} = \tset{z \mbox{ tq } \rho_1 \leq \abs{z - z_0} \leq
+\rho_2} \mbox{ où } r_1 < \rho_1 < \rho_2 < r_2\]
+
+Si $\gamma$ est un cercle centré en $z_0$ de rayon $r_1 < r < r_2$
+
+\[a_n = \frac{1}{2i\pi} \int_\gamma \frac{f(u)}{(u-z_0)^{n+1}} du \AND b_n=
+\frac{1}{2i\pi} \int_\gamma f(u)(u-z_0)^{n-1} du \]
+
+\section{Etude des singularités des fonctions complexes}
+
+\subsection{Zéro d'ordre $p$}
+
+Soit $f : D \ap \C$ une fonction holomorphe
+
+On dit que $z_0 \in D$ est un zéro d'ordre $p$ ssi :
+
+\[f(z_0) = f'(z_0) = \cdots = f^{(p-1)}(z_0) = 0 \AND f^{(p)}(z_0) \neq 0 \]
+
+\subsubsection{Remarque}
+
+On a que $z_0$ est un zéro d'ordre $p$ pour $f : D \ap \C$ une fonction
+holomorphe ssi
+\[f(z) = (z-z_0)^p g(z) \mbox{ où } g \mbox{ est holomorphe avec } g(z_0)
+\neq 0 \]
+
+\subsection{Théorème}
+
+Soit $D \subseteq \C$ un ouvert connexe et $z_0 \in D$
+
+Soit $f$ une fonction holomorphe sur $D \setminus\tset{z_0}$
+
+Alors il existe deux fonctions $E_r$ et $E_s$ tq $f = E_r + E_s$ dans $D\setminus{z_0}$
+
+\begin{itemize}
+\item{$E_r : D \ap \C$ est holomorphe}
+\item{$E_s : \C\setminus{z_0} \ap \C$ est holomorphe}
+\end{itemize}
+
+\subsection{Développement de Laurent}
+
+$f(z) = \sum_{n=0}^{+\infty} a_n(z-z_0)^n + \sum_{n=1}^{+\infty} \frac{b_n}{(z-z_0)^n}$
+
+Avec $E_r = \sum_{n=0}^{+\infty} a_n(z-z_0)^n$ la partie régulière
+
+Avec $E_s = \sum_{n=1}^{+\infty} \frac{b_n}{(z-z_0)^n}$ la partie irrégulière
+
+\section{Classification des points singuliers isolés}
+
+\begin{itemize}
+  \item{Si $E_s(z) \neq 0$ et il existe au moins un $b_n \neq 0$ alors $z_0$
+    est une singularité isolée}
+  \item{Si $E_s(z)$ est un développement limité et il existe $p \in \N_0$
+    tq $b_p \neq 0$ mais $b_q = 0 \forall p < q$ alors $z_0$ est un pôle
+    d'ordre $p$}
+  \item{Si $E_s(z)$ est un développement illimité et $\forall p \exists q >
+    p, b_q \neq 0$ alors $z_0$ est une singularité essentielle}
+  \item{Si $E_s(z) = 0$ alors $z_0$ est un point régulier}
+\end{itemize}
+
+\subsection{Propriétés des pôles}
+
+\begin{itemize}
+  \item{$f : D\setminus{z_0} \ap \C$ une fonction holomorphe ; $z_0$ est un
+    pôle d'ordre $p$ ssi il existe $g: D \ap \C$ une fonction holomorphe
+    tq $\forall z \in D\setminus\tset{z_0}, f(z) = \frac{g(z)}{(z-z_0)^p}$
+    avec $g(z_0) \neq 0$}
+  \item{Si $z_0$ est un zéro d'ordre $p$ de $f: D \ap \C$ une fonction
+    holomorphe alors $z_0$ est un pôle d'ordre $p$ de $\frac{1}{f}$}
+  \item{Si $z_0$ est un pôle d'ordre $p$ de $f: D \setminus\tset{z_0}
+    \ap \C$ une fonction holomorphe alors $z_0$ est un zéro d'ordre $p$
+    de $\frac{1}{f}$}
+\end{itemize}
+
+\chapter{Théorème des résidus}
+
+\section{Résidu}
+
+Soit $D \subseteq \C$ un ouvert connexe
+
+Soit $z_0 \in D$ et $f : D \setminus\tset{z_0} \ap \C$ une fonction holomorphe
+
+Le résidu de $f$ en $z_0$ c'est le coéfficient $b_1$ dans le développement de Laurent de $f$ au point $z_0$ noté $\Res_{z_0} (f)$
+
+\[\Res_{z_0} (f) = \frac{1}{2i\pi} \int_\gamma f(u) du \mbox{ où } \gamma
+\mbox{ est un cercle centré en } z_0 \mbox{ de rayon } r \mbox{ inclu à } D \]
+
+\section{Point régulier}
+
+Soient $g,h : D \ap \C$ deux fonctions holomorphes
+
+Soit $z_0$ tq :
+
+\begin{itemize}
+\item{$z_0$ est un zéro d'ordre $p$ de $g$}
+\item{$z_0$ est un zéro d'ordre $p$ de $h$}
+\end{itemize}
+
+Soit $f(z) = \frac{g(z)}{h(z)}$ alors $z_0$ est un point régulier de $f$
+
+\section{Pôles simple ou pôles d'ordre 1}
+
+Soient $g,h$ deux fonctions holomorphes en $z_0$ tq $g(z_0) \neq 0, h(z_0) = 0$ et $h'(z_0) \neq 0$
+
+Alors $f = \frac{g}{h}$ a un pôle simple en $z_0$ :
+
+\[\Res(z_0) = \frac{g(z_0)}{h'(z_0)}\]
+
+\section{Singularité essentielle}
+
+Il n'existe pas de formules simples
+
+\section{Théorème des résidus}
+
+Soit $D \in \C$ un ouvert connexe
+
+Soit $z_1, \cdots, z_n \in D$ $n$ points distincts
+
+Soit $f : D\setminus\tset{z_1, \cdots, z_n} \ap \C$ une fonction holomorphe
+
+Soit $\gamma$ un lacet qui évite $z_1, \cdots, z_n$ homotope à un point de $D$
+
+On a :
+
+\[\int_\gamma f(z) dz = 2 i \pi \sum_{i=1}^n \Res_{z_1}(f).I(\gamma_1,z_i)\]
+
+\section{Calcul d'intégrales réelles}
+
+Soit $f : \C \ap \C$ une fonction holomorphe sur $\C$ sauf en un nombre
+finis de points ne se trouvant pas sur l'axe réel
+
+S'il existe $M,R \in \R^+$ tq $\abs{f(z)} \leq \frac{M}{\abs{z}^2}$ pour
+$\abs{z} \geq R$
+
+Alors :
+
+\[\int_\R f(x) dx = 2 i \pi \sum_{\Im(z_i) > 0} \Res_{z_i}(f) = - 2 i \pi
+\sum_{\Im(z_i) < 0} \Res_{z_i}(f) \]
+
+\section{Théorème des zéros isolés}
+
+Soit $f: D \ap \C$ une fonction holomorphe et non-identiquement nulle avec
+$D$ connexe
+
+Tous les zéros de $f$ sont isolés (ie $f(z_0) = 0, \exists \varepsilon >
+0, \forall z \neq z_0, \abs{z - z_0} < \varepsilon \so f(z) \neq 0$)
+
+
+\end{document}

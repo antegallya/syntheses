@@ -1,0 +1,614 @@
+\documentclass[a4paper,10pt]{report}
+
+\usepackage[utf8]{inputenc}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage[french]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[dvips]{graphicx}
+
+\usepackage[dvips]{hyperref}
+\hypersetup{%
+   pdfauthor=Hauweele David%
+}
+
+\author{David Hauweele}
+\title{Synthèse du cours de mathématiques élémentaires}
+\date{2009-03-17}
+
+\newcommand{\cis}{\mbox{ cis }}
+%\newcommand{\arg}{\mbox{ Arg }}
+
+\newtheorem{de}{Définition}
+\newtheorem{theo}{Théorème}
+\newcommand{\dom}{\mbox{ Dom }}
+\newcommand{\im}{\mbox{ Im }}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+\chapter{Algèbre linéaire}
+
+\section{L'espace $\mathbb{R^N}$}
+\subsection{Introduction}
+
+$$\mathbb{R^N} \rightarrow (x_1,x_2,\cdots,x_N) \rightsquigarrow N\mbox{-uple}$$
+
+Toutes les composantes appartiennent à $\mathbb{R}$. Un couple de $N$ composantes s'apelle un $N\mbox{-uple}$. Dans $\mathbb{R^N}$ ce couple représente un vecteur (noté $\vec u$ ou tout simplement $u$)
+
+e.g : 
+$$\vec u = (x_1, x_2, \cdots, x_N)$$
+
+Il existe aussi le vecteur origine ou vecteur nul, noté $\vec 0$ ou $0$ ses composantes sont nulles\footnote{Il ne faut pas confondre le vecteur nul $\vec 0$ et le nombre 0.}.
+
+\subsection {Opérations sur les vecteurs}
+
+Les opérations définies sur les vecteurs sont :
+
+\subsubsection{Addition}
+La somme des composantes respective des deux vecteurs. Le résultat est un vecteur.
+
+$$(u_1, \cdots, u_N) + (v_1, \cdots, v_N) = (u_1 + v_1, \cdots, u_N + v_N)$$
+
+\subsubsection{Soustraction}
+La différence des composantes respectives des deux vecteurs. Le résultat est un vecteur.
+
+$$(u_1, \cdots, u_N) - (v_1, \cdots, v_N) = (u_1, \cdots, u_N) + (-v_1,\cdots,-v_N) = (u_1 - v_1, \cdots, u_N -v_N)$$ 
+
+\subsubsection{Produit scalaire}
+La somme du produit des composantes respectives des deux vecteurs. Le résultat est un réel\footnote{Dans le secondaire le produit scalaire avait une définition plus géométrique ($u|v = \Vert u \Vert . \Vert v \Vert . \cos \theta$). Cette définition n'est pratique que dans $\mathbb{R}^2$ mais pas dans $\mathbb{R^N}$.}.
+
+$$(u_1, \cdots, u_N) | (v_1, \cdots, v_N) = u_1.v_1 + \cdots + u_N.v_N$$
+
+\subsubsection{Multiplier par un réel}
+Multiplier chaque composante du vecteur par un réel.
+
+$$\lambda u = (\lambda u_1, \cdots, \lambda u_N) \mbox{ avec } \lambda \in R$$
+
+\subsubsection{Norme}
+La racine de la somme des carrés de chaque composante.\footnote{Dans $\mathbb{R}^2$ et $\mathbb{R}^3$ la norme peut être comparée à la longueur de ce vecteur par rapport à son origine.}
+
+$$\Vert u \Vert = \sqrt{{u_1}^2+\cdots+{u_N}^2}$$
+
+\subsection {Propriétés}
+
+Voici quelques propriétés à retenir sur les vecteurs :
+
+\begin{itemize}
+\item{$(u|u)={\Vert u \Vert}^2$}
+\item{$(u|u)=0 \Leftrightarrow u = \vec 0$}
+\item{$(u|v)=0 \Leftrightarrow u$ et $v$ sont orthogonaux}
+\item{$(x+y|x+y) = x|x + y|y + 2(x|y)$}
+\item{$(x-y|x-y) = x|x + y|y - 2(x|y)$}
+\item{$\Vert \lambda u \Vert = \vert \lambda \vert \Vert u \Vert$}
+\end{itemize}
+
+\section{Droites dans le plan}
+Une droite ce sont tous les points qui vérifient une certaine relation.
+Pour une droite il faut un vecteur directeur\footnote{Pas \textit{le} mais \textit{un} vecteur directeur. En effet il en existe une infinité.} et un point de cette droite.
+
+\begin{itemize}
+\item{L'équation paramétrique de la droite $D$ est donnée par :
+$$D \equiv (x,y) = (x_0, y_0) + \lambda (x_1, y_1) \mbox{ pour un certain } \lambda \in \mathbb{R}$$
+Avec $(x_0, y_0)$ un point de cette droite et $(x_1, y_1)$ un vecteur directeur de cette droite.}
+
+\item{L'équation cartésienne de la droite $D$ est donnée par :
+$$D \equiv ax + by = c \mbox{ avec } a,b \mbox{ non tous nuls}$$
+Avec $(a,b)$ la normal au vecteur directeur de cette droite.}
+\end{itemize}
+
+Le passage du vecteur directeur à la normal (et réciproquement) se fait facilement: 
+$$(a,b) \rightarrow (-b,a)$$
+
+\section{Droites et plans dans l'espace}
+\subsection{Droite}
+\begin{itemize}
+\item{L'équation paramétrique de la droite $D$ dans $\mathbb{R}^3$ est donnée par :
+$$D \equiv (x,y,z) = (x_0, y_0, z_0) + \lambda (x_1, y_1, z_1) \mbox{ avec } \lambda \in \mathbb{R}$$
+Avec $(x_0, y_0, z_0)$ un point de cette droite et $(x_1, y_1, z_1)$ un vecteur directeur.}
+
+\item{L'équation cartésienne de la droite $D$ dans $\mathbb{R}^3$ est donnée par :
+$$D \equiv \left\{\begin{array}{ll}
+ \frac{x-x_0}{x_1} & = \frac{y-y_0}{y_0}\\
+ \frac{z-z_0}{z_1} & = \frac{y-y_0}{y_0}
+ \end{array}\right.$$
+Avec $x_1 \neq 0, y_1 \neq 0 \mbox{ et } z_1 \neq 0$
+}
+\end{itemize}
+
+\subsection{Plan}
+\begin{itemize}
+\item{L'équation paramétrique du plan $\alpha$ dans $\mathbb{R}^3$ est donnée par :
+$$\alpha \equiv (x,y,z) = (x_0, y_0, z_0) + \lambda (x_1, y_1, z_1) + \mu (x_2, y_2, z_2) \mbox{ avec } \lambda,\mu \in \mathbb{R}$$
+Avec $(x_0, y_0, z_0)$ un point de ce plan, $(x_1, y_1, z_1)$ et $(x_2, y_2, z_2)$ sont deux vecteurs directeurs compris dans le plan.}
+
+\item{L'équation cartésienne du plan $\alpha$ dans $\mathbb{R}^3$ est donnée par :
+$$ax + by + cz = d$$
+Avec $(a,b,c)$ la normal au plan $\alpha$.
+}
+\end{itemize}
+
+\section{Système de 2 équations à 2 inconnues}
+Soit le système :
+$$\left\{\begin{array}{ll}
+ ax+by & = c\\
+ a'x+b'y & = c'
+ \end{array}\right.$$
+
+\subsection{Interprétation géométrique}
+On a deux droites dans $\mathbb{R}^2$:
+
+$$D \equiv ax + by = c$$
+$$D' \equiv a'x + b'y = c'$$
+
+\subsubsection{$D$ et $D'$ sont confondues}
+
+$$ax + by - c = \alpha (a'x + b'y - c') \mbox{ avec } \alpha \in \mathbb{R}$$
+
+\subsubsection{$D$ et $D'$ sont parralèles distinctes}
+
+$$\frac{a}{a'} = \frac{b}{b'}$$
+
+\subsubsection{$D$ et $D'$ sont sécantes}
+
+$$\frac{a}{a'} \neq \frac{b}{b'}$$
+$$ab' \neq a'b$$
+$$ab' - a'b \neq 0$$
+
+\subsection{Déterminant du système}
+Le nombre $ab' - a'b$ est les déterminant du système. Il est noté $\left| \begin{matrix}
+a & b \\
+a' & b'
+\end{matrix} \right|$.
+\begin{itemize}
+\item{
+Si $\left| \begin{matrix}
+a & b \\
+a' & b'
+\end{matrix} \right| = 0$ alors soit $D // D'$, soit $D = D'$. Le système est donc indéterminée.}
+\item{
+Si $\left| \begin{matrix}
+a & b \\
+a' & b'
+\end{matrix} \right| \neq 0$ alors $D$ est sécante à $D'$. Le système est déterminée (une solution, le couple : $(x,y)$.)}
+\end{itemize}
+
+\subsubsection{Méthode de Cramer}
+
+\begin{theo}[Formule de Cramer]
+Soit $\left\{\begin{array}{ll}
+ ax+by & = c\\
+ a'x+c'y & = c'
+ \end{array}\right.$
+
+Si le déterminant du système est non nul, alors le système possède une unique solution $(x,y)$ donnée par les formules de Cramer:
+
+$$(x,y)=\left(\frac{\left| \begin{matrix}
+c & b \\
+c' & b'
+\end{matrix} \right|}{\left| \begin{matrix}
+a & b \\
+a' & b'
+\end{matrix} \right|},\frac{\left| \begin{matrix}
+a & c \\
+a' & c'
+\end{matrix} \right|}{\left| \begin{matrix}
+a & b \\
+a' & b'
+\end{matrix} \right|}\right)$$
+\end{theo}
+
+\subsubsection{Résolution de système indetérminé}
+Si le système est indéterminé (i.e. $\left| \begin{matrix}
+a & b \\
+a' & b'
+\end{matrix} \right| = 0$) alors il faut vérifier quand le déterminant est annulé.
+
+e.g :
+\\Soit le système indéterminé suivant : $\left\{\begin{array}{ll}
+ \lambda^2 x+4y & = 2\lambda\\
+ \lambda x+ y & = \frac{\lambda}{2}
+ \end{array}\right.$
+\\
+Calculons le déterminant :
+$$\left| \begin{matrix}
+\lambda^2 & 4 \\
+\lambda & 1
+\end{matrix} \right| = \lambda^2 - 4\lambda = \lambda(\lambda-4)=0$$
+\\
+Ce déterminant est nul quand $\lambda = 0 \mbox{ ou } 4$.
+
+\begin{itemize}
+\item[Si $\lambda = 0$ le système devient :]{
+$$\left\{\begin{array}{ll}
+ 0^2 x+4y & = 2.0\\
+ 0 x+ y & = \frac{0}{2}
+ \end{array}\right.\left\{\begin{array}{ll}
+ 4y & = 0\\
+ y & = 0
+ \end{array}\right. \rightsquigarrow y = 0$$
+Il est impossible que l'ensemble des solutions soit un point si le déterminant est nul.
+\\Donc l'ensemble des solutions est :
+$$S=\left\lbrace (\alpha,0):\alpha \in \mathbb{R}\right\rbrace $$
+}
+\item[Si $\lambda = 4$ le système devient :]{
+$$\left\{\begin{array}{ll}
+ 16^2 x+4y & = 8\\
+ 4x+ y & = 2
+ \end{array}\right. \rightsquigarrow 4x + y = 2 \mbox{ ou } y=2-4x$$
+Donc l'ensemble des solutions est :
+$$S=\left\lbrace (\alpha,2-4\alpha):\alpha \in \mathbb{R}\right\rbrace $$
+}
+\end{itemize}
+
+\newpage
+\chapter{Les nombres complexes}
+
+\section{Introduction}
+\subsection{Résolution d'équation du second degré}
+Pour résoudre l'équation $ax^2+bx+c=0$ on résoud d'abord léquation intermédiaire $x^2=\Delta$ (avec $\Delta = b^2 - 4ac$ le discriminant) et si on note les solutions de $x^2=\Delta$ respectivement $y_1$ et $y_2$ alors les solutions de $ax^2+bx+c=0$ s'écrivent :
+$$x_1=\frac{-b+y_1}{2a} \mbox{ et } x_2=\frac{-b+y_2}{2a}$$
+Si je connais $y_1$ et $y_2$ il ne reste plus que les opérations de base et je peux alors simplifier.
+\\On peut trouver deux solutions réelles si $\Delta > 0$, une solution double si $\Delta = 0$ (i.e. $y_1=y_2$) mais aucune si $\Delta < 0$ car cela revient à chercher la racine d'un nombre négatif.
+\\Afin d'avoir toujours deux solutions, même quand $\Delta < 0$ nous définissons $\imath$ tel que $\imath^2=-1$.
+\\On a donc maintenant deux solutions dans le cas d'un discriminant négatif ($y_1=\imath\sqrt{\vert\Delta\vert}$ et $y_2=-\imath\sqrt{\vert\Delta\vert}$).
+\subsection{Propriétés sur le second degré}
+\begin{itemize}
+\item{Toute équation du second degré à coefficients réels ($a,b,c \in \mathbb{R}$) à toujours 2 solutions réels ou complexes\footnote{Si $\Delta=0$ alors il y a une racine double (dite de multiplicité deux) en d'autre terme $x_1 = x_2$.}.}
+\item{Si les solutions d'une équation du second degré à coefficients réels sont complexes, alors ces solutions seront conjugués.} 
+\item{Toute équation du second degré de la forme $ax^2+bx+c=0$ peut se factoriser en $a(x-x_1)(x-x_2)=0$.}
+\item{Le produit des racines vaut $P=\frac{c}{a}$ et la somme $S=\frac{-b}{a}$. L'équation devient donc $ax^2+a(x_1.x_2)x-a(x_1+x_2)=0$ (avec $x_1$ et $x_2$ les racines).}
+\end{itemize}
+\subsection{Conclusion}
+Soit $ax^2+bx+c=0$ avec $a,b,c \in \mathbb{R}$ et $a \neq 0$.
+
+\begin{center}
+% use packages: array
+\begin{tabular}{ c | c | c }
+$\Delta$ & $x_1$ & $x_2$ \\ \hline
+$\Delta > 0$ & $x_1=\frac{-b+\sqrt{\Delta}}{2a}$ & $x_2=\frac{-b-\sqrt{\Delta}}{2a}$\\ \hline
+$\Delta = 0$ & $x_1=\frac{-b}{2a}$ & $x_2=\frac{-b}{2a}$\\ \hline
+$\Delta < 0$ & $x_1=\frac{-b+\sqrt{\Delta}\imath}{2a}$ & $x_2=\frac{-b-\sqrt{\Delta}\imath}{2a}$ 
+\end{tabular}
+\end{center}
+
+\section{Les complexes}
+\begin{de}
+On définie\footnote{La définition est bien $\imath^2=-1$ et pas $\sqrt{-1}=\imath$ en effet nous aurions $\sqrt{-1}.\sqrt{-1}=\imath.\imath=-1$ mais nous avons d'autre par $\sqrt{-1}.\sqrt{-1}=\sqrt{(-1).(-1)}=\sqrt{1}=1$. On a alors $1=-1$ ce qui est absurde.} $\imath$ tel que $\imath^2=-1$. L'ensemble des complexe se note $\mathbb{C}$ tel que $\mathbb{C} \supset \mathbb{R}$.
+\end{de}
+\subsection{Forme algèbrique}
+\begin{de}[Nombre complexe]
+Un nombre $z$ de la forme $a+b\imath$ avec $a,b \in \mathbb{R}$ est appelé complexe.
+$$\mathbb{C}=\left\lbrace a+b\imath \vert a,b \in \mathbb{R} \right\rbrace $$
+\end{de}
+\begin{de}[Partie réelle]
+Soit $z=a+b\imath$ un nombre complexe, $a$ est appelé partie réelle de $z$ et est noté $\Re$ ou $\mbox{Re }z$.
+\end{de}
+\begin{de}[Partie imaginaire]
+Soit $z=a+b\imath$ un nombre complexe, $b$ est appelé partie imaginaire de $z$ et est noté $\Im$ ou $\mbox{Im }z$.
+\end{de}
+\begin{de}[Module de $z$]
+Le module\footnote{Le module peut être comparé à la distance par rapport à l'origine dans le plan de Gauss.} d'un complexe de la forme $z=a+b\imath$ se note $\vert z \vert$ et vaut $\sqrt{a^2+b^2}$.
+\end{de}
+\begin{de}[Complexe conjugué]
+La complexe conjugué associé au complexe $z=a+b\imath$ se note $\overline{z}$ (lire $z$ barre) et vaut $a-b\imath$.
+\end{de}
+
+\subsubsection{Addition}
+$$(a+bi)+(c+di)=(a+c)+(b+d)\imath$$
+\subsubsection{Soustraction}
+$$(a+bi)-(c+di)=(a-c)+(b-d)\imath$$
+\subsubsection{Multiplication}
+$$(a+b\imath)(c+d\imath)=(ac-bd)+(ad+bc)\imath$$
+\subsubsection{Inverse}
+$$(a+b\imath)^{-1}=\frac{a-b\imath}{a^2+b^2}$$
+$$z^{-1}=\frac{\overline{z}}{{\vert z \vert}^2}$$
+\subsubsection{Division}
+$$\frac{a+b\imath}{c+d\imath}=\frac{(ac-bd)+(ad+bc)\imath}{c^2+d^2}$$
+$$\frac{z_1}{z_2}=z_1 . {z_2}^{-1}$$
+
+\subsubsection{Propriétés}
+
+\begin{itemize}
+\item{$\forall z \in \mathbb{C} : z.\overline{z}={\vert z \vert}^2 \in \mathbb{R}$}
+\item{$\forall z_1, z_2 \in \mathbb{C} : \overline{z_1+z_2}=\overline{z_1}+\overline{z_2}$}
+\item{$\forall z_1, z_2 \in \mathbb{C} : \overline{z_1.z_2}=\overline{z_1}.\overline{z_2}$}
+\item{$\forall z \in \mathbb{C} : \overline{z^{-1}}=\overline{z}^{-1}$}
+\item{$\forall z \in \mathbb{C} : \overline{-z}=-\overline{z}$}
+\item{$\forall z_1, z_2 \in \mathbb{C} : \vert z_1.z_2 \vert =\vert z_1 \vert .\vert z_2 \vert$}
+\item{$\forall z \in \mathbb{C} \mbox{ et } \forall n \in \mathbb{N} : \vert z^n \vert = {\vert z \vert}^n$}
+\item{$\forall z \in \mathbb{C} \mbox{ et } z \neq 0 : \vert z^{-1} \vert = {\vert z \vert}^{-1}$}
+\item{$\forall z \in \mathbb{C} : z \in \mathbb{R} \Leftrightarrow \overline{z}=z$}
+\end{itemize}
+
+\subsection{Plan de Gauss}
+\begin{de}[Plan de Gauss]
+Le plan de Gauss ou plan d'Argand est un plan orthonormé du type $\mathbb{R}\times\mathbb{C}$ servant à représenter les complexes.
+\end{de}
+
+\subsection{Forme trigonométrique}
+Un point $P$ du plan de Gauss peut se définir soit comme $P=(a,b)$ soit $P=(\sqrt{a^2+b^2}.\cos \theta,\sqrt{a^2+b^2}.\sin \theta)$. On a donc\footnote{Avec $P \neq (0,0)$ car on ne peut y déterminer $\theta$.} :
+
+$$P=\underbrace{(a,b)}_{\mbox{Coordonnées cartésiennes}} = \underbrace{(\rho \cos \theta, \rho \sin \theta)}_{\mbox{Coordonnées polaires}} \mbox { où } \rho=\sqrt{a^2+b^2}$$
+
+Dans le plan d'Argand on a donc :
+
+$$a+b\imath = \rho \cos \theta + \rho \sin (\theta) \imath = \rho (\cos \theta + \imath \sin \theta) = \rho \cis \theta$$
+
+Mais à cause de la périodicité $\cis (\theta + 2\pi) = \cis (\theta)$. On exige donc de prendre $\theta \in \left[ 0, 2\pi \right[$. Alors la représentation polaire de $P(a,b)$ sous la forme $\rho \cos \theta + \rho \sin \theta$ est unique en $(\rho,\theta)$.
+
+Dans le cas de la représentation de $a+b\imath$, si $\theta \in \left[ 0, 2\pi \right[$ on dit que $\theta$ est l'argument de $a+b\imath$ noté $\arg z$.
+
+Par exemple $\frac{18\pi}{3}$ n'est pas un argument car hors de l'intervalle $\left[ 0, 2\pi \right[$.
+
+Pour l'argument on $\arg z$ tel que $\cos \theta=\frac{a}{\vert z \vert}$ et $\sin \theta=\frac{b}{\vert z \vert}$ avec $\theta \in \left[ 0, 2\pi \right[$ (si $z \in \mathbb{C}$).
+
+\begin{de}[Représentation trigonométrique de $z$]
+L'écriture \\ $z = \rho \cis (\arg z)$ est appelé représentation trigonométrique de $z$.
+\end{de}
+\begin{de}[Module de $z$]
+Si $z=a+b\imath=\rho \cis(\arg z)$, alors $\rho = \vert z \vert = \sqrt {a^2+b^2}$.
+\end{de}
+\begin{de}[Argument de $z$]
+Si $z=a+b\imath=\rho \cis(\arg z)$, alors $\arg z = \theta$ tel que $\cos \theta=\frac{a}{\vert z \vert}$ et $\sin \theta=\frac{b}{\vert z \vert}$ avec $\theta \in \left[ 0, 2\pi \right[$. $\arg z$ est appelé argument de $z$.
+\end{de}
+
+\subsubsection{Multiplication}
+$$\rho \cis \theta . \rho' \cis \theta' = \rho\rho' \cis ((\theta + \theta')\mod 2\pi)$$
+
+\subsubsection{Formule de De Moivre}
+\begin{theo}[Formule de De Moivre]
+Si $z=\rho \cis (\arg z)$\\
+alors $z^n=\rho^n \cis ((n.\arg z) mod 2\pi)$.
+\end{theo}
+
+\subsection{Racines complexes}
+\begin{theo}[Equation de degré $n$]
+Toute équation de degré $n$ avec $n \geq 1$ et coefficients dans $\mathbb{C}$ a $n$ solutions éventuellement avec répétition dans $\mathbb{C}$.
+\end{theo}
+On dit que $\mathbb{C}$ est algébriquement clos (revient toujours à lui même).
+\\e.g :
+\\Les solutions de $z^4=w \rightsquigarrow \left\lbrace w,wi,-w,wi \right\rbrace$.
+\subsubsection{Résolution $z^n = 1$}
+Les solutions de $z^n = 1$ sont:
+$$\cis \left(\frac{2k\pi}{n}\right) \mbox{ avec } 0 \leq k < n$$
+$$\cis \left(\frac{k\pi}{n}\mod 2\pi\right) \mbox{ avec } k \in \mathbb{N}$$
+\subsubsection{Résolution $z^n = w$}
+Si on connait une solution particulière $z$ alors toutes les solutions de $z^n=w$ sont de la forme $\alpha z$ avec $\alpha$ solution de $z^n=1$.
+$w=\vert w \vert \cis \theta$ où $\theta = \arg w$.
+
+On sait qu'une solution particulière vérifie $z^n=w$ ou encore\\
+$(\vert z \vert \cis (\arg z))^n = \vert z^n \vert \cis ((n \arg z) \mod 2\pi)$.
+
+On a cette égalité ssi ${\vert z \vert}^n = \vert w \vert$ et $\theta = \arg w = \arg (z^n) = (n \arg z) \mod 2\pi$.
+
+$$\vert z \vert \in \mathbb{R}^{+}
+\mbox { ssi } \left\{\begin{array}{ll}
+ \vert z \vert & = \sqrt[n]{\vert w \vert}\\
+ \arg z & = \frac{\arg w}{n} \mod 2\pi
+ \end{array}\right.$$
+\\
+On cherche une solution particulière donc: $\sqrt[n]{\vert w \vert} \cis \left( \frac{\arg w}{n}\right)$.
+\\
+Comme on a que les solutions de $z^n = 1$ ($\alpha$) sont :
+$$\cis \left(\frac{2k\pi}{n}\right) \mbox{ avec } 0 \leq k < n$$
+Comme les solutions de $z^n=w$ sont de la forme $\alpha z$ on a :
+$$\sqrt[n]{\vert w \vert}\cis \left(\frac{\arg w}{n}\right).\cis \left(\frac{k\pi}{n} \mod 2\pi\right) \mbox{ avec } k \in \mathbb{N}$$.
+\\On a donc comme solution finale :
+$$z^n = w \Leftrightarrow z = \sqrt[n]{\vert w \vert}\cis \left(\frac{\arg (w)k\pi}{n} \mod 2\pi \right) \mbox{ avec } k \in \mathbb{N}$$
+\subsubsection{Représentation des racines sur le plan de Gauss}
+On peut facilement représenter les racines de $z^n = 1$ sur le plan de Gauss.
+\\Il s'agit d'un polygone régulier inscrit au cercle trigonométrique (de rayon 1 et d'origine $(0,0)$) dans le plan de Gauss. Le nombre de côtés dépend du degré de la racine (e.g. $z^6 \rightsquigarrow$ hexagone).
+\\Pour représenter les racines de $z^n = w$. Il suffit selon le même principe de prendre le polygone régulier inscrit au cercle de rayon $\sqrt[n]{\vert w \vert}$.
+
+\newpage \chapter{Démonstration par récurrence}
+
+\section{Introduction}
+La démonstration par récurrence ou comment facilement prouver une affirmation sans la prouver dans le cas général mais en montrant que la propriété se transmet de proche en proche.
+\section{Généralisation}
+\subsection{1\iere étape : cas de base}
+Il faut démontrer la propriété au premier rang (autrement dit pour $n=x$).
+\subsection{$2^{me}$ étape : hypothèse de récurrence}
+On suppose qu'il existe un certain rang $n$ pour lequel la propriété est vraie.
+\subsection{$3^{me}$ étape : passage au rang suivant}
+On s'appuie sur l'hypothèse de récurrence pour prouver la propriété pour $n+1$.
+\subsection{$4^{me}$ étape : dernière étape}
+On en conclut que la propriété est vraie pour tout entier naturel.
+\section{Exemple}
+Prouvez que $\forall z \in \mathbb{C} \mbox{ et } \forall n \in \mathbb{N} \overline {z^n}=\overline{z}^n$ \\
+\textsc{Cas de Base} :\\
+$n=0$
+$\overline{z^0}=\overline{1}=1=\overline{z}^0$ car $a^0=1$.\\
+\textsc{Hypothèse de Récurrence} :\\
+Supposons que la propriété est vraie pour tous les $n \leq k,n \in \mathbb{N}$\\
+Montrons que la propriété est encore vraie pour $n=k+1$:
+On suppose que $\forall z \in \mathbb{C} \mbox{ et } \forall n \leq k : \overline{z^n}=\overline{z}^n$ montrons que sous cette hypothèse $\overline{z^{k+1}}=\overline{z}^{k+1}$.
+En effet on a que $\overline{z^{k+1}}=\overline{z^k.z}=\overline{z^k}.\overline{z}=\overline{z}^k.\overline{z}=\overline{z}^{k+1}$.\\
+On a donc prouvé que la propriété est vraie pour tout entier naturel.
+
+\newpage \chapter{Notion de fonction}
+\section{Exemple}
+\begin{eqnarray*}
+f:\mathbb{R} \rightarrow \mathbb{R} : x \mapsto x^2\\
+g:\mathbb{R} \rightarrow \mathbb{R} : x \mapsto \sqrt{e^x+1}\\
+h:\mathbb{R} \rightarrow \mathbb{R}^+ : y \mbox{ tel que } y^2=x\\
+\end{eqnarray*}
+\section{Définition}
+\subsection{Prédéfinition}
+Une première définition d'une fonction peut être donnée :
+\begin{de}[Fonction (1)]
+Une fonction se caractérise par un espace de départ, un espace d'arrivée et une règle d'association qui à des éléments de l'espace de départ associe des éléments de l'espace d'arrivée.
+\end{de}
+e.g :
+\begin{eqnarray*}
+A \mbox{ un ensemble }\\
+P(A) & = & \mbox{ ensemble des parties de A}\\
+& = & \left\lbrace B : B \leq A \right\rbrace\\
+A \rightarrow P(A)\\
+x \mapsto \left\lbrace x \right\rbrace
+\end{eqnarray*}
+\subsection{Relation}
+\begin{de}[Relation (1)]
+Une relation $R$ entre $A$ et $B$ est la donnée pour chaque $a \in A$ des éléments de $B$ qui sont en relation avec $a$.
+\end{de}
+e.g :
+$$A\times B=\left\lbrace (a,b) : a \in A \mbox{ et } b \in B \right\rbrace$$
+$$\mathbb{R}^2=\mathbb{R}\times \mathbb{R}$$
+\begin{de}[Relation]
+Une relation $R$ entre $A$ et $B$ $\Leftrightarrow R \subseteq A \times B$. On note $(a,b) \in R$ souvent écrit $a R b$.
+\end{de}
+\begin{itemize}
+\item{e.g (1):
+\begin{eqnarray*}
+& \leq & \subseteq R^2\\
+& \leq & = \left\lbrace (x,y) : x \leq y \right\rbrace
+\end{eqnarray*}}
+\item{e.g (2):
+$$R=\left\lbrace (x,y) \subset \mathbb{R}^2 : \underbrace{x^2 + y^2 = 1}_{d((x,y),(0,0)=1} \right\rbrace$$
+}
+\item{e.g (4):
+$$R_k=\left\lbrace (m,n) \in \mathbb{Z}^2 : m=n+kz \mbox{ pour un certain } z \in \mathbb{Z} \right\rbrace$$
+$$k\in \mathbb{Z}$$
+$$(m,n) \in R_k \Leftrightarrow m=n \mod k$$
+}
+\end{itemize}
+\subsection{Définition d'une fonction}
+Repronons la première définition d'une fonction.\\
+On a finalement :
+\begin{de}[Fonction]
+Une fonction $f$ est la donnée d'un ensemble de départ $A$, d'un ensemble d'arrivée $B$ et d'une relation $G \subseteq A \times B$ tel que $\forall x \in A, \exists \mbox{ au plus } 1 \medskip y\in B \mbox{ tel que } (x,y)\in G$. Ce qui est noté $f(x)$.
+\end{de}
+e.g :
+\begin{eqnarray*}
+& f : \mathbb{R} \rightarrow \mathbb{R} : x \mapsto x^2\\
+& A = \mathbb{R}\\
+& B = \mathbb{R}\\
+& G = \left\lbrace (x,y) : y = x^2\right\rbrace \mbox{ tel que } (x,y)\in G
+\end{eqnarray*}
+Une fois $x \in \mathbb{R}$ fixé, il existe un unique $y$.\\
+Soit $x \in \mathbb{R} \Leftrightarrow y\in \mathbb{R}$ tel que $\underbrace{(x,y)}_{y^2=x} \in G$.\\
+Si $x < 0$, il n'y a pas de $y$.\\
+Si $x = 0$, la seule solution est $y=0$.\\
+Si $x > 0$, il y a deux solutions différentes (pour $x=1$, on a $(1,1)\in G$ et $(1,-1) \in G$).\\
+Il y a donc plusieurs $y$ correspondant à $x=1$.\\
+Donc ce n'est pas une fonction !\\
+Par contre si on avait :
+$$f :\mathbb{R} \rightarrow \mathbb{R}^{+} : x \mapsto y \mbox{ tel que } y^2=x$$
+Alors il existe bien un seul et unique\footnote{Notons bien que $\sqrt{1} = 1$ et pas $\pm 1$.} $y$.
+\subsection{Graphe de $f$}
+\begin{de}[Graphe de $f$]
+$G$ est appelé le graphe de $f$.
+$$G=\left\lbrace (x,y) : (x,y) \in G \right\rbrace$$
+$$\mbox{Graphe}(x)=\left\lbrace (x,y) : y = f(x) \right\rbrace$$
+\end{de}
+\subsection{Domaine de $f$}
+Le domaine de $f$ est donné par :
+\begin{eqnarray*}
+\dom f & = &\left\lbrace x \in A : f(x) existe \right\rbrace\\
+& = & \left\lbrace x \in A : \mbox{ il existe } y\in B (x,y)\in G\right\rbrace
+\end{eqnarray*}
+\subsection{Image de $f$}
+L'ensemble image de $f$ est donné par :
+\begin{eqnarray*}
+\im f & = &\left\lbrace f(x) : x \in \dom f\right\rbrace\\
+& = &\left\lbrace y : \mbox{ il existe } x \in \dom f, y =f(x)\right\rbrace\\
+& = &\left\lbrace y : \mbox{ il existe } x \in \dom f, (x,y) \in G \right\rbrace\\
+& = &\left\lbrace y : \mbox{ il existe } x, (x,y) \in G \right\rbrace\\
+\end{eqnarray*}
+
+\newpage \chapter{Sommation}
+
+\section{Introduction}
+Prenons par exemple la suite :
+$$1+2+\ldots+n$$
+Il existe une notation pour cela :
+\begin{displaymath}
+\sum_{i=1}^{n} i = 1+2+\ldots+n
+\end{displaymath}
+Avec $i$ la variable de sommation (ici avec un pas de $1$ i.e. les valeurs qui déterminent l'intervale dans laquelle la variable varie).\\
+On peut faire pareil avec la fonction carrée ($x \mapsto x^2$) :
+$$\sum_{i=1}^{n} i^2 = 1^2 + 2^2 + \ldots + n^2$$
+\section{Interprétation géométrique}
+On peut interpréter une suite géométriquement.\\
+Soit la sommation $\sum_{i=1}^{n} f(i)$, il s'agit approximativement de l'aire de $1$ à $n$ du graphe de la fonction $f(x)$. En effet c'est la somme des rectangles\footnote{Ce principe rappel la somme de Darboux qui est : $\displaystyle{\lim_{\Delta x_i \rightarrow 0 \mbox{ et } n \rightarrow +\infty} \sum_{i=1}^{n} f(\xi_i)\Delta x_i}$.} de largeur $1$ et de hauteur $f(i)$. 
+\subsection{Précision de l'aire de la somme}
+Toutefois il est important de préciser que cette aire est aproximative ce qui nous servira plus tard pour l'interpolation. Il faut bien garder à l'esprit qu'une somme reste une somme. Elle ne doit sa capacité à donner l'aire d'une fonction que par sa similitude avec la formule de Darboux qui nous donne $\int_{a}^{b}f(x) dx$ soit l'aire exacte du graphe de $f(x)$ sur l'intervalle $a,b$.
+\subsection{Orientation de l'aire}
+L'aire exacte donnée par l'intégration donne une aire orientée. Autrement dit:
+$$\int_{a}^{b} f(x) dx = -\int_{b}^{a} f(x) dx$$
+L'aire donnée par une somme quand à elle est non orientée. Autrement dit:
+$$\sum_{i=a}^{b} f(i) = \sum_{i=b}^{a} f(i)$$
+\section{Interpolation}
+\subsection{Propriété générale}
+Comme on a :
+\begin{eqnarray*}
+\sum_{i=1}^{n} f(i) & >  & \int_{1}^{n} f(x)dx\\
+\sum_{i=1}^{n} f(i) & < & \int_{1}^{n+1} f(x)dx
+\end{eqnarray*}
+On a donc :
+$$\int_{1}^{n} f(x)dx < \sum_{i=1}^{n} f(i) < \int_{1}^{n+1} f(x)dx$$
+\subsection{Exemple}
+Par exemple avec $x^2$ on a :
+$$\int_{1}^{n} x^2 dx < \sum_{i=1}^{n} i^2 < \int_{1}^{n+1} x^2 dx$$
+$${\left[ \frac{x^3}{3} \right]}_{1}^{n} < \sum_{i=1}^{n} x^2 < {\left[ \frac{x^3}{3} \right]}_{1}^{n+1}$$
+$$\frac{n^3}{3} - \frac{1^3}{3} < \sum_{i=1}^{n} i^2 < \frac{(n+1)^3}{3}-\frac{1^3}{3}$$
+$$\frac{n^3-1}{3} < \sum_{i=1}^{n} i^2 < \frac{(n+1)^3-1}{3}$$
+On a alors :
+$$\sum_{i=1}^{n} x^2 = \frac{n^3}{3} + \alpha n^2 + \beta n$$
+On va donc construire un système pour $n=1$ et $2$.
+$$\left\{\begin{array}{ll}
+ \frac{1}{3} + \alpha + \beta & = 1\\
+ \frac{4}{3} + 4 \alpha + 2 \beta & = 5
+ \end{array}\right. \left\{\begin{array}{ll}
+ \alpha & = \frac{1}{2}\\
+ \beta & = \frac{1}{6}
+ \end{array}\right.$$
+On a donc finalement\footnote{A démontrer par récurrence.} :
+$$\sum_{i=1}^{n} i^2 = \frac{n^3}{3} + \frac{n^2}{2} + \frac{n}{6}$$
+\subsection{Généralisation pour $i^k$}
+Comme on a :
+\begin{eqnarray*}
+\sum_{i=1}^{n} i^k & >  & \int_{1}^{n} x^k dx\\
+\sum_{i=1}^{n} i^k & < & \int_{1}^{n+1} x^k dx
+\end{eqnarray*}
+On a donc :
+$$\int_{1}^{n} x^k dx < \sum_{i=1}^{n} i^k < \int_{1}^{n+1} x^k dx$$
+$${\left[ \frac{x^k}{k} \right]}_{1}^{n} < \sum_{i=1}^{n} i^k < {\left[ \frac{x^k}{k} \right]}_{1}^{n+1}$$
+$$\frac{x^k}{k} - \frac{1^k}{k} < \sum_{i=1}^{n} i^k < \frac{(n+1)^k}{k}-\frac{1^k}{k}$$
+$$\frac{n^k-1}{k} < \sum_{i=1}^{n} i^k < \frac{(n+1)^k-1}{k}$$
+On a alors :
+\begin{eqnarray*}
+\sum_{i=1}^{n} i^k & = & \frac{n^k}{k} + \sum_{j=1}^{k-1} \alpha_j n^j\\
+& = & \frac{n^k}{k} + \alpha_1 n + \alpha_2 n^2 + \ldots + \alpha_{k-1} n^{k-1}
+\end{eqnarray*}
+On va donc construire un système pour $n=1$ à $k$.
+$$\left\{\begin{array}{ll}
+ \frac{1}{k} + \alpha_1 + \alpha_2 + \ldots + \alpha_{k-1} & = 1\\
+ \frac{4}{k} + 2 \alpha_1 + 4 \alpha_2 + \ldots + 2^{k-1} \alpha_{k-1} & = 1^k + 2^k\\
+ \cdots\\
+ \frac{k^k}{k} + k \alpha_1 + k^2 \alpha_2 + \ldots + k^{k-1} \alpha_{k-1} & = 1^k + 2^k + \ldots + k^k \\
+ \end{array}\right.$$
+Il suffit finalement de résoudre ce système.
+\section{Sommation}
+\subsection{Propriétés}
+\begin{itemize}
+\item{$\sum_{i=1}^{n} f(i) + g(i) = \sum_{i=1}^{n} f(i) + \sum_{i=1}^{n} g(i)$}
+\item{$\sum_{i=1}^{n} f(i) - g(i) = \sum_{i=1}^{n} f(i) - \sum_{i=1}^{n} g(i)$}
+\item{$\sum_{i=1}^{n} \lambda = n \lambda$}
+\item{$\sum_{i=1}^{n} \lambda f(i) = \lambda \sum_{i=1}^{n} f(i)$}
+\end{itemize}
+\subsection{Double sommation}
+Une double sommation est de la forme:
+$$\sum_{i=1}^{n}\sum_{j=1}^{n} f(i,j)$$
+Il faut sommer les valeurs du tableau :
+$$\begin{pmatrix}
+f(1,1) & \cdots & f(i,1)\\
+\vdots & \ddots & \vdots\\
+f(1,j) & \cdots & f(i,j)
+\end{pmatrix}$$
+\end{document}

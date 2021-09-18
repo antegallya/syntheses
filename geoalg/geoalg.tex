@@ -1,0 +1,1552 @@
+\documentclass[reqno,a4paper,10pt]{report}
+
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage[utf8]{inputenc}
+\usepackage[francais]{babel}
+\usepackage{xspace,aeguill,ae}
+\usepackage[T1]{fontenc}
+\usepackage{fullpage}
+\usepackage{verbatim,mathrsfs,enumerate,url}
+\usepackage[dvips]{color}
+\usepackage{nag}
+\usepackage{mathtools} % Xtensible arrows
+\usepackage[all]{xy} % Commutative diagrams
+
+\author{Pierre Hauweele \and Noémie Meunier}
+\title{Introduction à la géométrie algébrique/algèbre commutative\\2009-2010}
+
+\setcounter{secnumdepth}{3}
+\setcounter{tocdepth}{3}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\mt}[1]{\widetilde{#1}} % Wide tilde in math mode
+\newcommand{\gen}[1]{\left\langle #1 \right\rangle} % Generator
+\newcommand{\set}[1]{\left\lbrace #1 \right\rbrace} % Set
+\newcommand{\im}{\mathrm{Im}\:} % Im(age)
+\newcommand{\car}{\mathrm{Car}\:} % Caractéristique
+\newcommand{\nil}{\mathrm{Nil}\:} % Nilpotents
+\newcommand{\Frac}{\mathrm{Frac}\:} % Corps des fractions
+% Underbrace with argument
+\newcommand{\underb}[2]{\underset{#1}{\underbrace{#2}}}
+\newcommand{\st}[1]{#1^{\star}} % .^star
+\newcommand{\IZ}{\ensuremath{\mathbb{Z}}\xspace} % Integer set
+\newcommand{\IR}{\ensuremath{\mathbb{R}}\xspace} % Real set
+\newcommand{\IN}{\ensuremath{\mathbb{N}}\xspace} % Natural set
+\newcommand{\IQ}{\ensuremath{\mathbb{Q}}\xspace} % Rational set
+\newcommand{\IC}{\ensuremath{\mathbb{C}}\xspace} % Complex set
+\newcommand{\so}{\Rightarrow}
+\newcommand{\soo}{\Longrightarrow}
+\newcommand{\inj}{\hookrightarrow}
+\newcommand{\surj}{\twoheadrightarrow}
+\newcommand{\bij}{\overset{\!\sim}{\to}} % Bijection
+\newcommand{\pgcd}{\mathrm{pgcd}} % french g.c.d=p.g.c.d
+\newcommand{\ppcm}{\mathrm{ppcm}}
+\newcommand{\id}{\ensuremath{\mathrm{Id}}} % Identity
+\newcommand{\rstrct}[2]{{#1}_{\upharpoonright_{#2}}} % Operator restriction 
+\newcommand{\transpose}[1]{{\vphantom{#1}}^{\mathit t}{#1}} % Left transpose
+\newcommand{\abs}[1]{\left\vert #1 \right\vert} % Absolute
+\newcommand{\adh}[1]{\mathrm{adh}\left( #1\right)}
+\newcommand{\overcircle}[1]{\stackrel{\ \circ}{#1}}
+\newcommand{\ord}{\mathrm{ord}} % order of an element
+\newcommand{\pfootnote}[1]{\up{(}\footnote{#1}\up{)}} % Footnote w/ (.)
+\newcommand{\Homgrp}[1]{\text{Hom}_{\text{grp}}\left(#1\right)}
+\newcommand{\Autgrp}[1]{\text{Aut}_{\text{grp}}\left(#1\right)}
+\newcommand{\Autens}[1]{\text{Aut}_{\text{ens}}\left(#1\right)}
+\newcommand{\Autann}[1]{\text{Aut}_{\text{ann}}\left(#1\right)}
+\newcommand{\Aut}[1]{\text{Aut}\left(#1\right)}
+\newcommand{\Int}[1]{\text{Int}\left(#1\right)}
+\newcommand{\Endgrp}[1]{\text{End}_{\text{grp}}\left(#1\right)}
+\newcommand{\Endom}[2]{\text{End}_{#1}\left(#2\right)}
+\newcommand{\Orb}[2]{\text{Orb}_{#1}\left( #2 \right)}
+\newcommand{\Stab}[2]{\text{Stab}_{#1}\left( #2 \right)}
+\newcommand{\Card}[1]{\text{Card}\left( #1 \right)}
+\newcommand{\Nmid}{\not\Big| \ } % divides not
+\newcommand{\Such}{\ \Big| \ }
+\newcommand{\such}{\ | \ }
+\newcommand{\ioi}{\Leftrightarrow} % If and Only If (tiny \iff)
+\newcommand{\gengrp}[1]{\gen{#1}_{\text{grp}}} % Gen as group
+\newcommand{\genann}[1]{\gen{#1}_{\text{ann}}} % Gen as ring (fr anneau)
+\newcommand{\tdef}[1]{\underset{\text{def}}{ #1 }}
+\newcommand{\tnot}[1]{\overset{\text{not}}{ #1 }}
+\newcommand{\ev}[1]{\mathrm{ev}_{ #1 }}
+\newcommand{\et}{\text{ et }}
+\newcommand{\ou}{\text{ ou }}
+
+\newtheorem*{theorem*}{Théorème}
+\newtheorem*{lemma*}{Lemme}
+\newtheorem*{proposition*}{Proposition}
+
+\makeatletter
+\AtBeginDocument{%
+  \let\olditemize=\itemize%
+  \renewenvironment{itemize}{%
+    \olditemize%
+  }{%
+    \@noparlisttrue%
+    \endlist%
+  }%
+  \let\oldenumerate=\enumerate%
+    \renewenvironment{enumerate}{%
+    \oldenumerate%
+  }{%
+    \@noparlisttrue%
+    \endlist%
+  }%
+}%
+\makeatother
+
+% No pagebreak after chapters and before/after parts
+% !!! *buggy* !!!
+\def\clearpage{\relax}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+\maketitle
+\tableofcontents
+\pagebreak
+\part{Anneaux}
+\chapter{Anneaux}
+\section{Définitions}
+\subsection{Groupe (rappel)} 
+Un \emph{groupe} est un ensemble G muni d'une application
+$\begin{array}[t]{r@{\ }l}
+  G &\to G\\
+  (x,y) &\mapsto xy
+\end{array}$
+tq $\forall x,y,z \in G$
+\begin{enumerate}[(1)]
+  \item (Associativité) $x.(y.z)=(x.y).z$
+  \item (Neutre) $\exists 1_R \in R$ tq $\forall x \in R, 1_R.x = x.1_R = x$
+  \item (Inverse) $\forall x \in G$ , $\exists x^*\in G$, $x.x^* = x^*.x = 1_R$
+\end{enumerate}
+
+\subsection{Anneau}
+Un \emph{anneau} $R$ est un groupe abélien $(R, +)$ muni d'une application
+$\begin{array}[t]{r@{\ }l}
+  \mu_R: R \times R &\to R\\
+  (x,y) &\mapsto x.y = xy
+\end{array}$
+telle que $\forall x,y,z \in R$ on a :
+\begin{enumerate}[(1)]
+  \item (Associativité) $x.(y.z)=(x.y).z$
+  \item (Neutre) $\exists 1_R \in R$ tq $\forall x \in R, 1_R.x = x.1_R = x$
+  \item (Distributivité) 
+    $\begin{array}[t]{r@{\ }l}
+      x.(y+z) &= x.y + x.z\\
+      \text{et }~ ~ (y+z).x &= y.x + z.x
+    \end{array}$
+\end{enumerate}
+
+\paragraph{Remarques}
+(1): permet d'écrire $xyz$ et $x^n, n \in \IN$.\\
+(2): $1_R$ est unique.\\
+(3) équivaut à $\mu_R$ est un bimorphisme de groupe, i.e.
+$\forall x \in R$,
+$\left.\begin{array}{r@{\ }l}
+  R &\to R\\
+  y &\mapsto xy
+\end{array}\right\}$
+et
+$\left.\begin{array}{r@{\ }l}
+  R &\to R\\
+  y &\mapsto yx
+\end{array}\right\}$
+morphismes de $(R,+)$\\
+En particulier $\forall x \in R, x.0_R=0_R.x=0_R$ (0 est absorbant).
+
+\vskip 1em
+Il y a $3$ éléments remarquables dans $R$ : $0_R$, $1_R$ et
+$-1_R$.
+
+\paragraph{Remarque}
+$0_R = 1_R \equiv \forall x \in R, x = 0_R \iff R = 0_R$: anneau
+$\left\{\begin{array}{l}
+  \text{nul}\\
+  \text{trivial}
+\end{array}\right.$
+
+\paragraph{Définition: $R$ anneau commutatif} si de plus $\forall x,y \in R,
+x.y = y.x$ (la 2\up{e} loi est commutative)\\
+Exemples :
+% Commentaire : tu voulais faire qqch de spécial avec
+% l'accolade dans : 
+%  \item{Anneaux de nombres:} ils sont commutatifs
+% ?
+% Et quoi les applications à valeurs dans un anneau ?
+\begin{enumerate}[1.]
+  \item{Anneaux de nombres:} ils sont commutatifs
+  \item{Anneaux de tranformations:} non commutatifs en général
+  \item{Applications à valeurs dans un anneau $(R,+,.)$}
+\end{enumerate}
+ 
+\subsection{$R^\times$, ensemble des inversibles}
+L'\emph{ensemble des inversibles} de $R$ est noté $R^\times$ et est un groupe
+multiplicatif (commutatif si $R$ l'est) :
+\[R^\times = \set{x \in R \such \exists y \in R, x.y =y.x = 1_R}\]
+
+\subsection{Corps}
+Un \emph{corps} est un anneau commutatif K tel que $K^{\times} =
+K\setminus\set{0}$.
+
+\subsection{Entiers de Gauss}
+L'\emph{anneau des entiers de Gauss} est $\IZ[i]=\set{a+ib; a, b \in IZ}$,
+muni de $+$ et $.$
+
+\section{Lemme : Inversibles de $\IZ[i]$, ${\IZ[i]}^\times$}
+\[{\IZ[i]}^\times = \set{1,-1,i,-i} = \gen{i}_{\IC^\times} \simeq \IZ/4\IZ\]
+ \begin{comment}
+  preuve 17/09/09 p1
+\end{comment}
+
+
+\chapter{Sous-anneaux}
+\section{Définition : Sous-anneau}
+Soit $R=(R,+,.)$ un anneau et $S \subseteq R$. $S$ est un \emph{sous-anneau}
+de $R$ si :
+\begin{itemize}
+  \item $(S,+)$ est un sous-groupe de $(R,+)$
+  \item $1_R \in S$
+  \item $\forall x,y \in S, xy \in S$
+\end{itemize}
+
+\paragraph{Remarque} $(S^\times, .)$ sous-groupe de $(R^\times, .)$.
+
+\section{Chaînes de sous-anneaux}
+\begin{itemize}
+  \item $\IZ \subseteq \IQ \subseteq \IR \subseteq \IC$ chaine de
+    sous-anneaux.
+  \item $\IZ \subseteq \IZ[i] \subseteq \IC$ chaîne de sous-anneaux.
+  \item $\IZ^\times < {\IZ[i]}^\times < \IC^\times$ chaîne de sous-groupes.
+  \item $\IZ + 2i\IZ \tdef{=} \set{a+i2b; a,b \in \IZ}$ est un sous-anneau
+    de $\IZ[i]$ et ${(\IZ+2i\IZ)}^\times = \set{-1, 1} = \IZ^\times$.
+\end{itemize}
+
+\section{Sous-anneaux d'endomorphismes}
+On obtient des sous-anneaux des anneaux du type $R=\Endgrp{A}$, où $(A,+)$
+groupe abélien, en ajoutant des structures supplémentaires sur $R$ qui sont
+compatibles avec la loi $+$.
+
+\paragraph{Exemple} $(A,+) = (\IR^n, +)$
+\begin{itemize}
+  \item $R = \Endgrp{\IR^n}$
+  \item $S=\Endom{\underset{\text{cont}}{\text{grp}}}{\IR^n}$ sous-anneau de
+    $R$.
+  \item $T=\Endom{\IR-\text{lin}}{\IR^n}=M_n(R)$ sous-anneau de $S$. Et en fait
+    $S=T$.
+\end{itemize}
+
+De façon similaire, 
+\begin{itemize}
+  \item $R=\mathcal{A}(\IC, \IC)$.
+  \item $S=\mathcal{A}_\text{cont}(\IC, \IC)$ sous-anneau de $R$.
+  \item $T=\mathscr{H}(\IC)=\set{\text{applications holomorphes}}$ sous-anneau
+    de $S$.
+\end{itemize}
+
+\section{Centre d'un anneau (est un sous-anneau)}
+Le \emph{centre} de $R$ est :
+\[Z(R)=\set{x \in R \such \forall y \in R, xy=yx}\]
+$Z(R)$ est un sous-anneau de $R$.
+
+Exemple: $K$ corps, $R=M_n(K)$ anneau. On a $Z(R)=\set{\lambda . \id_n}$
+
+\section{Génération d'anneaux}
+$T$ anneau, $R,S$ sous-anneaux de $T$.
+\begin{itemize}
+  \item Alors $R \cap S$ est un sous-anneau de $T$, de $R$ et de $S$.
+    On a : $R \cap S =$ le plus grand (pour $\subseteq$) sous-anneau de $T$
+    contenu dans $S$ et dans $R$.\\
+    Plus généralement, une intersection de sous-anneaux est un sous-anneaux.
+  \item $P$ une partie de $T$.
+    \begin{eqnarray*}
+      \gen{P} &\tdef{=}&\bigcap_{
+      \left(\begin{array}{c}
+        U\text{ sous-anneau}\\
+        \text{de } T\\
+        \text{tq }P \subseteq U
+      \end{array}\right)} U\\
+      &=&\text{le plus petit sous-anneau de } T \text{ contenant} P
+    \end{eqnarray*}
+\end{itemize}
+
+
+\chapter{Anneau produit}
+Soient $R,S$ anneaux. Alors l'ensemble $R\times S$ est muni d'une structure
+d'anneau par :
+\begin{itemize}
+  \item $(x_1, y_1)+(x_2, y_2) = (x_1+x_2, y_1+y_2)$
+  \item $(x_1, y_1).(x_2, y_2) = (x_1x_2, y_1y_2)$
+\end{itemize}
+On a : $0_{R\times S}=(0_R, 0_S)$ et $1_{R\times S}=(1_R, 1_S)$.\\
+De plus, $(R\times S)^\times = R^\times\times S^\times$.
+\paragraph{N.B :}
+Les sous-ensembles de $R\times S$, $\set{(x,0_S); x \in \IR}$ et $\set{(0_R,
+y); y \in S}$ sont des sous-groupes de $(R\times S, +)$ mais ne sont pas
+des sous-anneaux (si $S \neq \set{0}$, respectivement $R \neq \set{0}$).
+
+\paragraph{Plus généralement}
+on construit un produit quelconque d'anneaux. Par exemple : \\
+$R$ anneau. $\mathscr{S}(R) := \set{(u_n)_{n\in \IN}; u_n \in \IR}$.\\
+$\mathscr{S}(\IQ)=\prod_{n\in \IN} \IQ$\\
+$\mathscr{C}(\IQ)=\set{(u_n)_{n\in \IN} \in \mathscr{\IQ} \such (u_n)_{n\in
+\IN} \text{ de Cauchy}}$ (sous anneau de $\mathscr{S}$)
+
+\chapter{Morphismes}
+\section{Définition : morphisme d'anneaux}
+Soient $R,S$ anneaux\\
+Un \emph{morphisme d'anneaux} $f$ de $R$ dans $S$ est une application $f:
+R \to S$ telle que $\forall x,y \in R$ :
+\begin{enumerate}[(i)]
+  \item $f(x+y) = f(x)+f(y)$
+  \item $f(x.y) = f(x).f(y)$
+  \item $f(1_R) = 1_S$
+\end{enumerate}
+\paragraph{Remarques:}
+\begin{itemize}
+  \item (i) $\iff f$ morphisme de groupes $(R,+) \to (S,+)$; on a alors
+    $f(0_R) = 0_S$ et $f(-x) = -f(x)$\\
+    (ii) et (iii) : compatibilité avec les 2\iemes lois
+  \item Si $S$ anneau non nul, l'application $\left\{
+    \begin{array}{r@{\ }l}
+      R &\to S\\
+      x &\mapsto 0_S
+    \end{array}
+      \right.$ est un morphisme de groupes, mais pas d'anneaux.
+  \item Si $f: R \bij S$ morphisme d'anneaux bijectif, alors $f^{-1}:
+    S \bij R$ morphisme d'anneaux.
+\end{itemize}
+\paragraph{Rmq:}
+$R \simeq S \tdef{\iff} \exists$ isomorphisme d'anneau $R \bij S$
+est une relation d'équivalence.
+
+\paragraph{Rmq:}
+Soit $R$ anneau non nul. Il existe un unique morphisme d'anneau
+\[\begin{array}{r@{\ }l}
+  \IZ &\to R\\
+  1 &\mapsto 1_R\\
+  n &\mapsto n.1_R
+\end{array}\]
+
+%TODO: Exemples ?
+
+\section{Ker et Im}
+Soient $R$, $S$ anneaux et $f: R \to S$ morphisme d'anneau. En particulier,
+$f: (R,+) \to (S,+)$ morphisme de groupe, donc $\ker f = \set{x \in R
+\such f(x) = 0_S} \text{ sous-groupe de } (R,+)$\\
+et $\im f = \set{f(x) ; x \in R} \text{ sous-groupe de } (S,+)$.
+
+On a : $
+\begin{array}[t]{r@{\ }l}
+  f \text{ surjective} &\iff \im f = S\\
+  f \text{ injective} &\iff \ker f = \set{0_R}
+\end{array}$
+
+\subsection{$\im f$ est un sous-anneau}
+$\im f$ est un sous anneau de $S$.
+
+\subsection{$\ker f$ est un ideal bilatère}
+$S$ anneau non nul $\so \ker f$ n'est pas un sous-anneau de $R$.\\
+Par contre, on a : $\forall y,z \in R, \forall x \in \ker f, xyz \in \ker
+f$.\\
+C'est à dire $\ker f$ est un idéal bilatère de $R$ ($\so \ker f$ ne
+contient pas d'inversibles).
+
+\section{Propriétés}
+\subsection{Image d'un morphisme définie par l'image sur une partie
+génératrice}
+Soient $R$ anneau, $P\subseteq R$ sous-ensemble tel que $R=\genann{P}$
+et $g, f : R \to S$ morphismes d'anneaux.
+\[\forall x \in P, f(x)=g(x) \so f=g\]
+
+\subsection{Stable par composition}
+$R, S, T$ anneaux, $f:R \to S, g: S \to T$ morphismes d'anneau $\so g\circ f$
+morphisme d'anneau.
+
+\paragraph{Remarque} On obtient ainsi le groupe $(\Autann{R}, \circ)$. Mais on
+n'a pas un anneau.
+\begin{comment}
+  \pfootnote{détails 01/10/09 p1}
+\end{comment}
+\begin{itemize}
+  \item $\Autann{\IZ} = \set{\id}$
+  \item $\Autann{\IQ} = \set{\id}$
+  \item $\Autann{\IZ[i]} = \set{\id, \text{conj. complexe}}$
+  \item $\Autann{\IC}$ non dénombrable
+  \item $\Autann{M_n(\IZ)}=\set{X \mapsto UXU^{-1};U \in GL_n(\IZ)}$
+\end{itemize}
+
+\section{Exemples de morphismes canoniques}
+\begin{enumerate}
+  \item $T$ sous anneau de $R$. L'inclusion
+    $\begin{array}[t]{r@{\ }l}
+      \iota_T : T &\to R\\
+      t &\mapsto t
+    \end{array}$ est un morphisme d'anneau injectif.\\
+    Dire $\iota_T$ est un morphisme d'anneau est équivalent à dire $T$ sous
+    anneau de $R$.
+  \item $I$ ensemble, $S=\prod_{i\in I}S_i$, $S_i$ anneaux.
+    $\forall j \in I, \begin{array}[t]{r@{\ }l}
+      p_j : S &\surj S_j \\
+      (S_i)_{i\in I} &\mapsto S_j
+    \end{array}$ est un morphisme d'anneau surjectif.
+\end{enumerate}
+
+\paragraph{Remarque}
+$\begin{array}[t]{r@{\ }l}
+  S_j &\to \prod_{i\in I} S_i\\
+  s &\mapsto (r_i)_{i \in I}, (r_i = 0 \text{ si } i\neq j, r_i=s
+  \text{ si } i=j)
+\end{array}$ est un morphisme de groupe mais pas un morphisme d'anneau, sauf
+si $S_i=\set{0}$ pour $i\neq j$.
+
+\pagebreak
+\part{Anneaux commutatifs}
+\chapter{Polynômes}
+\section{Définitions}
+$A$ anneau commutatif non nul.
+\subsection{$A[X]$}
+\[A[X] = \set{\sum_{n \in \IN} a_n X^n; a_n = 0_A \ \text{p.p}}\]
+
+Loi $+$ sur $A[X]$ : $\displaystyle \left( \sum_{n \in \IN} a_n X^n \right) +
+\left( \sum_{n \in \IN} b_n X^n \right) := \sum_{n \in \IN} (a_n + b_n) X^n$
+
+Alors $(A[X], +)$ est un groupe abélien.
+\paragraph{Remarque}
+$\begin{array}[t]{r@{\ }l}
+  (A[X], + ) &\inj \left(\prod\limits_{n \in \IN}, +\right)\\
+  \sum\limits_{n\in \IN} a_n X^n &\mapsto (a_0, a_1, \dots, a_n, \dots)
+\end{array}$ injection de groupe.
+
+Loi $.$ sur $A[X]$ : $\displaystyle \left( \sum_{n \in \IN} a_n X^n \right) .
+\left( \sum_{n\in \IN} b_n X^n \right) := \sum_{n \in \IN} c_n X^n$ avec
+$\displaystyle c_n = \sum_{k+m = n} a_m b_k =\sum_{k+m = n} b_k a_m$
+
+Neutre pour $.$ : $\displaystyle 1_A X^0 + \sum_{n \geq 1} 0_A X^n =
+1_{A[X]}$.
+
+Alors $\left( A[X], +, . \right)$ est un anneau commutatif.
+
+\paragraph{Remarque} $ (a_n)_{n \in \IN}, (b_n)_{n \in \IN} \in
+\prod_{n \in \IN} A$.\\
+$(a_n) * (b_n) = (c_n)$ où $\displaystyle c_n = \sum_{k+m} a_k b_m$ (produit
+de convolution)
+
+Alors $\displaystyle\left( \prod_{n\in \IN} A , +, * \right)$ est un anneau
+commutatif.
+
+\subsection{Degré d'un polynôme}
+Soit $P(X)=\sum_{n \in \IN } a_n X^n \in A[X]$ non nul $\so$ il existe un plus
+grand $d$ tq $a_d \neq 0$.
+
+Alors $d=\deg P$
+
+\paragraph{Convention} $\deg 0_{A[X]} = -\infty$
+
+On a:
+\begin{eqnarray*}
+\deg (P+Q) &\leq& \max \set{\deg P, \deg Q}\\
+\deg (P.Q) &\leq& \deg P + \deg Q
+\end{eqnarray*}
+
+\subsection{$A[X, Y]$ et généralisation}
+\[A[X, Y] = \set{\sum_{(n,m) \in \IN \times \IN} a_{n,m} X^n Y^m; a_{n,m} = 0
+\ \text{p.p}}\]
+
+\[\sum_{(n,m) \in \IN \times \IN} a_{n,m} X^n Y^m + \sum_{(n_,m) \in \IN
+\times \IN} b_{n,m} X^n Y^m = \sum_{(n,m) \in \IN \times \IN} (a_{n,m} +
+b_{n,m}) X^n Y^m\]
+\begin{multline*}
+\left(\sum_{(n,m) \in \IN \times \IN} a_{n,m} X^n Y^m\right)
+. \left(\sum_{(n_,m) \in \IN \times \IN} b_{n,m} X^n Y^m\right) = \sum_{(n,m)
+\in \IN \times \IN} c_{n,m} X^n Y^m ; \\
+c_{n,m} = \sum_{\substack{ n_1+n_2 =n\\
+  m_1 + m_2 = m} } a_{n_1,m_1} . b_{n_2, m_2}
+\end{multline*}
+
+Alors $\left( A[X,Y], +, . \right)$ est un anneau commutatif.
+
+\paragraph{Généralisation} $(A[X_1, \dots, X_n], +, .)$ anneau commutatif.\\
+$(A[X_i; i\in \IN], +, .)$ anneau commutatif.
+
+\section{Morphismes}
+\subsection{Injection}
+$\begin{array}[t]{r@{\ }l}
+  A  &\inj A[X]\\
+  a &\mapsto a X^0
+\end{array}$
+morphisme d'anneau injectif. Permet d'identifier $A$ à un sous anneau de
+$A[X]$ (les polynômes constants).
+
+Aussi, $
+\begin{array}[t]{r@{\ }l}
+  A[X] &\inj A[X,Y]\\
+  \sum\limits_{n\in \IN} a_n X^n &\mapsto  \sum\limits_{n \in \IN} a_n
+  X^n Y^0
+\end{array}$ morphisme d'anneau injectif.
+
+\subsection{Evaluation}
+Soit $Q(X) = \sum b_m X^m \in A[X]$.
+$\begin{array}[t]{r@{\ }l}
+  C_Q : A[X] &\to A[X]\\
+  P(X) &\mapsto P(Q(X))\\
+  \sum a_n X^n &\mapsto \sum a_n \left( \sum b_m X^m \right)^n
+\end{array}$ morphisme d'anneau.
+
+\paragraph{Deux cas particuliers importants}
+\begin{enumerate}
+  \item Soit $a\in A$, on prend $Q(X) = X + a$.
+    $\begin{array}[t]{r@{\ }l}
+      C_{X+a} : A[X] &\to A[X]\\
+      P(X) &\mapsto P(X+a)
+    \end{array}$ automorphisme d'anneau. $C_{X+a}^{-1}=C_{X-a}$
+  \item Soit $a\in A_i$; on prend $Q(X)=a$.\\
+    $\begin{array}[t]{r@{\ }l}
+      C_a: A[X] &\to A[X]\\
+      P(X) &\mapsto P(a) \in A
+    \end{array}$\\
+    $\begin{array}[t]{r@{\ }l}
+       \ev{a}: A[X] &\to A\\
+      P(X) &\mapsto P(a)
+    \end{array}$ morphisme d'anneau surjectif.
+\end{enumerate} 
+\subsection{Lemme : $\ker(\ev a)$}
+\[\ker(\ev a) = \set{(X-a).R(X); R(X) \in A[X]}\]
+\begin{comment}
+preuve 07/10/09 p1
+\end{comment}
+
+\subsection{Changement d'anneau de coefficients}
+$f:A \to B$ morphisme d'anneau. Alors $
+\begin{array}[t]{r@{\ }l}
+  F: A[X] &\to B[X]\\
+  \sum a_n X^n &\mapsto \sum f(a_n) X^n
+\end{array}$ est un morphisme d'anneau. Et si $f$ est iso, alors $F$ l'est
+également.
+
+\subsection{Propriété universelle de $A[X]$}
+$\forall f : A \to B$ morphisme d'anneau, $\forall b \in B$, $\exists !
+\mt{f} : A[X] \to B$ morphisme d'anneau tel que $\rstrct{\mt{f}}{A} = f$ et
+$\mt{f}(X)=b$. Ce morphisme est le morphisme de changement de coefficients $F$
+composé avec l'évaluation en $b$ : $F\circ \ev{b}$.
+\begin{comment}
+  \pfootnote{Preuve 07/10/09 p1 verso}
+\end{comment}
+
+\paragraph{Remarque} $\im \left( \begin{array}{r@{\ }l}
+  A[X] &\inj B[X] \to B \\
+  P(X) &\xmapsto{\hphantom{\!\textstyle \!\inj B[X] \to\!\!}}  P(b)
+\end{array}\right):=A[b]=\gen{A\cup\set{b}}_B$\\
+$\im\left( \IZ[X] \inj \IC[X] \xrightarrow{\ev i} \IC\right)=\IZ[i]$
+
+\paragraph{Conséquences}
+\begin{enumerate}
+  \item $f:A[X] \inj A[X,Y]$ morphisme d'anneau injectif\\
+    $\soo \begin{array}[t]{r@{\ }l}
+      \left( A[X] \right)[Y] &\bij A[X,Y]\\
+      \sum\limits_{m\geq 0} \left( \sum\limits_{n\geq 0} a_{m,n} X^n \right)
+      Y^m &\mapsto \sum\limits_{m,n \geq 0} a_{m,n} X^n Y^m
+    \end{array}$
+  \item $\mathcal{F}(A,A)=\set{\text{appl. } A \to A}$ anneau.
+
+    $\begin{array}[t]{r@{\ }l}
+      \varphi : A[X] &\to \mathcal{F}(A,A)\\
+      P(X)=\sum\limits_{0\leq k \leq n} a_k X^k &\mapsto
+      \begin{array}[t]{r@{\ }l}
+        \varphi(P) : A &\to A\\
+        a &\mapsto \sum\limits_{0\leq k \leq n} a_k a^k = P(a)
+      \end{array}
+    \end{array}$\\
+    $\im \varphi = \set{\text{appl. polynômiales } A \to A}$ sous anneau de
+    $\mathcal F(A,A)$.\\
+    $\ker \varphi \neq \set{0}$ en général.
+\end{enumerate}
+
+\section{Division euclidienne}
+\subsection{Proposition, existence et unicité du quotient et reste}
+Soient $P(X), S(X) \in A[X]$ avec $P(X) \neq 0$ et $S(X)=b_m X^m +
+b_{m-1} X^{m-1} + \dots + b_1 X + b_0$ avec $m\geq 0$ et $b_m \in A^\times$.
+
+Alors $\exists! (Q(X), R(X)) \in A[X] \times A[X]$ tel que
+\[P(X) = Q(X) . S(X) + R(X)\]
+et $\deg R < \deg S = m$.
+
+\begin{comment}
+  Preuve 07/10/09 p2 verso
+\end{comment}
+
+\paragraph{Remarques}
+\begin{itemize}
+  \item $b_m \in A^\times \so S(X) \neq 0$
+  \item Si $A$ corps, alors $b_m \in A^\times \iff S(X)\neq 0$
+  \item $b_m \in A^\times \so \forall Q(X) \in A[X], \deg(Q.S) = \deg Q + \deg
+    S$
+\end{itemize}
+
+\chapter{Quotients}
+\section{Anneau quotient}
+\begin{comment}
+  Détails, diagramme, 08/10/09 p1 verso.
+\end{comment}
+\subsection{Idéal}
+Un idéal de $A$ est un sous groupe $(I,+)$ de $(A,+)$ tel que
+\[\forall a \in A, \forall c\in I, a.c \in I\]
+\paragraph{Exemples}
+\begin{itemize}
+  \item $\set{0_A}$ et $A$ sont des idéaux de $A$.
+  \item $f:A\to B$ morphisme d'anneaux, alors $\ker f$ idéal de $A$.
+  \item $c\in A; \set{a.c; a\in A} = A.c = c.A \overset{\text{not}}{=}(c)$ est
+    un idéal de $A$.
+  \item $\set{(0_A, b); b \in B}$ et $\set{(a,0_B); a \in A}$ sont des idéaux
+    de $A\times B$.
+  \item Les idéaux de $\IZ$ sont les $n\IZ$ où $n\in \IZ$.
+\end{itemize}
+
+\subsection{Définition : anneau quotient}
+Soit $(I,+) < (A,+)$.\\
+La 2\ieme loi sur $A$ induit, via $\begin{array}[t]{r@{\ }l}
+  \pi_I : A &\surj A/I\\
+  a &\mapsto a+I
+\end{array}$ une loi sur $A/I$ ssi $I$ est
+un idéal de $A$.
+
+Dans ce cas, $(A/I, +, .)$ est un anneau commutatif, appelé \emph{anneau
+quotient} de $A$ par $I$.
+
+
+\subsection{La projection $\pi_I$ est un morphisme}
+Si $I$ idéal de $A$, alors $\pi_I: A \to A/I$ est un morphisme d'anneau.
+
+\subsection{$(A/I)^\times$}
+$(A/I)^\times = \set{a + I \in A/I \Such \exists b \in A, ab - 1_A \in I}$
+
+\subsection{Exemples}
+\begin{itemize}
+  \item $A=\IZ; I=n\IZ, n \in \IZ \so (\IZ/n\IZ, +, .)$ anneau commutatif fini
+    si $n\neq 0$ et non nul si $n\neq \pm 1$.
+  
+    $(\IZ/n\IZ)^\times = \set{a+n\IZ \such \pgcd(a,n)=1}$ par Bézout.
+
+  \item $A=\IZ[i], n \in \IZ; I=n\IZ[i]$.
+
+    $A/I=\IZ[i]/n\IZ[i]$ anneau commutatif fini (d'ordre $n^2$).
+
+  \item $A=\IR[X]; n \in \IN, I_n=X^n.\IR[X]$ idéal.
+
+    Alors $A/I_n=\IR[X]/I_n$ anneau commutatif.\\
+    Soit $x=\pi_{I_n}(X)$; alors on a :\\
+    $A/I_n=\set{a_0+a_1 x + \dots + a_{n-1} x^{n-1}; a_i \in \IR}$ et $x^n =
+    0_{A/I_n}$.
+\end{itemize}
+
+\subsection{Idéaux d'anneau quotient}
+Soient $I,J$ idéaux de $A$ tels que $I\subseteq J$. En particulier, $(I,+) <
+(J,+)$ et l'anneau quotient $J/I$ est un idéal de $A/I$.
+
+\subsection{La projection $\pi_I$ induit une bijection croissante}
+La projection $\pi_I : A \surj A/I$ induit une bijection croissante pour
+$\subseteq$.
+\[
+\begin{array}[t]{r@{\ }l}
+  \set{\text{idéaux de }A\text{ contenant } I} \longrightarrow&
+  \set{\text{idéaux de }A/I}\\
+  J \xmapsto{\hphantom{\textstyle \text{ contenant } I}}& J/I
+\end{array}
+\]
+
+\paragraph{Exemple d'application}
+Soit $n\neq 0 \in \IZ$. Les idéaux de $\IZ/n\IZ$ sont en bijection $\nearrow$
+avec les $m\IZ, m \in \IZ$ tels que $n\IZ \subseteq m\IZ \iff m \mid n$.
+
+\section{Morphismes}
+$f : A \to B$. Soit $J$ un idéal de $B$, $\begin{array}[t]{r@{\ }l}
+  \pi_J : B &\surj B/J\\
+  b &\mapsto b+ J
+\end{array}$ morphisme d'anneau. $\xymatrix{
+A \ar[dr]_{\substack{\pi_J \circ f\\ \text{morph.}\\ \text{d'ann}}}
+\ar[r]^f & B \ar@{->>}[d]^{\pi_J}\\
+  & B/J
+}$
+
+\subsection{Factorisation de morphisme d'anneau $f$ par $\pi_I$ ssi $I
+\subseteq \ker f$}
+Soit $f:A\to B$ morphisme d'anneau. $I$ idéal de $A$\\
+$f$ se factorise par $\pi_I:A\surj A/I$, c'est-à-dire $\exists
+\overline{f}:A/I \to B$ tel que $f=\overline f \circ \pi_I$\\
+ssi $I\subseteq \ker f$.
+
+Dans ce cas, $
+\begin{array}[t]{l}
+  \im \overline{f}= \im f\\
+  \ker \overline f = \ker f / I
+\end{array}$\hspace{4.2em}
+$\xymatrix{
+  c\in I\ar@{|->}[dd]_{\pi_I} &A \ar[r]^f \ar@{->>}[d]_{\pi_I} & B & 0_B\\
+  &A/I \ar@{.>}[ur]_{\overline{f}} &\\
+  0_{A/I} \ar@/_2pc/@{|->}[uurrr]_{\overline f}
+}$
+\paragraph{Cas particulier $I=\ker f$ :}
+$\exists !$ morphisme d'anneau $\begin{array}[t]{r@{\ }l}
+  A/\ker f &\xhookrightarrow{\overline f} B \\
+  a+ \ker f &\mapsto f(a)
+\end{array}$ factorisant $f$ et $\overline f$ injectif.
+
+\paragraph{Exemples}
+\begin{enumerate}
+  \item $A=\IZ, B=\IZ/n\IZ, f = \pi_{n\IZ}:=\pi_n, I = m\IZ$
+    \hspace{4.2em}$\xymatrix{
+    \IZ \ar@{->>}[r]^{\pi_n} \ar@{->>}[d]_{\pi_m} & \IZ/n\IZ\\
+    \IZ/m\IZ \ar@{.>}[ur]_{\overline{\pi_n}}
+    }$\\Il existe un morphisme d'anneau $\overline{\pi_n}: \IZ/m\IZ \to
+    \IZ/n\IZ$ tel que $\pi_n=\overline{\pi_n} \circ \pi_m$ ssi $m\IZ \subseteq
+    n\IZ = \ker \pi_n \iff $ $n$ divise $m$.
+
+    Dans ce cas, $\begin{array}[t]{r@{\ }l}
+      \overline{\pi_n} : \IZ/m\IZ &\to \IZ/n\IZ\\
+      a+m\IZ &\mapsto a+n\IZ
+    \end{array}$ est un morphisme d'anneau $\iff n \mid m$.\\
+    Et $\im \overline{\pi_n}= \im \pi_n=\IZ/n\IZ$ et $\ker
+    \overline{\pi_n}=\ker \pi_n/\ker \pi_m=n\IZ/m\IZ$.
+    
+    De plus, on obtient un isomorphisme d'anneau :
+    \[\overline{\overline{\pi_n}} : \left( \IZ/_{m\IZ} \right)/_{\left(
+    n\IZ/m\IZ
+    \right)} \bij \IZ/n\IZ\]
+  \begin{comment}
+  \item Exemple avec $A\times B / \set{(a,0_B)}$ 15/10/09 p2
+  \end{comment}
+  \item $
+    \begin{array}[t]{r@{\ }l}
+      f=\ev a : A[X] &\surj A\\
+      P(X) &\mapsto P(a)
+    \end{array}
+    $ morphisme d'anneau surjectif. \\$\ker(\ev a) = \set{(X-a)Q(X); Q(X) \in
+    A[X]} \overset{\text{not}}{=} (X-a)$.\\
+    D'où $
+    \begin{array}[t]{r@{\ }l}
+      \overline{\ev a} : A[X] / (X-a) &\bij A \\
+      P(X) \mod (X-a) &\mapsto P(a)
+    \end{array}
+       $ isomorphisme d'anneau.
+  \begin{comment}
+  \item Injection, $f^{-1}$ et création de sous anneau de $\IC$ 15/10/09 p2
+    verso.
+  \end{comment}
+\end{enumerate}
+
+\chapter{Idéaux}
+$A$ anneau commutatif, $\mathcal{I}(A) = \set{\text{idéaux de }A}$. On a
+toujours $\set{0_A} \in \mathcal{I}(A)$ et $A \in \mathcal{I}(A)$.
+\section{Idéaux inversibles}
+\subsection{Lemme : intersection entre un idéal et les inversibles}
+$I \in \mathcal{I}(A), A^\times = \set{\text{inversibles de } A}$
+\[I\cap A^\times \neq \emptyset \iff A=I\]
+
+\begin{comment}
+  Preuve 22/10/09 p1
+\end{comment}
+
+\paragraph{Conséquence} Si $I\in \mathcal{I}(A)$ et $I$ sous anneau, alors $1_A
+\in I$ et donc $I=A$.
+
+\subsection{Corollaire du lemme précédent : idéaux de corps}
+$A$ corps $\iff \mathcal{I}(A) = \set{\set{0_A}, A}$
+
+\paragraph{Remarque} $K, L$ corps, $K\times L$ n'est jamais un corps car il
+existe toujours deux idéaux non triviaux : $\set{0_K}\times L$ et
+$K\times \set{0_L}$
+
+\section{Opérations sur les idéaux}
+\subsection{Intersection}
+Soit $E$ ensemble d'indices quelconques.
+\[\forall i \in E, I_i \in \mathcal{I}(A) \so \bigcap_{i\in E} I_i \in
+\mathcal{I}(A)\]
+\begin{comment}
+  Preuve 22/10/09 p2
+\end{comment}
+
+\paragraph{Remarque}
+À l'inverse, une union d'idéaux n'est pas nécéssairement un idéal.
+
+\subsection{Lemme/définition : idéal engendré par un ensemble}
+Soit $P\neq \emptyset \subseteq A$, il existe un plus petit (pour $\subseteq$)
+idéal contenant $P$, on le note $(P)$ : l'idéal engendré par $P$.
+\begin{comment}
+  Preuve 22/10/09 p2
+\end{comment}
+
+\[(\underb{P}{\set{a_1, \dots, a_n}})\tnot{=}(a_1, \dots, a_n) =
+\set{\sum_{i=1}^n b_i a_i \Such b_i \in A}\]
+$(\set{a}) = (a) = a. A$ est dit idéal principal.
+
+\subsection{Somme}
+$I, J \in \mathcal I (A)$
+\[I+J:=(I\cup J)=\set{x+y \Such x \in I, y \in J}\]
+\[(a_1)+(a_2)+\dots+(a_n) = (a_1, a_2, \dots, a_n)\]
+
+\subsection{Produit}
+$I,J \in \mathcal{I}(A)$
+\begin{align*}
+  I.J&:=\set{\sum_{\text{finie}}x_i y_i \Such x_i \in I, y_i \in J}\\
+  &=\left( \set{xy \such x\in I, y\in J} \right)\\
+  &=\gen{xy \such x\in I, y\in J}_{\text{grp }+}
+\end{align*}
+
+\paragraph{Remarque} $I.J \subseteq I\cap J$
+
+\section{Théorème Chinois}
+\subsection{Cas de deux idéaux}
+Soit $A$ anneau commutatif. Soient $I, J$ idéaux de $A$.\\
+Soit $\begin{array}[t]{r@{\ }l}
+  \varphi : A &\to A/I \times A/J\\
+  a &\mapsto (a \mod I, a \mod J)
+\end{array}$ morphisme d'anneaux.
+\begin{enumerate}[(i)]
+  \item $\ker \varphi = I \cap J$
+  \item $\varphi$ surjective ssi $I+J=A$
+\end{enumerate}
+\begin{comment}
+  Preuve 29/10/08 p1
+\end{comment}
+
+\subsection{Cas particulier de $\IZ$}
+$\varphi: \IZ \to \IZ/n\IZ \times \IZ/m\IZ$
+\begin{enumerate}[1)]
+  \item $\ker \varphi = n\IZ \cap m\IZ = \ppcm(n,m)\IZ$
+  \item $\varphi$ surjective $\iff\underb{\pgcd(n,m)\IZ}{n\IZ+m\IZ}=\IZ \iff
+    \pgcd(n,m)=1 \iff \ppcm(n,m)=n.m$\\
+    $\soo$ (factorisation) $\IZ/nm\IZ \bij \IZ/n\IZ \times \IZ/m\IZ$
+\end{enumerate}
+
+
+\subsection{Généralisation}
+$I_1, \dots, I_n$ idéaux de $A$ tels que $\forall i \neq j, I_i + I_j = A$\\
+Alors $
+\begin{array}[t]{r@{\ }l}
+  A/\bigcap_{1\leq i \leq n} I_i &\displaystyle
+  \overset{\sim}{\longrightarrow} \prod_{1 \leq i\leq n} A/I_i\\
+  \displaystyle a+\bigcap_{1\leq i \leq n} I_i &\displaystyle \longmapsto
+  \left( a+I_i \right)_{1\leq i \leq n}
+\end{array}
+$
+
+\subsection{Fonction indicatrice d'Euler}
+$n\geq 2; \varphi(n):=|(\IZ/n\IZ)^\times|$\\
+$\varphi:\IN_{\geq 2} \longrightarrow \IN$ fonction indicatrice d'Euler.
+On a, si $n=p_1^{m_1}. \dots . p_r^{m_r}$, décomposition de $n$ en facteurs
+premiers :
+\[\varphi(n)=p_1^{m_1-1}(p_1 - 1). \dots . p_r^{m_r-1}(p_r-1)\]
+\begin{comment}
+  Preuve Application du thm chinois généralisé, 29/10/08 p2
+\end{comment}
+
+\section{Idéaux premiers}
+\subsection{Anneaux intègres}
+\subsubsection{Définition : anneau intègre}
+Un \emph{anneau intègre} $A$ est intègre si $A$ non nul et si\\
+$\forall a,b \in A, a.b = 0 \soo a=0$ ou $b=0$.
+
+\paragraph{Remarques}
+\begin{itemize}
+  \item Un corps est intègre
+  \item Dans un anneau intègre, on a la simplification $a\neq 0, ab=ac
+    \iff b=c$
+  \item $A$ intègre et $I$ idéal de $A$, on n'a pas nécéssairement $A/I$
+    intègre.
+\end{itemize}
+
+\subsubsection{Lemme : degré de produit de polynômes}
+Si $A$ intègre, $\forall P(X), Q(X) \in A[X]$,
+\[\deg(P.Q) = \deg P + \deg Q\]
+\begin{comment}
+  Preuve 04/11/09 p1 verso
+\end{comment}
+
+\subsubsection{Corollaire : $A$ intègre $\soo A[X]$ intègre}
+
+\subsubsection{Corollaire : $A$ intègre $\soo A[X]^\times = A^\times$}
+
+\subsection{Idéaux premiers}
+\subsubsection{Définition : idéal premier}
+Un idéal $I$ de $A$ est \emph{premier} si $A/I$ est intègre.
+
+\paragraph{Remarques}
+\begin{itemize}
+  \item $I$ premier $\iff I \neq A$ et $\forall a,b \in A, ab\in I \so a
+    \in I$ ou $b \in I$.
+  \item $A$ intègre $\iff (0)$ premier.
+\end{itemize}
+
+\subsubsection{Lemme : idéaux premiers de $\IZ$}
+Les idéaux premiers de $\IZ$ sont $(0)$ et les $p\IZ$, avec $p$ premier.
+\begin{comment}
+  Preuve 04/11/09 p2
+\end{comment}
+
+\subsubsection{Définition : caractéristique d'un anneau}
+Soit $\begin{array}[t]{r@{\ }l}
+  \nu_A : \IZ &\to A\\
+  n &\mapsto n.1_A
+\end{array}$ l'unique morphisme d'anneau.
+
+Si $A$ intègre, alors $\ker \nu_A$ est un idéal premier de $\IZ$.\\
+En effet, $\overline{\nu_A}:\IZ/\ker \nu_A \bij \im \nu_A \subseteq A$ intègre,
+donc $\ker \nu_A$ idéal premier.
+
+Donc $\ker \nu_A = (0)$ ou $\ker \nu_A=p\IZ$, $p$ premier $\iff \nu_A:\IZ \inj
+A$ ou $\overline{\nu_A}:\mathbb{F}_p \inj A$.
+
+\paragraph{La caractéristique d'un anneau $A$} est
+$\begin{array}[t]{cc}
+  \car A = 0 & \text{si } \ker \nu_A=(0)\\
+  \car A = p & \text{si } \ker \nu_A=p\IZ
+\end{array}$
+
+\subsubsection{Exemples d'idéaux premiers}
+\begin{itemize}
+  \item L'idéal $(X)$ de $A[X]$ est premier car $\overline{\ev 0} : A[X]/(X)
+    \bij A$ intègre.
+  \item L'idéal $(X^2)$ n'est pas premier.
+  \item L'idéal $(X)$ de $A[X,Y]$ est premier.
+  \item L'idéal $(XY)$ de $A[X,Y]$ n'est pas premier.
+\end{itemize}
+
+\section{Idéaux maximaux}
+\subsection{Définition : idéal maximal}
+Un idéal $I$ de $A$ est \emph{maximal} si $I\neq A$ et
+\[\left.
+\begin{array}{r}
+  J \text{ idéal de } A\\
+  I \subseteq J \subseteq A
+\end{array}\right\} \soo J=I \text{ ou } J=A\]
+
+\subsection{Idéaux maximaux de $\IZ$}
+Les idéaux maximaux de $\IZ$ sont les $p\IZ$ avec $p$ premier
+\begin{comment}
+  \pfootnote{Preuve 04/11/09 p3}
+\end{comment}
+
+\subsection{Théorème : $I$ maximal $\ioi A/I$ corps}
+$A$ anneau commutatif, $I$ idéal.\\
+$I$ maximal dans $A \iff A/I$ corps.
+
+\begin{comment}
+  Preuve 05/11/09 p1
+\end{comment}
+
+\subsection{Corollaire : maximal implique premier}
+$I$ maximal $\soo I$ premier.
+
+\subsection{Théorème de Krull}
+$A$ anneau commutatif non nul, $I\neq A$ idéal.\\
+Alors il existe $\mathcal{M}$ idéal maximal de $A$ tel que $I\subseteq
+\mathcal M$.
+
+\begin{comment}
+  Preuve 12/11/09 p1 verso
+\end{comment}
+
+\chapter{Localisation}
+\section{Définitions}
+\subsection{Définition : partie multiplicativement stable}
+$S \subseteq A$ est \emph{multiplicativement stable} si
+\begin{enumerate}[(i)]
+  \item $1\in S$
+  \item $r,s \in S \so r.s \in S$
+  \item $0 \not\in S$
+\end{enumerate}
+
+\paragraph{Exemples}
+\begin{itemize}
+  \item $A^\times$ est multiplicativement stable, ainsi que tout sous groupe de
+    $A^\times$
+  \item Soit $s\in A$ tel que $s\not \in \nil(A)$\\
+    Alors $S=\set{1,s,s^2,s^3,\dots}=\set{s^n;n\in \IN}$ est
+    multiplicativement stable.
+  \item $\mathfrak{P}$ idéal premier de $A$. $S=A\setminus \mathfrak P$ est
+    multiplicativement stable.
+    \begin{comment}
+      Preuve 12/11/09 p2
+    \end{comment}
+\end{itemize}
+
+\subsection{Définition d'une relation d'équivalence sur $A\times S$}
+Soit $S$ partie multiplicativement stable de $A$. On définit une relation
+d'équivalence sur l'ensemble $A\times S$ par :
+\[(a,s) \sim (b,r) \iff \exists t \in S, t(ar-bs)=0\]
+
+\paragraph{Notation}
+La classe de $(a,s)$ par $\sim$ est notée $a\over s$ (représentant de
+la classe).
+
+\paragraph{Remarque}
+Si $A$ intègre, alors $(a,s)\sim(b,r) \iff ar-bs=0$ (car $0\not \in S$).
+
+\subsection{Définition : localisé}
+Le \emph{localisé} de $A$ par la partie multiplicativement stable $S$ est
+\[(A\times S) /\sim \tnot{=} S^{-1} A\]
+
+\subsubsection{Lemme : le localisé est un anneau}
+En définissant les opérations d'addition et de multiplication suivantes:
+\[
+\begin{array}[t]{r@{\ }cl}
+  S^{-1}A \times X^{-1}A \longrightarrow& S^{-1}A&\\
+  \left(\dfrac{a}{s}, \dfrac{b}{r}\right) \longmapsto& \dfrac{ar+bs}{rs}
+  &:= \dfrac{a}{s} + \dfrac{b}{r}\\
+  \left(\dfrac{a}{s}, \dfrac{b}{r}\right) \longmapsto& \dfrac{ab}{sr}
+  &:= \dfrac{a}{s} \cdot \dfrac{b}{r}
+\end{array}
+\]
+
+On a que $\left( S^{-1}A, +, \cdot \right)$ est un anneau, avec
+$0_{S^{-1}A}=\dfrac{0}{1}$ et $-\dfrac{a}{s}=\dfrac{-a}{s}$.
+
+\begin{comment}
+  Preuve 12/11/09 p3
+\end{comment}
+
+\paragraph{Remarque}
+$\forall r \in S, \frac{ar}{sr}=\frac{a}{s} \left[ \iff \exists
+t\in S, t(ars-ars)=0 \right]$. En particulier, $\forall s \in S,
+\frac{0}{1}=\frac{0}{s}$ et $\frac{1}{1}=\frac{s}{s}$.
+
+\subsection{Lemme : inversibles du localisé}
+\[\left( S^{-1}A \right)^\times = \set{\frac{a}{s}\in S^{-1}A \Such \exists b
+\in A, ab \in S}\]
+\begin{comment}
+  Preuve 18/11/09 p1 (verso)
+\end{comment}
+
+\paragraph{Remarque} Alors $\left( \dfrac{a}{s}
+\right)^{-1}=\dfrac{bs}{ba}$.
+
+Et $\forall s \in S, \dfrac{s}{1} \in (S^{-1}A)^\times$ et $\left(
+\dfrac{s}{1} \right)^{-1}=\dfrac{1}{s}$
+
+\subsection{Lemme : idéaux du localisé}
+\[\mathcal I(S^{-1}A)=\set{S^{-1}I; I \in \mathcal I(A)}\]
+
+\paragraph{Remarque} On peut avoir $I\neq J$ et $S^{-1}I = S^{-1}J$, autrement
+dit, l'application $\begin{array}[t]{r@{\ }l}
+  \mathcal I(A) &\to \mathcal I(S^{-1}A)\\
+  I &\mapsto S^{-1}I
+\end{array}$ est surjective mais non injective en général.
+
+\paragraph{Prop} $S^{-1}I = S^{-1}A \iff I\cap S \neq \emptyset$
+
+\subsection{Lemme : morphisme de $A$ dans $S^{-1}A$}
+L'application $\begin{array}[t]{r@{\ }l}
+  \nu : A  &\to S^{-1}A\\
+  a &\mapsto \frac{a}{1}
+\end{array}$ est un morphisme d'anneau, et $\ker \nu = \set{a \in A \such
+\exists s \in S, a.s=0}$
+
+\paragraph{Remarque} $A$ intègre $\so \ker \nu = (0)$, d'où $\nu:A \inj
+S^{-1}A$ est un morphisme injectif.
+
+Dans ce cas, on identifie $A$ avec son image $\nu(A)$ dans $S^{-1}A$ et on
+l'écrit $a=\frac{a}{1}$.
+
+\begin{comment}
+  Preuve 18/11/09 p2
+\end{comment}
+
+\subsection{Proposition}
+Soit $f: A \to B$ morphisme d'anneau tel que $f(S)\subseteq B^\times$.
+
+Alors il existe un unique morphisme $\mt f : S^{-1}A \to B$ tel que $f=\mt f
+\circ \nu$.
+
+\begin{comment}
+  Preuve 18/11/09 p2 verso
+\end{comment}
+
+$\xymatrix@=0.2pc{
+\dfrac{s}{1} \ar@/^2pc/@{|->}[dddddrrrrr]\\
+& S^{-1}A \ar@{.>}[dddrrr]^{\mt f} \\
+\\ \\
+& A \ar[uuu]^{\nu} \ar[rrr]_f &&& B\\
+\qquad s \in S \ar@{|->}[uuuuu] \ar[rrrrr] & &&& & \mt f\left( \dfrac{s}{1}
+\right)\in B^\times }$
+
+\paragraph{[Remarque]}
+   [Si $A$ intègre et l'on identifie via $\nu$, $A$ à un sous anneau de
+$S^{-1}A$, alors $f=\mt f \circ \nu$ s'écrit $\rstrct{\mt f}{A} = f$.]
+
+\begin{comment}
+  Exemples\dots 18/11/09 p3
+\end{comment}
+
+\subsection{Définition : corps des fractions}
+Soit $A$ intègre, $\mathfrak P = (0)$.\\
+Alors $S=A\setminus \mathfrak P = \set{a\in A \such a\neq 0}$ et $S^{-1}A$
+s'appelle le \emph{corps des fractions} de $A$ et se note
+\[\Frac(A)=\set{\dfrac{a}{s}; a \in A, s \neq 0}\]
+
+\paragraph{Notation} $K$ corps,
+$\begin{array}[t]{rcccl}
+  \Frac(K[X]) &\tnot =& K(X) &=& \set{\dfrac{P(X)}{Q(X)}; Q(X) \neq 0}\\
+  \Frac(K[X,Y]) &\tnot =& K(X,Y) &=& \set{\dfrac{P(X,Y)}{Q(X,Y)};P,Q \in
+  K[X,Y], Q \neq 0}
+\end{array}
+$
+
+\pagebreak
+\part{Arithmétique des anneaux}
+On supposera toujours $A$ intègre.
+
+\chapter{Arithmétique}
+\section{Divisibilité}
+\subsection{Vocabulaire}
+\begin{itemize}
+  \item $A^\times = \set{\text{\emph{unités} de } A}$.
+  \item Soient $a,b \in A$, $a \mid b \iff \exists c \in A$ tq $b=ac$. On a
+    \begin{comment}
+      \pfootnote{Preuve 18/11/09 p3}
+    \end{comment}
+    \[a \mid b \iff (b) \subseteq (a)\]
+    \[ [\exists u \in A^\times, b = ua] \soo (a) = (b)\]
+\end{itemize}
+
+\subsection{Lemme : égalité d'idéaux principaux ssi générateurs associés}
+Soit $A$ intègre. On a
+\[(a)=(b) \iff \exists u \in A^\times \text{ tq } b=ua \qquad(a,b \text{
+associés})\]
+
+\subsection{Définition : associés}
+On dit que $a$ et $b \in A$ sont \emph{associés} si $\exists u \in A^\times$ tq
+$b=ua$.
+
+\subsubsection*{Relation d'équivalence} On obtient une relation
+d'équivalence sur $A$ : $a$ et $b$ associés $\iff a \sim b$.
+
+\subsubsection{Bijection des classes d'accociés avec les idéaux principaux}
+Soit $\mathcal P (A) = \set{\text{idéaux principaux de }A}=\set{(a);a\in
+A}\subseteq \mathcal I(A)$.
+
+On obtient une application décroissante surjective :
+\[\begin{array}[t]{r@{\ }l}
+  A &\to \mathcal P(A)\\
+  a &\mapsto (a)
+\end{array}\]
+où $A$ est muni de la relation d'ordre $\mid$ (divise) et $\mathcal P(A)$ de la
+relation d'ordre $\subseteq$
+
+La relation d'ordre est compatible avec la relation d'équivalence
+$\sim$. On a que cette application se factorise par la relation d'équivalence
+d'accociés $\sim$.\\
+On a une bijection décroissante :
+\[
+\begin{array}[t]{r@{\ }l}
+  (A/ \sim, \mid) &\bij (\mathcal P(A), \subseteq)\\
+  \mathrm{classe}(a) &\mapsto (a)
+\end{array}
+  \]
+
+\subsection{Définition : irréductible}
+Soit $a\in A$, on dit que $a$ est \emph{irréductible} dans $A$ si
+\begin{itemize}
+  \item $a\neq 0$
+  \item $a \not \in A^\times$
+  \item $a=bc \so b \in A^\times$ ou $c \in A^\times$
+\end{itemize}
+
+Ou en termes d'idéaux :
+\begin{itemize}
+  \item $(a)\neq (0)$
+  \item $(a) \neq A$
+  \item $(a) \subseteq (b) \so (a)=(b)$ ou $(b)=A$
+\end{itemize}
+c'est-à-dire $[(a)$ est maximal pour $\subseteq$ dans $\mathcal
+P(A)\setminus\set{(0),(1)=A}]$. Ce qui est équivalent, par la bijection
+décroissante à $[\mathrm{classe}(a)$ est minimale dans
+$A/\sim\setminus\set{\mathrm{classe}(0), \mathrm{classe}(1)}]$
+
+\paragraph{Exemples} Preuves laissées en exo :
+\begin{itemize}
+  \item Soit $K$ corps, l'ensemble des irréductibles de $K$ est $\emptyset$
+  \item $a\in A$ irréductible, $u\in A^\times \so ua$ irréductible (car
+    $(ua)=(a))$)
+  \item L'ensemble des irréductibles de $\IZ$ est $\set{\pm p, \text{
+  premiers}}$
+  \item $X$ irréductible dans $\IZ[X]$ et $\IZ[X,Y]$
+  \item $K$ corps, $X+Y$ irréductible dans $K[X,Y]$
+  \item $X^2+1\in \IZ[X]$ irréductible dans $\IZ[X]$, mais $X^2+1 \in
+    (\IZ[i])[X]$ réductible.
+\begin{comment}
+  \item $A$ sous anneau de $B$, alors $a\in A$ irréductible dans $B\so a $
+    irréductible dans $A$.
+\end{comment}
+\end{itemize}
+
+\subsection{Lemme : irréductibilité pour idéal principal premier}
+Soit $a\in A, a\neq 0$. On a :
+\[(a) \text{ idéal premier} \so a \text{ irréductible}\]
+\begin{comment}
+  Preuve 25/11/09 p3
+\end{comment}
+
+\subsection{Définition : copremiers}
+Soient $a,b \in A$. On dit que $a$ et $b$ sont \emph{premiers entre eux} ou
+\emph{copremiers} si
+\[d \mid a \text{ et } d \mid b \soo d\in A^\times\]
+\paragraph{Remarque}
+$\begin{array}[t]{rr@{\ }l}
+  \iff& (a) \subseteq (d) \text{ et } (b)\subseteq (d) &\soo (d) = A\\
+  \iff& (a)+(b)\subseteq (d) &\soo (d)=A\\
+  \iff& (a,b)\subseteq (d) &\soo (d)=A
+\end{array}$
+
+$[a$ irréductible, $a \nmid b] \so a$ et $b$ copremiers
+
+\section{Anneaux factoriels}
+\subsection{Système de représentants d'éléments irréductibles}
+On choisit un système de représentants d'éléments irréductibles de $A/\sim$
+\[\mathcal R = \set{p \in A \Such p \text{ irréductible dans }A
+\text{, avec la prop } p\neq q \so p\nsim q}\]
+On a donc
+\begin{itemize}
+  \item $\forall p \in \mathcal R, p$ irréductible dans $A$
+  \item $\forall q \in A$ irréductible, $\exists ! p \in \mathcal R$ tel que
+    $p\sim q$ (i.e: $(p)=(q)$)
+\end{itemize}
+
+\paragraph{Exemples}
+\begin{itemize}
+  \item $\IZ$, on prend habituellement $\mathcal R=\set{p; p\text{ premier}}$
+  \item $K$ corps, $K[X]$; on a $K[X]^\times=K^\times$ et l'on peut choisir
+    $\mathcal R=\set{\text{polynômes irréductibles moniques}}$
+\end{itemize}
+
+\subsection{Définition : anneau factoriel}
+Soient $A$ intègre, $\mathcal R$ système d'irréductibles de $A$. L'anneau $A$
+est \emph{factoriel} si\\
+$\forall a \in A\setminus\set{0}$, il existe un unique $u\in A^\times$, il
+existe un unique ensemble d'entiers naturels $\set{v_p(a); p\in \mathcal R}$,
+presque tous nuls tels que :
+\[a = u \prod_{p\in \mathcal R} p^{v_p(a)}\]
+
+\paragraph{Valuation}
+L'entier $v_p(a)\in \IN$ s'appelle la \emph{valuation} de $a$ en $p$. On a
+\begin{itemize}
+  \item $p\mid a \iff v_p(a)\geq 1$
+  \item $a\in A^\times \iff \forall p \in \mathcal R, v_p(a)=0$
+\end{itemize}
+
+\paragraph{Remarque}
+Si l'on ne choisit pas $\mathcal R$, on a unicité à $\sim$ près.
+
+\paragraph{Exemples}
+\subparagraph{Anneaux factoriels}
+\begin{itemize}
+  \item $K$ corps
+  \item $\IZ$
+  \item $\IZ[i]$
+  \item $K$ corps; $K[X], K[X,Y], K[X,Y,Z], \dots$ et à une infinité de
+    variables
+  \item $\IZ[X], \IZ[X,Y], \dots$
+  \item $(\IZ[i])[X], \IZ[i][X,Y],\dots$
+\end{itemize}
+\subparagraph{Anneaux non factoriels}
+\begin{itemize}
+  \item $\IZ[i\sqrt{5}]$
+  \item $K$ corps; $K[X^2][X^3]$
+  \item $\mathscr H(\IC)$
+\end{itemize}
+
+\subsection{Propriétés de la valuation}
+Soient $a,b \in A\setminus\set{0}$
+\[a = u\prod_{p\in \mathcal R} p^{v_p(a)} \text{ et } b=v\prod_{p\in \mathcal
+R} p^{v_p(b)} ; u,v\in A^\times\]
+\begin{itemize}
+  \item $\forall p \in \mathcal R, v_p(ab)=v_p(a)+v_p(b)$
+  \item $a \mid b \iff \forall p \in \mathcal R, v_p(a) \leq v_p(b)$
+  \item $a$ irréductible $\iff \exists p \in \mathcal R$ tq $v_q(a)=0$ si
+    $q\neq p$ et $v_p(a)=1$.\\
+    Alors $\exists ! u \in A^\times$ tq $a=up$.
+  \item $a$ et $b$ copremiers $\iff \forall p \in \mathcal(R), v_p(a) = 0$ ou
+    $v_p(b)=0$
+\end{itemize}
+
+\subsection{Corps des fraction d'un anneau factoriel}
+%TODO - IMPORTANT: Pourquoi dans le cours, 26/11/09 p2, il y une étoile
+%au dessus de Frac(A) ? c'est pas un corps Frac(A) ???
+$A$ factoriel $\soo \Frac(A)^\times
+\begin{array}[t]{l}
+  \displaystyle =\set{u\prod_{p\in \mathcal R} p^{m_p}; m_p \in \IZ \text{
+et } m_p = 0 \text{ p.p}}\\
+\displaystyle =\set{\frac{a}{b}; a,b \in A\setminus\set{0} \text{ et
+copremiers}}
+\end{array}
+$
+
+\subsection{Lemme d'Euclide}
+Soit $A$ factoriel. Soient $a,b,c \in A\setminus\set{0}$
+\[a \text{ irréductible et } a \mid bc \soo a \mid b \ou a\mid c\]
+
+\subsection{Lemme de Gauss}
+Soit $A$ factoriel. Soient $a,b,c \in A\setminus\set{0}$
+\[a, b \text{ copremiers et } a\mid bc \soo a\mid c\]
+\begin{comment}
+  Preuve 26/11/09 p2
+\end{comment}
+
+\subsection{Corollaire : idéal premier et irréductibilité}
+Soit $A$ factoriel. Soit $a \in A\setminus\set{0}$. On a
+\[(a) \text{ premier} \iff a \text{ irréductible}\]
+
+\section{Anneaux principaux}
+\subsection{Définition : anneau principal}
+Un anneau $A$ intègre est dit \emph{principal} si tout idéal de $A$ est
+principal, i.e : $\mathcal P(A)\tdef =\set{(a); a \in A} = \mathcal I(A)$
+
+\paragraph{Remarque}
+Soient $a,b \in A\setminus\set{0}$. On a :
+\begin{eqnarray*}
+  &\min\big( (a), (b)\big) = (a) \cap (b) = (c) : \ppcm(a,b) \sim c\\
+  &\max\big( (a), (b)\big) = (a) + (b) = (d) : \pgcd(a,b) \sim d
+\end{eqnarray*}
+
+\subsection{Bezout}
+$A$ principal, $a,b \in A\setminus\set{0}$ copremiers
+\begin{align*}
+  &\tdef{\iff} d \mid a \et d \mid b \so d \in A^\times\\
+  &\iff (a) \subseteq (d) \et (b) \subseteq (d) \so (d)=A=(1)\\
+  &\iff (a) + (b) = A\\ %TODO : ??? 26/11/09 p3
+  &\iff 1 \in (a) + (b) = (a,b)\\
+  &\iff \exists r,s \in A \mid ar+bs=1
+\end{align*}
+
+\subsection{Proposition : principal $\so$ factoriel}
+$A$ principal $\so A$ factoriel.
+
+\begin{comment}
+  Preuve 02/12/09 p1
+\end{comment}
+
+\subsection{Propriété : calcul de $\ppcm$ et $\pgcd$}
+Soit $A$ principal, $\mathcal R$ système de représentants d'irréductibles.
+$u,v\in A^\times$\\
+$\displaystyle a=u\prod_{p\in \mathcal R} p^{v_p(a)}; b=v\prod_{p\in \mathcal
+R} p^{v_p(b)}$.
+\[
+\begin{array}{r@{\ }l}
+  \ppcm(a,b) &\sim \prod_{p\in \mathcal R} p^{\max\set{v_p(a), v_p(b)}}\\
+  \pgcd(a,b) &\sim \prod_{p\in \mathcal R} p^{\min\set{v_p(a), v_p(b)}}
+\end{array}
+\]
+
+\section{Anneaux euclidiens}
+\subsection{Définition}
+Un anneau intègre $A$ est \emph{euclidien} s'il existe une application
+\[\delta : A\setminus\set{0} \to \IN\]
+telle que $\forall a\in A, \forall b \in A\setminus\set{0}, \exists c,r \in A$
+tels que $a=bc+r$ et $\left[ r=0 \ou \delta(r) <\delta(b) \right]$.
+
+\paragraph{Remarque}
+quand ça existe, ça s'appelle la division euclidienne. On a unicité du
+quotient et du reste ($c$ et $r$) dans le cas de $\IZ$ muni de $|\cdot|$
+et $K[X]$, $K$ corps, muni de $\deg$.
+
+\paragraph{Exemples}
+\begin{itemize}
+  \item $K$ corps est euclidien avec $\delta(x) = 0$.
+  \item $\IZ$ est euclidien avec $\delta(n)=|n|$
+  \item $\IZ[i]$ est euclidien avec $\delta(a+ib)=|a+ib|_{\IC}$
+    %TODO: problème, le module est pas toujours entier ! 02/12/09 p2 (en
+    %bijection avec IN ? car à valeurs dans le complété ???)
+  \item $K$ corps, $K[X]$ euclidien avec $\delta(P)=\deg P$.
+\end{itemize}
+
+\subsection{Proposition : euclidien $\so$ principal}
+$A$ euclidien $\so A$ principal
+\begin{comment}
+  \pfootnote{Preuve 02/12/09 p2 verso}
+\end{comment}
+
+\section{Conclusion : types d'anneaux}
+Soit $A$ anneau commutatif (non nul).\\
+$A$ corps $\so A$ euclidien $\so A$ principal $\so A$ factoriel $\so A$ intègre
+
+\paragraph{Remarque} Ces propriétés arithmétiques ne sont pas stables par
+passage aux sous anneaux, ni aux quotients, ni par image de morphismes.
+
+\chapter{Anneaux de polynômes}
+
+\section{Transfers}
+\subsection{Intégrité}
+$A$ intègre $\so A[X]$ intègre
+
+\subsection{Principalité}
+$A$ corps $\iff A[X]$ principal $\iff A[X]$ euclidien
+\begin{comment}
+  \pfootnote{Preuve 09/12/09 p1}
+\end{comment}
+
+\subsection{Factorialité}
+Soit $A$ anneau factoriel. On choisit $\mathcal R$ système de représentants
+irréductibles de $A$ à $\sim$ près.  $K=\Frac A$
+
+%TODO: 03/12/09 p1 verso en bas, et p2 en haut, ????
+
+\paragraph{Remarque}
+On étend le morphisme de valuation $v_p : A\setminus\set{0} \to \IN$ pour tout
+$p\in \mathcal R$ en $v_p:K^\times \to \IZ$.
+
+\subsubsection{Définition : contenu}
+Soit $P(X)=a_n X^n +a_{n-1} X^{n-1} + \dots + a_1 X + a_0 \in
+K[X]\setminus\set{0}$.
+
+Pour $p\in \mathcal R$, on pose
+\[v_p(P)=\min \set{v_p(a_i); 0 \leq i \leq n, a_i \neq 0} \in \IZ\]
+
+Le \emph{contenu} de $P(X)$ est
+\[c(P) \sim \prod_{p\in \mathcal R} p^{v_p(P)} \in K^\times/A^\times\]
+
+\paragraph{Convention} $P(X) \sim Q(X)$ ssi $\exists u \in A^\times$ tq
+$P(X)=uQ(X)$.\\
+Attention, ici, $\sim$ n'est pas l'équivalence à association près qui dit
+$\exists u \in K^\times$ tq $P(X)=uQ(X)$.
+
+\paragraph{Propriétés}
+\begin{enumerate}
+  \item $P(X) \in A[X]\setminus\set{0} \iff c(P)\in \left(
+    A\setminus\set{0} \right)/A^\times$\\
+    $\left[ \text{car } a\in K^\times \text{ est dans } A^\times \iff \forall p
+    \in \mathcal R, v_p(a) \in \IN\right]$
+  \item $a\in A^\times \so c(aP) \sim c(P)$\\
+    $a\in K^\times \so c(a.P) \sim a.c(P)$
+  \item $P,Q \in K[X]$, $P\sim Q \so c(P)\sim c(Q)$
+  \item $\forall P(X) \in K[X]\setminus\set{0}$, $\exists P_0(X) \in K[X]$ tq
+    $P \sim c(P).P_0$ et $c(P_0) \sim 1$.\\
+    En particulier, $P_0 \in A[X]$ et $\deg P=\deg P_0$.
+\end{enumerate}
+
+\subsubsection{Lemme de Gauss}
+$P,Q \in K[X]\setminus\set{0}$
+\[c(PQ)\sim c(P).c(Q)\]
+\begin{comment}
+  Preuve 03/12/09 p2 verso
+\end{comment}
+
+\subsubsection{Proposition : description des irréductibles de $A[X]$}
+Soient $A$ factoriel et $K=\Frac(A)$.\\
+Les éléments irréductibles $P(X) \in A[X]$ sont :
+\begin{enumerate}
+  \item les éléments irréductibles de $A$
+  \item les $P(X)\in A[X]$ tels que
+    \begin{enumerate}
+      \item $P(X)$ irréductible dans $K[X]$
+      \item $c(P)\sim 1$
+    \end{enumerate}
+\end{enumerate}
+\begin{comment}
+  Preuve 03/12/09 p3
+\end{comment}
+
+\paragraph{Remarque} (i) $\so \deg P \geq 1$
+\paragraph{Cas particulier} $P(X) \in A[X]\setminus A$ tq $c(P) \sim 1$.\\
+Alors $P(X)$ irréductible dans $A[X] \iff P(X)$ irréductible dans $K[X]$.
+
+\subsubsection{Théorème de Gauss}
+$A$ factoriel $\iff A[X]$ factoriel
+
+\begin{comment}
+  Preuve 03/12/09 p3 verso
+\end{comment}
+
+\subsubsection{Corollaire}
+$A$ factoriel $\iff A[X_1,\dots X_n]$ factoriel.
+
+\section{Critères d'irréductibilité de polynômes}
+Soit $f:A[X] \bij A[X]$ automorphisme d'anneau.\\
+Alors $P$ irréductible dans $A[X] \iff f(P)$ irréductible dans $A[X]$.
+
+En particulier, $\forall a \in A, P(X)$ irréductible $\iff P(X+a)$
+irréductible.
+
+\subsection{Racines}
+$A$ intègre, $K=\Frac(A)$
+
+\subsubsection{Définition : racine}
+$P(X)\in A[X]$; $a\in A$ racine de
+$
+\begin{array}[t]{l@{\ }l}
+  P \text{ si } &P(a)=0\\
+  \iff &P(X)\in \ker(\ev a)=(X-a) \\
+\iff &X-a \mid P(X)
+\end{array}
+$
+
+\paragraph{Remarque}
+\begin{itemize}
+  \item $A \text{ intègre}, P(X)\neq 0 \so \# \set{\text{racines de }P
+    \text{ dans }A} \leq \#\set{\text{racines de }P\text{ dans }K=\Frac
+    A}\leq \deg P$
+  \item Soit $P(X) \in A[X]\setminus A$, $\deg P=1 \so P(X)$ irréductible dans
+    $K[X]$.
+  \item $\deg P \geq 2$, $P(X)$ a une racine dans $A\so P(X)$ réductible dans
+    $A[X]$. 
+  \item $\deg P =2 \ou 3$ alors $[P(X)$ irréductible dans $K[X]] \iff [P(X)$
+    n'a pas de racine dans $K]$
+\end{itemize}
+
+\subsubsection{Lemme : test de la racine entière}
+Soient $A$ factoriel, $K=\Frac A$, $P(X)=X^n+a_{n-1} X^{n-1}+ \dots + a_1 X +
+a_0 \in A[X]$ monique (ou bien $a_n \in A^\times$). On a :
+\[a\in K \et P(a)=0 \soo a\in A \et a \mid a_0\]
+
+\section{Critère de réduction}
+\subsection{Proposition}
+Soient $A$ factoriel, $K=\Frac A$.\\
+$I$ idéal premier de $A$, $\overline A = A/I = \set{\overline a = a+I;
+a \in A}$.\\
+$L=\Frac \overline A$ et $
+\begin{array}[t]{r@{\ }l}
+  A[X] &\to \overline A[X]\\
+  P(X)=\sum a_n X^n &\mapsto \overline P (X) = \sum \overline{a_n} X^n
+\end{array}
+  $
+
+Soit $P(X)\in A[X]\setminus\set{0}$ tq $\deg P=\deg \overline P$.\\
+Alors $\Big[\overline P(X)$ irréductible dans $\overline A[X]$ ou dans
+$L[X]\Big]\so P(X)$ est irréductible dans $K[X]$.
+
+\begin{comment}
+  Preuve 16/12/09 p1
+\end{comment}
+
+\paragraph{Remarque}
+$P(X)$ n'est pas nécessairement irréductible dans $A[X]$.\\
+Cependant, si $c(P)\sim 1$ alors $\Big[P(X)$ irréductible $A[X]\Big]
+\iff \Big[P(X)$ irréductible $K[X]\Big]$
+
+\section{Critère d'Eisenstein}
+\subsection{Proposition : critère d'Eisenstein}
+Soit $A$ factoriel, $K=\Frac A$, et $p \in A$ élément irréductible.\\
+Soit $P(X)=a_n X^n + a_{n-1} X^{n-1}+\dots+a_1 X+a_0, n \geq 1$ tel que 
+\begin{enumerate}[(i)]
+  \item $p \nmid a_n$
+  \item $p \mid a_i$, pour tout $0 \leq i \leq n-1$
+  \item $p^2 \nmid a_0$
+\end{enumerate}
+Alors $P(X)$ irréductible dans $K[X]$.
+
+\begin{comment}
+  Preuve 16/12/09 p2
+\end{comment}
+
+\paragraph{Remarque} Si de plus $c(P) \sim 1$, alors $P(X)$ irréductible dans
+$A[X]$.
+
+\subsection{Définition : polynôme cyclotomique}
+$\Phi_p(X)=X^{p-1}+X^{p-2}+\dots+X+1$ est le $p$\ieme \emph{polynôme
+cyclotomique}.
+
+\subsection{Lemme : irréductibilité du polynôme cyclotomique}
+$\Phi_p(X)$ irréductible dans $\IQ[X]$ et dans $\IZ[X]$.
+
+\pagebreak
+\end{document}
+% vim:expandtab:shiftwidth=2:nu
