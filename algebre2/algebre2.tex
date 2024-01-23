@@ -14,7 +14,6 @@
 \usepackage{fullpage}
 \usepackage{graphicx}
 \usepackage[perpage]{footmisc}
-%\usepackage{srctex}
 \usepackage{tikz}
 \usetikzlibrary{arrows.meta,bending}
 \usetikzlibrary{patterns}
@@ -97,7 +96,7 @@
 \part{La catégorie des groupes}
  \chapter{Groupes}
   \section{Définition}
-   Un groupe est un ensemble $G$ muni d'une application 
+   Un groupe \((G, *)\) est la donnée d'un ensemble $G$ muni d'une application 
    $$
    \begin{array}[t]{r@{\ }l}
      G \times G &\to G\\
@@ -110,6 +109,8 @@
      \item $\forall x \in G, \exists x' \in G, x*x'=x'*x=e$
    \end{enumerate}
 
+   On parlera simplement de \(G\) en tant que groupe quand il n'y a pas d'ambiguité sur l'application dont il est muni.
+   
    \paragraph{Remarques}
    \begin{itemize}
      \item $G\nobreakspace\ne \emptyset$ car il existe au moins le neutre.
@@ -141,10 +142,11 @@
    L'ordre d'un groupe est défini par son cardinal : $\mathrm{Card}(G)$ et est
    noté $|G|$.  
 
-  \section{Groupes de transformations}
+  \section{Groupes de transformations, automorphismes}
    Soit $E \ne \emptyset$ ensemble.
    On a $\Autens{E}=\set{\mathrm{bijections}\  E \to E}$.
-   Alors $(\Autens{E}, \circ)$ est un groupe :
+   Alors $(\Autens{E}, \circ)$, où \(\circ\) est la composition de fonction, est un groupe (le groupe d'automorphismes de E).
+   On a :
    \begin{itemize}
      \item $\mathrm{Aut}(E) \times \mathrm{Aut}(E) \to 
        \mathrm{Aut}(E) : (f,g) \mapsto f \circ g$ est une application interne.
@@ -152,11 +154,11 @@
      \item Neutre : $\id_E$
      \item Inverse de $f$ : app. réciproque de $f$.
    \end{itemize} 
-   \paragraph{Remarque : } $\Autens{E}$ non abélien dès que $|E| \ge 3$
+   \paragraph{Remarque : } $\Autens{E}$ est non abélien dès que $|E| \ge 3$
 
    \subsection{Génération de groupes}
     \begin{enumerate}
-      \item $(G,\cdot)$ groupe, $E$ ensemble non vide.
+      \item Soit $(G,\cdot)$ groupe, $E$ ensemble non vide.
 	$\mathcal{A}(E,G)=\set{\mathrm{applications} \  E \to G}$.\\
         Soient $f,g: E \to G$, on pose
 	$f \cdot g : E \to G, x \mapsto f(x) \cdot g(x)$\\
@@ -484,7 +486,7 @@
     \end{itemize}
 
    \subsection{Commutateur}
-    Un élément d'un groupe $G$ est appelé commutateur si il est de la forme
+    Un élément d'un groupe $G$ est appelé commutateur s'il est de la forme
     $xyx^{-1}y^{-1}$ pour $x,y \in G$.
 
     \paragraph{Remarque} $c$ commutateur $\iff c^{-1}$ commutateur.
@@ -548,7 +550,7 @@
     qui envoie tout sur $1_{G'}$.
 
    \subsection{Groupes isomorphes}
-    On dit que deux groupes $G$ et $G'$ sont isomorphes si il existe un
+    On dit que deux groupes $G$ et $G'$ sont isomorphes s'il existe un
     isomorphisme $G \bij G'$ et on le note $$G \simeq G'$$
 
     \paragraph{Transport de structure} Quand deux groupes sont isomorphes,
@@ -579,7 +581,7 @@
       \item $S \subseteq G$ tel que $G=\grp{S}$,
       \item $f: S \to G'$.
     \end{itemize}
-    Si il existe un morphisme $\mt{f}:G \to G'$ tel que
+    S'il existe un morphisme $\mt{f}:G \to G'$ tel que
     $\rstrct{\mt{f}}{S}=f$ alors il est unique.\\
     (i.e: deux morphismes $G \to G'$ qui coïncident sur un système de
     générateurs\mfootnote{Système de générateurs $=$ ensemble de

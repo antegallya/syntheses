@@ -7,6 +7,7 @@ all: $(SUBS)
 
 $(SUBS):
 	$(MAKE) -C $@
+	@echo $@
 
 $(SUBSCLEAN):%-clean:
 	@echo $*
